@@ -1,4 +1,4 @@
-# Recommended setup fot these tutorials
+# Recommended setup and instructions for the tutorials
 ## Requirements:
  - Computer with Text editor (VSCode is recommended)
  - Chrome or Edge web browser
