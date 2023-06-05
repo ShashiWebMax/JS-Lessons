@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables</title>
+</head>
+<body>
+    <script>
+        // lets declare a variable using the var keyword
+        var myVar = "Hello World!";
+        console.log(myVar); //Hello World!
+
+        // lets declare a variable using the let keyword
+        let myLet = "How are you?";
+        console.log(myLet); 
+
+        // lets declare a variable using the const keyword
+        const myConst = "Kamal";
+        console.log(myConst);
+
+        // lets try to reassign the variable declared using the var keyword
+        myVar = "Goodbye World!";
+        console.log(myVar);
+
+        //lets try to reassign the variable declared using the let keyword
+        myLet = "I am fine";
+        console.log(myLet);
+
+        //lets try to reassign the variable declared using the const keyword
+        // myConst = "Kamal"; //code will throw an error because we cannot reassign a variable declared using the const keyword
+        console.log(myConst);
+
+        // -------------------------------------------------------------------------------------------------------------------------
+        /**
+         * Types of variables
+         * you can store different types of data in variables
+         */
+        let myString = "String data";
+        let myNumber = 123;
+        let myBoolean = true;
+        let myNull = null;
+        let myUndefined = undefined;
+        let myObject = {
+            name: "Kamal",
+            age: 25
+        };
+        let myArray = [1, 2, 3, 4, 5];
+        let myFunction = function() {
+            console.log("Hello World!");
+        };
+
+        // you can see the type of a variable using the typeof keyword
+        console.log(typeof myString);
+        console.log(typeof myNumber);
+        console.log(typeof myBoolean);
+        console.log(typeof myNull);
+        //...
+
+        // you can perform operations on variables
+        let a = 10;
+        let b = 20;
+        let c = a + b;
+        console.log(c); //30
+
+        let d = "10";
+        let e = "20";
+        let f = d + e;
+        console.log(f); //1020
+        /*
+        even though d and e are numbers they are stored as strings 
+        because we declared them in quotes. 
+        so when we add them together they are concatenated instead of added
+        */
+
+        // you can also perform operations on variables of different types
+        let g = 10;
+        let h = "20";
+        let i = g + h;
+        console.log(i); //1020
+        //in this case g is converted to a string and then concatenated with h
+
+        let j = h/g;
+        console.log(j); //2
+        //in this case h is converted to a number and then divided by g
+
+        let k = "Hello";
+        let l = k/g;
+        console.log(l); //NaN
+        //in this case k is converted to a number but since it is not a number it is converted to NaN (Not a Number)
+
+        //we can explicitly convert variables from one type to another
+        //convert to number
+        let m = "10";
+        let n = parseInt(m);
+        console.log(n); //10
+
+        //convert to string
+        let o = 10;
+        let p = o.toString();
+        console.log(p); //"10"        
+    </script>    
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <h1>DOM</h1>
+    <p id="paragraph">
+        This paragraph can be accessed and changed using JavaScript.
+    </p>
+    <button id="button">Change Paragraph</button>
+    <button onclick="addParagraph('New paragraph')">Add paragraph</button>
+    <button onclick="removeParagraph()">Remove paragraph</button>
+    <script>
+        // Get the paragraph element
+        const paragraph = document.getElementById('paragraph');
+
+        // Get the button element
+        const button = document.getElementById('button');
+
+        // Add event listener to the button
+        button.addEventListener('click', changeParagraph);
+
+        /**
+         * This function changes the text of the paragraph         * 
+         */
+        function changeParagraph() {
+            // Change the text of the paragraph
+            paragraph.innerHTML = 'The paragraph has been changed!';
+        }
+
+        /**
+         * This function adds a new paragraph to the page
+         * @param {string} text - The text of the paragraph
+         */
+        function addParagraph(text) {
+            //add new paragraph
+            const newParagraph = document.createElement('p');
+            newParagraph.innerHTML = text;
+            document.body.appendChild(newParagraph);
+        }
+
+        /**
+         * This function removes last paragraph from the page
+         * @param {string} text - The text of the paragraph
+         */
+        function removeParagraph() {
+            let paragraphs = document.getElementsByTagName('p');
+            let lastParagraph = paragraphs[paragraphs.length - 1];
+            document.body.removeChild(lastParagraph);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Statements</title>
+</head>
+<body>
+    <h1>Conditional Statements</h1>
+    <h2>if statement</h2>
+    <p>
+        This test use the if statement to check if the provided number is divisible by 3.
+    </p>
+    <label for="number_1">Number</label>
+    <input type="number" id="number_1">
+    <button onclick="divisible()">Check</button>
+    <p id="result_1"></p>
+    <script>
+        /**
+         * This function checks if the number is divisible by 3.
+         */
+        function divisible() {
+            // get the number from the input
+            let number = document.getElementById("number_1").value;
+
+            //clear the result
+            document.getElementById("result_1").innerHTML = "";
+
+            // check if the number is divisible by 3
+            if (number % 3 == 0) {
+                // display the result
+                let answer = number / 3;
+                document.getElementById("result_1").innerHTML = "The number is divisible by 3. The answer is " + answer;
+            }
+        }
+    </script>
+
+    <hr>
+    <h2>if else statement</h2>
+    <p>
+        This test use the if and else statement to check if the number is even or odd.
+    </p>
+    <label for="number_2">Number</label>
+    <input type="number" id="number_2">
+    <button onclick="isOdd()">Check</button>
+    <p id="result_2"></p>
+    <script>
+        /**
+         * This function checks if the number is even or odd.
+         */
+        function isOdd() {
+            // get the number from the input
+            let number = document.getElementById("number_2").value;
+            // check if the number is even
+            if (number % 2 == 0) {
+                // display the result
+                document.getElementById("result_2").innerHTML = "The number is even.";
+            } else {
+                // display the result
+                document.getElementById("result_2").innerHTML = "The number is odd.";
+            }
+        }
+    </script>
+    
+    <hr>
+    <h2>if else if statement</h2>
+    <p>
+        This test use the if, else if and else statement to compare the provided number using provided compactor.
+    </p>
+
+    
+    <input type="number" id="number_3">
+    <select id="comparator">
+        <option value="less than">Less than</option>
+        <option value="more than">More than</option>
+        <option value="equal to">Equal</option>
+    </select>    
+    <input type="number" id="number_4">
+    <button onclick="compare()">Compare</button>
+    <p id="result_3"></p>
+
+    <script>
+        /**
+         * This function compares the provided number using provided compactor.
+         */
+        function compare(){
+            let number_3 = document.getElementById("number_3").value;
+            let number_4 = document.getElementById("number_4").value;
+            let comparator = document.getElementById("comparator").value;
+
+            if(comparator == "less than"){
+                if(number_3 < number_4){
+                    document.getElementById("result_3").innerHTML = number_3 + " is less than " + number_4;
+                } else {
+                    document.getElementById("result_3").innerHTML = number_3 + " is not less than " + number_4;
+                }
+            } else if(comparator == "more than"){
+                if(number_3 > number_4){
+                    document.getElementById("result_3").innerHTML = number_3 + " is more than " + number_4;
+                } else {
+                    document.getElementById("result_3").innerHTML = number_3 + " is not more than " + number_4;
+                }
+            } else {
+                if(number_3 == number_4){
+                    document.getElementById("result_3").innerHTML = number_3 + " is equal to " + number_4;
+                } else {
+                    document.getElementById("result_3").innerHTML = number_3 + " is not equal to " + number_4;
+                }
+            }
+        }
+    </script>
+
+    <hr>
+    <h2>switch statement</h2>
+    <p>
+        This test use the switch statement to perform the same task as the previous test.
+    </p>
+    <input type="number" id="number_5">
+    <select id="comparator_2">
+        <option value="less than">Less than</option>
+        <option value="more than">More than</option>
+        <option value="equal to">Equal</option>
+    </select>
+    <input type="number" id="number_6">
+    <button onclick="compare_sw()">Compare</button>
+    <p id="result_4"></p>
+
+    <script>
+        /**
+         * This function compares the provided number using provided compactor.
+         */
+        function compare_sw(){
+            let number_5 = document.getElementById("number_5").value;
+            let number_6 = document.getElementById("number_6").value;
+            let comparator_2 = document.getElementById("comparator_2").value;
+
+            switch(comparator_2){
+                case "less than":
+                    if(number_5 < number_6){
+                        document.getElementById("result_4").innerHTML = number_5 + " is less than " + number_6;
+                    } else {
+                        document.getElementById("result_4").innerHTML = number_5 + " is not less than " + number_6;
+                    }
+                    break;
+                case "more than":
+                    if(number_5 > number_6){
+                        document.getElementById("result_4").innerHTML = number_5 + " is more than " + number_6;
+                    } else {
+                        document.getElementById("result_4").innerHTML = number_5 + " is not more than " + number_6;
+                    }
+                    break;
+                case "equal to":
+                    if(number_5 == number_6){
+                        document.getElementById("result_4").innerHTML = number_5 + " is equal to " + number_6;
+                    } else {
+                        document.getElementById("result_4").innerHTML = number_5 + " is not equal to " + number_6;
+                    }
+                    break;
+            }
+        }
+    </script>    
+</body>
+</html>

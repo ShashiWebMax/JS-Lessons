@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Objects</title>
+  </head>
+  <body>
+    <script>
+      //example of an object with properties and methods
+      const person = {
+        name: "John",
+        age: 30,
+        sayHi: function () {
+          console.log("Hi!");
+        },
+      };
+
+      //Accessing properties and methods
+      //Properties and methods are accessed using dot notation.
+      console.log(person.name); //John
+      console.log(person.age); //30
+      person.sayHi(); //Hi!
+
+      //add a property
+      person.hairColor = "brown";
+
+      //remove a property
+      delete person.age;
+
+      //Using Methods
+      //list object properties
+      console.log(Object.keys(person)); //["name", "sayHi", "hairColor"]
+      //list object values
+      console.log(Object.values(person)); //["John", ƒ, "brown"]
+      
+    </script>
+  </body>
+</html>

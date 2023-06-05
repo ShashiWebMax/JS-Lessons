@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparison and logical operators</title>
+</head>
+<body>
+    <h1>Comparison and logical operators</h1>
+    <p>
+        This is a test page for comparison and logical operators.
+    </p>
+    <hr>
+    <h2>Comparison operators test</h2>
+    <input type="number" id="value_1" placeholder="Value 1"/>
+    <input type="number" id="value_2" placeholder="Value 2"/>
+    <button onclick="compare()">Compare</button>
+    <p >
+        Comparison Result is: <b id="result"></b>
+    </p>
+    <script>
+        /**
+         * This function compares two values and displays the result
+         */
+        function compare(){
+            // Get the values from the input fields
+            let value_1 = document.getElementById("value_1").value;
+            let value_2 = document.getElementById("value_2").value;
+
+            // Compare the values
+            document.getElementById("result").innerHTML = value_1 == value_2;
+                                                               // ^^ change the operator to see the result
+        }
+    </script>
+
+    <hr>
+    <h2>Logical operators test</h2>
+    <input type="checkbox" id="logic_1" />
+    <input type="checkbox" id="logic_2" />
+    <button onclick="logical()">Test</button>
+    <p >
+        Logical Result is: <b id="result_2"></b>
+    </p>
+    <script>
+        /**
+         * This function tests the logical operators 
+         * and displays the result
+         */
+        function logical(){
+            // Get the values from the input fields
+            let logic_1 = document.getElementById("logic_1").checked;
+            let logic_2 = document.getElementById("logic_2").checked;
+
+            // Test the logical operators
+            document.getElementById("result_2").innerHTML = logic_1 && logic_2;
+                                                               // ^^ change the operator to see the result
+        }
+    </script>
+
+    <hr>
+    <h2>Conditional (ternary) operator test</h2>
+    <input type="number" id="value_3" placeholder="Value 3"/>
+    <button onclick="ternary()">Test</button>
+    <p >
+        Ternary Result is: <b id="result_3"></b>
+    </p>
+    <script>
+        /**
+         * This function tests the conditional (ternary) operator 
+         * and displays the result
+         */
+        function ternary(){
+            // Get the values from the input fields
+            let value_3 = document.getElementById("value_3").value;
+
+            // Test the conditional (ternary) operator
+            document.getElementById("result_3").innerHTML = value_3 > 10 ? "Greater than 10" : "Less than 10";
+        }
+    </script>
+    
+    <hr>
+    <h2>Nullish Coalescing operators test</h2>
+    <button onclick="setValue()">Set values</button>
+    <button onclick="checkValue()">Check values</button>
+    <p >
+        Nullish Coalescing Result is: <b id="result_4"></b>
+    </p>
+    <script>
+        let value_4;
+        /**
+         * This function sets the value of value_4
+         */
+        function setValue(){
+            value_4 = 0;
+        }
+        /**
+         * This function checks the value of value_4
+         */
+        function checkValue(){
+            // Test the nullish coalescing operator
+            document.getElementById("result_4").innerHTML = value_4 ?? "Value is null or undefined";
+        }
+    </script>
+
+    <hr>
+    <h2>Optional chaining operators test</h2>
+    <button onclick="setObject()">Set object</button>
+    <button onclick="checkObject()">Check object</button>
+    <p >
+        Optional chaining Result is: <b id="result_5"></b>
+    </p>
+
+    <script>
+        let object_1;
+        /**
+         * This function sets the value of object_1
+         */
+        function setObject(){
+            object_1 = {
+                name: "John",
+                age: 30,
+                address: {
+                    street: "123 Main St",
+                    city: "New York",
+                    state: "NY"
+                }
+            };
+        }
+        /**
+         * This function checks the value of object_1
+         */
+        function checkObject(){
+            // Test the optional chaining operator
+            document.getElementById("result_5").innerHTML = object_1?.address?.city ?? "Value is null or undefined";
+        }
+    </script>
+
+
+
+
+    
+</body>
+</html>

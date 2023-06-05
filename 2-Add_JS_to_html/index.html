@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Add JS</title>
+    <!-- Internal JS in Header -->
+    <script>
+        console.log("Hello World! - Internal JS in Header");
+    </script>
+    <!-- External in header -->
+    <script src="script.js"></script>
+
+    <!-- External in header with defer -->
+    <script src="script2.js" defer></script> 
+
+
+</head>
+<body>
+    <button onclick="console.log('Click')">Click</button>
+    
+    <script>
+        // Internal JS in Body
+        console.log("Hello World! - Internal JS in Body");
+    </script>
+</body>
+</html>

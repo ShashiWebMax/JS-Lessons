@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+</head>
+<body>
+    <script>
+        /**
+         * Function that outputs "Hello World!" to the console
+         */
+        function hello() {
+            console.log("Hello World!");
+        }
+
+        //call the hello function
+        hello(); 
+
+        /**
+         * Arrow function that outputs "Hello World!" to the console
+         */
+        const helloArrow = () => {
+            console.log("Hello World!");
+        }
+
+        //call the helloArrow function
+        helloArrow();
+
+        /**
+         * Function that takes two parameters and outputs them to the console
+         * @param {string} parameter1 
+         * @param {string} parameter2 
+         */
+
+        function helloParameters(parameter1, parameter2) {
+            console.log(parameter1);
+            console.log(parameter2);
+        }
+
+        //call the helloParameters function
+        helloParameters("Hello", "World!");
+
+        /**
+         * Function that takes two parameters and returns their sum
+         * @param {number} parameter1 
+         * @param {number} parameter2 
+         * @returns {number} sum of parameter1 and parameter2
+         */
+        function sum(parameter1, parameter2) {
+            return parameter1 + parameter2;
+        }
+
+        //call the sum function
+        const result = sum(1, 2);
+        console.log(result);
+
+    </script>    
+</body>
+</html>

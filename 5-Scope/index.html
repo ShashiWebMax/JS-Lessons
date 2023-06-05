@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope</title>
+</head>
+<body>
+    <script>
+        let globalVariable = "I am a global variable";
+
+        /**
+         * This function displays the global variable
+         * and changes the global variable
+         */
+        function myFunction() {
+            //display the global variable
+            console.log(globalVariable);
+            //change the global variable
+            globalVariable = "I am a global variable that has been changed";            
+        }
+
+        myFunction();   //I am a global variable
+        console.log(globalVariable); //I am a global variable that has been changed
+
+        /*
+        * This function has a function scope variable inside 
+        * and it displays that variable
+        */
+        function myFunction2() {
+            //declare a function scope variable
+            let functionScopeVariable = "I am a function scope variable";
+            //display the function scope variable
+            console.log(functionScopeVariable);
+        }
+
+        myFunction2();  //I am a function scope variable
+        // console.log(functionScopeVariable); //ReferenceError: functionScopeVariable is not defined
+
+        /*
+        * Below is a code block and it has a block scope variable inside
+        */
+        {
+            //declare a block scope variable
+            let blockScopeVariable = "I am a block scope variable";
+            //display the block scope variable
+            console.log(blockScopeVariable);
+        }
+
+        //try to display the block scope variable
+        // console.log(blockScopeVariable); //ReferenceError: blockScopeVariable is not defined
+
+        //Shadowing
+        //this is a global variable called "myScope"
+        let myScope = "global scope";
+
+        //in the below code block we also have a variable called "myScope" declared with a different value
+        {
+            let myScope = "block scope";
+            console.log(myScope);   //I am a block scope variable
+
+        }
+
+        /*
+            as you see code is executed in the order it is written
+            However, the variable declarations are moved to the top of their scope
+            This is called hoisting. But only the declarations are hoisted, not the initializations
+
+        */
+        //try to display the hoistedVariable
+        console.log(hoistedVariable); //undefined
+        var hoistedVariable = "I am a hoisted variable";
+
+        //try to display the hoistedFunction
+        hoistedFunction();  //I am a hoisted function
+        function hoistedFunction() {
+            console.log("I am a hoisted function");
+        }
+    </script>
+    
+</body>
+</html>
