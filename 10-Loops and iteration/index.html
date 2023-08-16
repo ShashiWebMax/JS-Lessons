@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops and iteration</title>
+    
+</head>
+<body>
+
+    <script>
+        //for loop
+        console.log("For Loop---------------");
+        for(let i = 0; i < 10; i++){ 
+            console.log('Number ' + i);
+        }
+        console.log("----------------------");
+
+        //while loop
+        console.log("While Loop-------------");
+        let i = 0; //change to 100 to see the difference
+        while(i < 10){
+            console.log('Number ' + i);
+            i++;
+        }
+        console.log("----------------------");
+
+        //do while loop
+        console.log("Do While Loop----------");
+        let j = 0; //change to 100 to see the difference
+        do{
+            console.log('Number ' + j);
+            j++;
+        }while(j < 10);
+        console.log("----------------------");
+
+        //breaking out of a loop
+        console.log("Breaking out of a loop-");
+        for(let i = 0; i < 10; i++){ 
+            if(i === 5){
+                console.log('Stop the loop');
+                break;
+            }
+            console.log('Number ' + i);
+        }
+        console.log("----------------------");
+
+        //skipping an iteration using continue
+        console.log("Continue---------------");
+        for(let i = 0; i < 10; i++){ 
+            if(i === 5){
+                console.log('Skip 5');
+                continue;
+            }
+            console.log('Number ' + i);
+        }
+        console.log("----------------------");
+
+        // for in loop object iteration
+        console.log("For in loop------------");
+        const user = {
+            firstName: 'John',
+            lastName: 'Doe',
+            age: 40
+        }
+        for(let x in user){
+            console.log(x + ': ' + user[x]);
+        }
+        console.log("----------------------");
+
+        // for in loop array iteration
+        console.log("For in loop------------");
+        const cars = ['Ford', 'Chevy', 'Honda', 'Toyota'];
+        for(let x in cars){
+            console.log(x + ': ' + cars[x]);
+        }
+        console.log("----------------------");
+
+        // for of loop array iteration
+        console.log("For of loop------------");
+        for(let x of cars){
+            console.log(x);
+        }
+        console.log("----------------------");
+
+        // forEach loop array iteration
+        console.log("For each loop----------");
+        cars.forEach(function(car, index, array){
+            console.log('Index: ' + index + ' Car: ' + car);
+            console.log(array);
+        });
+        console.log("----------------------");
+
+        // map loop array iteration
+        console.log("Map loop---------------");
+        const users = [
+            {id: 1, name: 'John'},
+            {id: 2, name: 'Sara'},
+            {id: 3, name: 'Karen'},
+            {id: 4, name: 'Steve'}
+        ];
+
+        //take names without using map
+        let names = [];
+        for(let user of users){
+            names.push(user.name);
+        }
+        console.log(names);
+
+        //take ids using map
+        const ids = users.map(function(user){
+            return user.id;
+        });
+        console.log(ids);
+        
+        //Filter array
+        const students = [
+            {name: "Saman", gender: "Male"},
+            {name: "Kusuma", gender: "Female"},
+            {name: "Kumara", gender: "Male"},
+            {name: "Kusum", gender: "Female"}
+        ]
+        const male = students.filter(function(student){
+            return student.gender == "Male";
+        });
+        
+        console.log("Filter-----------------");
+        console.log(male);
+        console.log("----------------------");
+
+        
+
+    </script>
+</body>
+</html>

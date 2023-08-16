@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+</head>
+<body>
+        <h1>Typing Game</h1>        
+        <div id="game_section">
+            <h2 id="display" style="padding:20px">Key</h1>
+            <input type="text" placeholder="Your Input">  
+            <p> 
+                Correct Inputs : <span id="correct">0</span>
+                Wrong Inputs : <span id="wrong">0</span>
+            </p>     
+        </div>
+        
+        
+
+        <script>
+            const display = document.querySelector('#display');
+            const input = document.querySelector('input');
+            const correct = document.querySelector('#correct');
+            const wrong = document.querySelector('#wrong');
+
+            let character = randomLetter();
+            let correctCount = 0;
+            let wrongCount = 0;
+
+            //function to take a random letter from the alphabet
+            function randomLetter() {
+                const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+                const randomIndex = Math.floor(Math.random() * alphabet.length);
+                return alphabet[randomIndex];
+            }
+
+            //display the random letter
+            function displayLetter() {
+                character = randomLetter();
+                display.innerHTML = character;
+            }
+
+            //call for the first time
+            displayLetter();
+            
+            //listen for input
+            input.addEventListener('keyup', () => {
+                if (input.value === character) {
+                    correctCount++;
+                    correct.innerHTML = correctCount;
+                } else {
+                    wrongCount++;
+                    wrong.innerHTML = wrongCount;
+                }
+                //clear input
+                input.value = '';
+                //display next letter
+                displayLetter();
+            });           
+
+
+        </script>
+</body>
+</html>

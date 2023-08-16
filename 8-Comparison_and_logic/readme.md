@@ -57,6 +57,9 @@ The optional chaining operator (?.) permits reading the value of a property loca
 
 [Example](./index.html#L113-L137)
 
+***
+*(45 mins)*
+
 
 
 

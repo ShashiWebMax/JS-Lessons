@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Message Boxes</title>
+</head>
+<body>
+    <button onclick="showAlert()">Alert</button>
+    <button onclick="showPrompt()">Prompt</button>
+    <button onclick="showConfirm()">Confirm</button>
+
+    <script>
+        //show alert
+        function showAlert(){
+            alert('This is an alert');
+        }
+
+        //show prompt
+        function showPrompt(){
+            let res = prompt('This is a prompt');
+            console.log('res: ', res);
+            
+        }
+
+        //show confirm
+        function showConfirm(){
+            let res = confirm('This is a confirm');
+            console.log('res: ', res);
+            
+        }
+    </script>
+    
+</body>
+</html>

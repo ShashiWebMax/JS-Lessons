@@ -24,3 +24,28 @@ Shadowing is when a variable in a local scope has the same name as a variable in
 ## Hoisting
 Hoisting is a Javascript mechanism where variables and function declarations are moved to the top of their scope before code execution. This means that no matter where functions and variables are declared, they are moved to the top of their scope regardless of whether their scope is global or local.
 [Example](index.html#L65)
+
+## `var` vs `let` 
+var variables are scoped to the nearest function block, while let variables are scoped to the nearest enclosing block, which can be smaller than a function block.
+Example:
+```javascript
+function run() {
+  var foo = "Foo";
+  let bar = "Bar";
+
+  console.log(foo, bar); // Foo Bar
+
+  {
+    var moo = "Mooo"
+    let baz = "Bazz";
+    console.log(moo, baz); // Mooo Bazz
+  }
+
+  console.log(moo); // Mooo
+  console.log(baz); // ReferenceError
+}
+```
+
+
+***
+*(30 min)*

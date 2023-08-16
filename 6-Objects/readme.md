@@ -1,5 +1,5 @@
 # Objects in JS
-Javascript is an object-oriented programming language. Objects are a way to store data and functions together. They have properties and methods.
+JavaScript is a prototype based object oriented language. Objects are a way to store data and functions together. They have properties and methods.
 * Properties are variables that are attached to objects. 
 * Methods are functions that are attached to objects. 
 
@@ -41,7 +41,33 @@ console.log(person.hairColor);  //undefined
 [Example](index.html#L29)
 
 
-## Object methods
+## Methods
+Objects can have custom methods. Custom methods are functions that are attached to an object. 
+```javascript
+const person = {
+    name: "John",
+    age: 30,
+    sayHi: function() {
+        console.log("Hi!");
+    }
+}
+```
+[Example](index.html#L10)
+
+### Accessing properties and methods from within a method
+Properties and methods can be accessed from within a method using the `this` keyword. 
+```javascript
+const person = {
+    name: "John",
+    age: 30,
+    sayHi: function() {
+        console.log("Hi! My name is " + this.name + ".");
+    }
+}
+```
+[Example](index.html#L36)
+
+## Useful methods that can be used on objects
 Objects have several methods that can be used to manipulate them. below is a list of some of the most common object methods.
 * `Object.keys()` - returns an array of the keys of an object
 * `Object.values()` - returns an array of the values of an object
@@ -49,5 +75,9 @@ Objects have several methods that can be used to manipulate them. below is a lis
 * `Object.assign()` - copies the properties of one object to another object
 * `Object.freeze()` - prevents an object from being changed
 * `Object.seal()` - prevents new properties from being added to an object
+
+***
+
+*(45 min)*
 
 

@@ -21,4 +21,7 @@ Each guide has it's own folder. inside each folder there is a readme.md file tha
   10. [Project 1](10-Project_1/readme.md)
   11. 
    
+   https://apipheny.io/free-api/
+
+   https://www.learningguild.com/articles/top-javascript-libraries-for-elearning-developers/
 

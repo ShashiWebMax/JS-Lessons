@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event listeners</title>
+</head>
+<body>
+    <h1>Event listeners</h1>
+    <button id="btn">Click me</button>
+
+    <hr>
+    <button id="btn1" class="number_btn">1</button>
+    <button id="btn2" class="number_btn">2</button>
+    <button id="btn3" class="number_btn">3</button>
+
+    <!-- Big dov so you can scroll -->
+    <div style=" height: 200vh;">
+        DIV
+
+    </div>
+
+    <script>
+        const btn = document.querySelector('#btn');
+
+        btn.addEventListener('click', () => {
+            console.log('You clicked me');
+        });
+
+        btn.addEventListener('dblclick', () => {
+            console.log('You double clicked me');
+        });
+
+        btn.addEventListener('mousedown', () => {
+            console.log('You pressed down the mouse button');
+        });
+
+        btn.addEventListener('mouseup', () => {
+            console.log('You released the mouse button');
+        });
+
+        //see the event object
+        btn.addEventListener('focus', (e) => {
+            console.log(e);
+        });
+
+        //add event to elements with the same class "number_btn"
+
+        const number_btns = document.querySelectorAll('.number_btn');
+        number_btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                console.log(e.target.id);
+            });
+        });
+
+
+        //listen to events on the whole window
+        window.addEventListener('resize', () => {
+            console.log('You resized the window');
+        });
+
+        window.addEventListener('scroll', () => {
+            console.log('You scrolled');
+        });
+
+    </script>
+    
+</body>
+</html>

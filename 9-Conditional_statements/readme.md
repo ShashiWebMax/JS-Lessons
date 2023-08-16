@@ -58,3 +58,17 @@ switch (expression) {
 
 [Example](index.html#L130-162)
 
+## ternary operator
+The ternary operator is a shortcut for the if statement. It is also called the conditional operator. It takes three operands and evaluates to a value based on a condition.
+
+```javascript
+condition ? value1 : value2
+```
+
+
+
+
+
+
+***
+*(30 mins)*

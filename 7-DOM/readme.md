@@ -24,5 +24,51 @@ There are may methods and properties that can be used to access elements in the 
 * `document.embeds` - returns a collection of all embeds in the document
 * `document.forms` - returns a collection of all forms in the document
 
+## How to access element properties and methods?
+Once an element has been accessed, it's properties and methods can be accessed using dot notation. 
+```javascript
+const element = document.getElementById("myElement");
+console.log(element.innerHTML); //get the innerHTML of the element
+element.innerHTML = "Hello World!"; //set the innerHTML of the element
+```
 
-**We will use these methods and properties in future lessons to read and change the content of the page.**
+## How to access element attributes?
+Once an element has been accessed, it's attributes can be accessed using dot notation. 
+```javascript
+const element = document.getElementById("myElement");
+console.log(element.id); //get the id of the element
+element.id = "newId"; //set the id of the element
+```
+
+Attributes can also be accessed using the `getAttribute()` and `setAttribute()` methods. 
+```javascript
+const element = document.getElementById("myElement");
+console.log(element.getAttribute("id")); //get the id of the element
+element.setAttribute("id", "newId"); //set the id of the element
+```
+
+## How to access element styles?
+Once an element has been accessed, it's styles can be accessed using dot notation. 
+```javascript
+const element = document.getElementById("myElement");
+console.log(element.style.color); //get the color of the element
+element.style.color = "red"; //set the color of the element
+```
+CSS JS Properties reference: https://www.w3schools.com/jsref/dom_obj_style.asp
+
+## How to access CSS classes?
+Once an element has been accessed, it's CSS classes can be accessed using dot notation. 
+```javascript
+const element = document.getElementById("myElement");
+console.log(element.className); //get the class of the element
+element.className = "newClass"; //set the class of the element
+//add a class to the element
+element.classList.add("newClass");
+//remove a class from the element
+element.classList.remove("newClass");
+
+
+```
+
+***
+*(60 min)*

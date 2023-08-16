@@ -15,6 +15,7 @@ You can also add Javascript to HTML using the `onclick` attribute
 ```
 [Example](index.html#L21)
 
+HTML attributes reference: https://www.w3schools.com/tags/ref_attributes.asp
 ## 2. External
 ```html
 <script src="script.js"></script>
@@ -48,6 +49,9 @@ You can use all od the above methods to place any number of scripts in your HTML
 
 ## Order of Execution
 The order of execution is important. If you have multiple scripts, the scripts will be executed in the order they are loaded. (from Top to bottom) If you have multiple scripts with the `defer` attribute, the scripts will be executed in the order they are loaded. If you have multiple scripts with the `async` attribute, the scripts will be executed in the order they finish loading.
+
+***
+*(25 min)*
 
 
 

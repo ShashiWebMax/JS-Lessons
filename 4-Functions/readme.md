@@ -25,14 +25,14 @@ const myFunction = () => {
     console.log("Hello World!");
 }
 ```
-[Example](index.html#L10)
+[Example](index.html#L20)
 ### Calling functions
 Once a function is declared, it can be called using the function name followed by parentheses. 
 ```javascript
 // function declaration
 myFunction();
 ```
-[Example](index.html#L18)
+[Example](index.html#L30)
 
 
 ### Parameters/Arguments
@@ -45,7 +45,7 @@ function myFunction(parameter1, parameter2) {
 }
 
 ```
-[Example](index.html#L30)
+[Example](index.html#L47)
 
 ### Return values
 Functions can also return values. The return keyword is used to return a value from a function. 
@@ -57,7 +57,10 @@ function myFunction(parameter1, parameter2) {
 
 ```
 
-[Example](index.html#L45)
+[Example](index.html#L62)
+
+***
+*(25 min)*
 
 
 

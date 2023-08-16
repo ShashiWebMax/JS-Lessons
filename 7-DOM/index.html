@@ -21,6 +21,13 @@
         // Get the button element
         const button = document.getElementById('button');
 
+        //access the paragraph text
+        console.log(paragraph.innerHTML);
+
+        // Change the text of the paragraph
+        paragraph.innerHTML = 'The paragraph has been changed!';
+
+        
         // Add event listener to the button
         button.addEventListener('click', changeParagraph);
 

@@ -9,38 +9,54 @@
 <body>
     <script>
         /**
-         * Function that outputs "Hello World!" to the console
+         * Without functions 
+         * say hello to world
+         */
+        console.log("Hello World!");
+        console.log("I am learning JavaScript!");
+        console.log("---------------------------");
+
+        /**
+         * With functions
+         * say hello to world
          */
         function hello() {
             console.log("Hello World!");
+            console.log("I am learning JavaScript!");
+            console.log("---------------------------");
         }
 
-        //call the hello function
+        //call the hello function as many times as you want
         hello(); 
+        hello();
 
         /**
          * Arrow function that outputs "Hello World!" to the console
+         * This is ES6 syntax
          */
         const helloArrow = () => {
             console.log("Hello World!");
+            console.log("I am learning JavaScript!");
+            console.log("---------------------------");
         }
 
         //call the helloArrow function
         helloArrow();
 
         /**
-         * Function that takes two parameters and outputs them to the console
-         * @param {string} parameter1 
-         * @param {string} parameter2 
+         * Function that takes two parameters and outputs them to the console in a meaningful way
+         * @param {string} name 
+         * @param {string} age
          */
 
-        function helloParameters(parameter1, parameter2) {
-            console.log(parameter1);
-            console.log(parameter2);
+        function helloParameters(name, age) {
+            console.log('Hello ' + name + '! You are ' + age + ' years old!');
         }
 
         //call the helloParameters function
-        helloParameters("Hello", "World!");
+        helloParameters("Saman", 21);
+        helloParameters("Kamal", 16);
+
 
         /**
          * Function that takes two parameters and returns their sum
@@ -55,6 +71,9 @@
         //call the sum function
         const result = sum(1, 2);
         console.log(result);
+
+        //or you can call the sum function inside the console.log() function as well
+        console.log(sum(10, 22));
 
     </script>    
 </body>

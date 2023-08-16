@@ -34,6 +34,15 @@
       console.log(Object.keys(person)); //["name", "sayHi", "hairColor"]
       //list object values
       console.log(Object.values(person)); //["John", ƒ, "brown"]
+
+      //Accessing properties from methods
+      const person2 = {
+        name: "John",
+        age: 30,
+        sayHi: function () {
+          console.log("Hi! My name is " + this.name);
+        },
+      };
       
     </script>
   </body>

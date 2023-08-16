@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Only Site</title>
+    <style>
+        body{
+            background-color: #f1f1f1;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding-top: 25vh;
+        }
+        div{
+            font-size: 2em;
+            margin: 10px;
+        }
+        div span{
+            font-weight: bold;
+        }
+        button{
+            margin-top: 10px;
+            
+        }
+        h1{
+            color: #4CAF50;
+        }
+        p{
+            max-width: 500px;
+            margin: auto;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        #add{
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;            
+        }
+        #subtract{
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;            
+        }
+        
+    </style>    
+</head>
+<body>
+    <h1>This page has CSS and Javascript</h1>
+    <h2>It is a simple page with CSS styling and javascript functionality</h2>
+    <p>
+        This is the same page as the previous one. But this also has javascript functionality. So you can add and subtract from the counter.
+    </p>
+
+    <div>Count : <span id="counter">0</span></div>
+
+    <button id="add">Add 1</button>    
+    <button id="subtract">Subtract 1</button>
+
+    <script>
+        function add(){
+            let counter = document.getElementById("counter");
+            let count = parseInt(counter.innerText);
+            count++;
+            counter.innerText = count;
+        }
+
+        function subtract(){
+            let counter = document.getElementById("counter");
+            let count = parseInt(counter.innerText);
+            count--;
+            counter.innerText = count;
+        }
+
+        document.getElementById("add").addEventListener("click", add);
+        document.getElementById("subtract").addEventListener("click", subtract);
+    </script>
+</body>
+</html>
