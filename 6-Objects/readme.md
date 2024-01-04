@@ -1,4 +1,13 @@
 # Objects in JS
+
+## Why use objects?
+Objects are used to store data and functions together. They are useful for storing data that is related to each other. they help us in many ways, including:
+1. Easier Organizing data.
+2. Abstraction and Encapsulation
+3. Increase Code reusability
+4. Increase Modularity
+
+
 JavaScript is a prototype based object oriented language. Objects are a way to store data and functions together. They have properties and methods.
 * Properties are variables that are attached to objects. 
 * Methods are functions that are attached to objects. 

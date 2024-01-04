@@ -57,6 +57,20 @@ The optional chaining operator (?.) permits reading the value of a property loca
 
 [Example](./index.html#L113-L137)
 
+
+## Type conversion
+When you use different data types in JavaScript, it will try to convert the values before doing the comparison. This is called type conversion.
+
+type conversion functions:
+### explicit conversion
+* `parseInt()` - converts a string to an integer.
+* `parseFloat()` - converts a string to a floating point number
+* `Number()` - converts a string to a number
+* `String()` - converts a value to a string
+* `toString()` - converts a number to a string
+* `Boolean()` - converts a value to a boolean
+  
+
 ***
 *(45 mins)*
 

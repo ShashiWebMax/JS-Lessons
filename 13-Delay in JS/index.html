@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delay in JS</title>
+</head>
+<body>
+    <h1>
+        Delay in JS
+    </h1>
+
+    <script>
+        // using setTimeout()
+        setTimeout(() => {
+            console.log('This is a delayed message');
+        }, 3000);
+
+        // using setInterval()
+        setInterval(() => {
+            console.log('This is a delayed message. It will be printed every 3 seconds');
+        }, 3000);
+
+        // using clearInterval()
+        const interval = setInterval(() => {
+            console.log('This is a delayed message. It will be printed every 3 seconds and end repeating in 10 seconds');
+        }, 3000);
+
+        // stop the interval after 10 seconds
+        setTimeout(() => {
+            clearInterval(interval);
+        }, 10000);
+    </script>
+    
+</body>
+</html>

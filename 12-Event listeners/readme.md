@@ -112,7 +112,4 @@ Remove the input and use the `window` object to listen for the `keydown` event.
 We still haven't learned things like how to track the time in js and delays. once we learn that we will come back to this game and improve it by adding a timer.
 
 
-
-
-
-
+*(45 mins)*

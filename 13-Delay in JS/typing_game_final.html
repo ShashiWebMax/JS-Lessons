@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+    <style>
+        body {
+            background-color: skyblue;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1{
+            color: red;
+            text-shadow: 2px 2px 3px black;
+            font-size: 4em;
+            z-index: 2;
+            font-family: 'Comic Sans MS', 'Comic Sans', 'cursive';
+        }
+        .circle {
+            width: 700px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgb(243, 226, 226);
+            margin-top: -20px;
+            z-index: 1;
+            text-align: center;
+            font-size: 13em;
+            padding-top: 50px;
+            box-shadow: 0px 0px 20px 10px rgba(0, 0, 0, 0.2);     
+                   
+        }
+        .score-section{
+            display: flex;
+            justify-content: space-around;
+            width: 700px;
+            margin-top: -50px;
+            z-index: 2;
+        }
+        .score {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+            color: white;            
+            font-family: 'Comic Sans MS', 'Comic Sans', 'cursive';
+        }
+        .score p:first-child {
+            font-size: 2em;
+            margin-bottom: 0;
+            margin-top: 20px;
+        }
+        .score p:last-child {
+            font-size: 3em;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Typing Game</h1>
+    <div class=" circle">
+        X
+    </div>
+    <div class=" score-section" >
+        <div class=" score" style="background-color: seagreen;">
+            <p>Correct</p>
+            <p id="correct">0</p>
+        </div>
+        <div class=" score" style="background-color: orange ;">
+            <p>Miss</p>
+            <p id="miss">0</p>
+        </div>
+
+        <div class=" score" style="background-color: brown;">
+            <p>Wrong</p>
+            <p id="wrong">0</p>
+        </div>
+    </div>
+    <input title="Speed" type="range" name="speed" id="speed">
+    <script>
+        const display = document.querySelector('.circle');
+        const correct = document.querySelector('#correct');
+        const wrong = document.querySelector('#wrong');
+        const miss = document.querySelector('#miss');
+        let character;
+        let speed = 500;
+        
+        //function to display a random letter
+        function randomLetter() {
+            const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+            const randomIndex = Math.floor(Math.random() * alphabet.length);
+            
+            character = alphabet[randomIndex];
+            //convert to uppercase
+            character = character.toUpperCase();
+            //display the random letter
+            display.innerHTML = character;            
+            
+        }
+        //display the random letter for the first time
+        randomLetter();
+
+        //timer
+        let timer = 0;
+        let process;
+
+        function resetTimer() {
+            timer = 0;
+            clearInterval(process);
+            process = setInterval(() => {
+                timer++;
+                if (timer === 10) {
+                    clearInterval(process);
+                    //display next letter
+                    randomLetter();
+                    //reset timer
+                    resetTimer();
+                    //increment miss
+                    miss.innerHTML++;
+                }
+                //fill the circle with red according to the timer using gradient
+                display.style.backgroundImage = `linear-gradient(90deg,red ${timer*10}%,rgb(243, 226, 226) ${(timer*10)+10}%)`;
+            }, speed);
+        }
+
+        //listen for input
+        document.addEventListener('keyup', (e) => {
+            //convert to uppercase
+            key = e.key.toUpperCase();
+            if (key === character) {
+                correct.innerHTML++;
+            } else {
+                wrong.innerHTML++;
+            }
+            //display next letter
+            randomLetter();
+            //reset timer
+            resetTimer();
+        });
+
+        //listen for speed change
+        document.getElementById('speed').addEventListener('change', (e) => {
+            speed = 1000 - 10 * e.target.value;
+            resetTimer();
+        });
+        
+    </script>    
+</body>
+</html>

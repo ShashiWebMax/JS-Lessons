@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animate using delay</title>
+
+</head>
+<body>
+    <h1>
+        Animate using delay
+    </h1>
+    <div>
+        <button id="start" >Animate</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+        <div id="box" style="width: 100px; height: 100px; background-color: red;"></div>
+    </div>
+    <script>
+        let i =0;
+        let process;
+        document.getElementById('start').addEventListener('click', function() {
+            process = setInterval(function(){
+                document.getElementById('box').style.marginLeft = i + 'px';
+                i++;     
+                if(i>1000) clearInterval(process);
+            },10);
+        });
+        document.getElementById('stop').addEventListener('click', function() {
+            clearInterval(process);
+        });
+        document.getElementById('reset').addEventListener('click', function() {
+            i=0;
+            document.getElementById('box').style.marginLeft = i + 'px';
+        });
+
+    </script>
+    
+</body>
+</html>
