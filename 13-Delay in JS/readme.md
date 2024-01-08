@@ -33,3 +33,5 @@ clearInterval(intervalId);
 
 [Example](index.html#L24)
 
+
+*(45 mins)*

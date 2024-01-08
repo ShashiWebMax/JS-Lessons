@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object Oriented Programming and JS</title>
+  </head>
+  <body>
+    <script>
+      const person1 = {
+        fullName: function (para1, para2) {
+          return this.firstName + " " + this.lastName;
+        },
+      };
+
+      const person2 = {
+        firstName: "John",
+        lastName: "Doe",
+      };
+
+      //call() method
+      console.log(person1.fullName.call(person2, "para1", "para2"));
+
+      //apply() method
+      console.log(person1.fullName.apply(person2, ["para1", "para2"]));
+
+      //bind() method
+      const person3 = person1.fullName.bind(person2, "para1", "para2");
+      console.log(person3());
+    </script>
+  </body>
+</html>

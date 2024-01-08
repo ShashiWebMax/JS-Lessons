@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callbacks, Promises and Async Functions</title>
+</head>
+<body>
+    <button>Get Data</button>
+    <input type="checkbox" name="check" id="check">
+    <script>
+        //callback function
+        function getData(callback){
+            console.log('Executing the function...');
+            setTimeout(function(){
+                console.log('calling the callback function...');
+                callback({name: 'John', age: 30});
+            }, 1000);
+        }
+
+        getData(function(data){
+            console.log("This is the callback function outputting the received data...");
+            console.log(data);
+        });
+        
+        //simple promise
+        let promise = new Promise(function(resolve, reject){
+            setTimeout(function(){
+                if(document.querySelector('#check').checked){
+                    resolve("OK");
+                }else{
+                    reject("Not OK");
+                }
+            }, 5000);
+        });
+
+        promise.then(function(data){
+            console.log("resolved", data);
+        }).catch(function(error){
+            console.log("rejected", error);
+        });
+
+
+        //function that returns a promise
+        function getDataPromise(){
+            let data = {name: 'John', age: 30}
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    console.log('Getting data...');
+                    resolve(data);
+                }, 5000);
+            });
+        }
+
+        
+
+        getDataPromise().then(function(data){
+            console.log(data);
+        });
+
+        //async function
+        async function getDataAsync(){
+            let data = await getDataPromise();
+            console.log(data);
+        }
+
+
+        //async function as a callback
+        const button = document.querySelector('button');
+        button.addEventListener('click', async function(){
+            let data = await fetch('https://dummyjson.com/products', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            data = await data.json();
+            console.log(data);
+        });
+
+        //async function to easily handle delayed execution
+        async function delay(ms){
+            return new Promise(function(resolve, reject){
+                setTimeout(function(){
+                    resolve();
+                }, ms);
+            });
+        }    
+
+
+        async function run(){
+            console.log('Starting...');
+            await delay(1000);
+            console.log('1s');
+            await delay(1000);
+            console.log('2s');
+            await delay(5000);
+            console.log('7s');            
+        }
+    </script>
+    
+</body>
+</html>

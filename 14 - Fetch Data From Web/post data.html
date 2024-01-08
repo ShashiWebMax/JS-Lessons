@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Post Data</title>
+  </head>
+
+  <button>Send data</button>
+  <script>
+    const button = document.querySelector("button");
+    button.addEventListener("click", function () {
+      fetch("https://dummyjson.com/products/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "BMW Pencil",
+          /* other product data */
+        }),
+      })
+        .then((res) => res.json())
+        .then(console.log);
+    });
+
+    function getList(){
+        fetch("https://dummyjson.com/products/101", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+        })
+            .then((res) => res.json())
+            .then(console.log);
+    }
+  </script>
+  <body></body>
+</html>

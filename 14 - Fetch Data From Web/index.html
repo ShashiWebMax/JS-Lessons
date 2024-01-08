@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FETCH Data</title>
+    <style>
+      li {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fetching Data from web</h1>
+    <h2>Using XHTTP</h2>
+    <div id="user"></div>
+    <script>
+      const user = document.querySelector("#user");
+      let url = "https://jsonplaceholder.typicode.com/users";
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          const response = JSON.parse(this.responseText);
+          console.log(response);
+          response.forEach((element) => {
+            user.innerHTML += "<b>" + element.name + "</b>";
+            user.innerHTML += "<br>";
+            user.innerHTML += element.email;
+            user.innerHTML += "<br>";
+            user.innerHTML += element.phone;
+            user.innerHTML += "<br>";
+            user.innerHTML += "<br>";
+          });
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    </script>
+
+    <h2>Using Fetch</h2>
+    <div id="data"></div>
+    <ul id="list"></ul>
+    <script>
+      const data = document.querySelector("#data");
+      const list = document.getElementById("list");
+      url = "https://jsonplaceholder.typicode.com/posts";
+      fetch(url, {
+        method: "GET",
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then((json) => {
+          console.log(json);
+          json.forEach((element) => {
+            li = document.createElement("li");
+            li.innerHTML = element.title;
+            li.addEventListener("click", function () {
+              loadData(element.id);
+            });
+            list.appendChild(li);
+          });
+        });
+
+      function loadData(id) {
+        fetch(url + "/" + id, {
+          method: "GET",
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then((json) => {
+            console.log(json);
+            data.innerHTML = "<b>" + json.title + "</b>";
+            data.innerHTML += "<br>";
+            data.innerHTML += json.body;
+          });
+      }      
+    </script>
+  </body>
+</html>

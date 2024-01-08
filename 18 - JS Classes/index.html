@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Object Oriented Programming and JS</title>
+  </head>
+  <body>
+    <script>
+      class Person {
+        constructor(name, age, hobbies) {
+          this.name = name;
+          this.age = age;
+          this.hobbies = hobbies;
+        }
+
+        showInfo() {
+          console.log(`${this.name} is ${this.age} years old`);
+        }
+
+        greet() {
+          console.log(`Hello, my name is ${this.name}`);
+        }
+      }
+
+      class Student extends Person {
+        constructor(name, age, hobbies, school) {
+          super(name, age, hobbies);
+          this.school = school;
+        }
+
+        showInfo() {
+          super.showInfo();
+          console.log(`${this.name} goes to ${this.school}`);
+        }
+
+        static sayHI() {
+          console.log(`Hi`);
+        }
+        //getter function
+        get name() {
+          return "Name is "+this._name;
+        }
+
+        //setter function
+        set name(name) {
+          this._name = name+ " Some other data";
+        }
+      }
+
+      const student = new Student(
+        "John Doe",
+        30,
+        ["reading", "music", "movies"],
+        "Harvard"
+      );
+      student.showInfo();
+      student.greet();
+
+      //see the prototype
+      console.log(student.__proto__);
+
+      //add to the prototype
+      Student.prototype.sayGoodbye = function () {
+        console.log(`Goodbye from ${this.name}`);
+      };
+
+      student.sayGoodbye();
+
+      let student2 = new Student("Jane Doe", 25, [
+        "reading",
+        "music",
+        "movies",
+      ]);
+      student2.sayGoodbye();
+
+      //static method
+      Student.sayHI();
+
+      //getters and setters
+      student.name = "John Smith";
+      console.log(student.name);
+
+      //Object.create()
+      const obj1 = {
+        name: "John",
+        age: 30,
+        greet: function () {
+          console.log(`Hello, my name is ${this.name}`);
+        },
+      };
+
+      const obj2 = Object.create(obj1);
+      obj2.name = "Jane";
+      obj2.greet();
+
+      //Object.assign()
+      const obj3 = {
+        name: "John",
+        age: 30,
+        greet: function () {
+          console.log(`Hello, my name is ${this.name}`);
+        },
+      };
+
+      const obj4 = Object.assign(obj3, { name: "Jenni" });
+      obj4.greet();
+      console.log(obj4);
+      
+      
+
+    </script>
+  </body>
+</html>
