@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions</title>
+    <style>
+      .section {
+        min-height: 90vh;
+        padding: 5vh;
+        position: relative;
+      }
+      .section a {
+        font-size: 2rem;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        border-radius: 5px;
+        padding: 0px 10px;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .red {
+        color: red;
+      }
+      .answer {
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid red;
+      }
+      .hidden {
+        display: none;
+      }
+      .bottom-left {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+      }
+      code {
+        color: blue;
+      }
+      p {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="section center">
+      <h1 class="red">Solving Common JS Interview Questions</h1>
+      <br />
+      <a href="#1">>></a>
+    </div>
+    <div id="1" class="section">
+      <h1>
+        1. What is the difference between undefined and not defined in
+        JavaScript?
+      </h1>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          undefined means a variable has been declared but has not yet been
+          assigned a value. On the other hand, not defined means that the
+          variable itself has not been declared
+        </p>
+        <pre>
+          <code>
+var x;
+console.log(x); // output: undefined
+console.log(y); // output: ReferenceError: y is not defined
+          </code>
+        </pre>
+      </div>
+      <br />
+      <a href="#2" class="bottom-left">Next >></a>
+    </div>
+    <div id="2" class="section">
+      <h1>2. What is the difference between == and ===?</h1>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          == checks for equality of value without paying attention to type. ===
+          checks for equality of value AND type.
+        </p>
+        <pre>
+                    <code>
+console.log(1 == '1'); //true
+console.log(1 === '1'); //false
+                    </code>
+        </pre>
+      </div>
+      <br />
+      <a href="#3" class="bottom-left">Next >></a>
+    </div>
+    <div id="3" class="section">
+      <h1>
+        3. Copy the following array ['a', 'b', 'c', 'd', 'e'] into another array
+        without modifying the original array. use non es6 and es6 syntax.
+      </h1>
+      <pre>
+          <code>
+const arr = ['a', 'b', 'c', 'd', 'e'];
+          </code>
+      </pre>
+
+      <button class="show">Show Answer</button>
+
+      <div class="answer hidden">
+        <p>This does not copy</p>
+        <code> let arr2 = arr; </code>
+        <p>These are some of the old ways you can do this</p>
+        <pre><code>const arr2 = Array.from(arr); 
+const arr3 = arr.slice(); </code></pre>
+        <p>ES6</p>
+        <code> const arr2 = [...arr]; </code>
+        <p>
+          This is called the spread operator. It takes an iterable and expands
+          it into individual elements. It's commonly used to make shallow copies
+          of arrays.
+        </p>
+      </div>
+      <br />
+      <a href="#4" class="bottom-left">Next >></a>
+    </div>
+    <div id="4" class="section">
+      <h1>
+        4. Change color of the text of the paragraph to red when the mouse
+        hovers over it.
+      </h1>
+      <p id="myParagraph">The id of this paragraph is "myParagraph"</p>
+      <br />
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          You can add "mouseover" event to change color css property to red. you
+          can also add another "mouseleave" event to turn the text back to black
+          when you leave the element
+        </p>
+        <pre>
+            <code>
+const p = document.querySelector('#myParagraph');
+
+p.addEventListener('mouseover', () => {
+  p.style.color = 'red';
+});      
+            </code>
+        </pre>
+      </div>
+      <br />
+      <a href="#5" class="bottom-left">Next >></a>
+    </div>
+    <div id="5" class="section">
+      <h1>
+        5. Copy the students that that have a score of 90 or above into a new
+        array.
+      </h1>
+      <pre>
+          <code>
+const students = [
+  {name: 'John', score: 90, school: 'East'},
+  {name: 'Susan', score: 85, school: 'East'},
+  {name: 'Bob', score: 85, school: 'West'},
+  {name: 'Jane', score: 95, school: 'East'},
+];
+          </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          You can use the filter method to filter out the students that have a
+          score of 90 or above
+        </p>
+        <pre>
+            <code>
+const topStudents = students.filter(function(student) {
+  return student.score >= 90;
+});
+            </code>
+        </pre>
+      </div>
+      <br />
+      <a href="#6" class="bottom-left">Next >></a>
+    </div>
+    <div id="6" class="section">
+      <h1>6. Convert the following for loop to a forEach loop.</h1>
+      <pre>
+          <code>
+const colors = ['red', 'green', 'blue'];
+
+for (let i = 0; i < colors.length; i++) {
+  console.log(colors[i]);
+}
+          </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <pre><code>
+colors.forEach((color) => {
+  console.log(color);
+});
+            </code></pre>
+      </div>
+      <br />
+      <a href="#7" class="bottom-left">Next >></a>
+    </div>
+    <div id="7" class="section">
+      <h1>
+        7. What is the short way to create a function that takes two parameters
+        param1 and param2 and returns the object {param1, param2}?
+      </h1>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>Normal way</p>
+        <pre><code>function createObject(param1, param2) {
+  return {
+    param1: param1,
+    param2: param2
+  };
+}
+            </code>
+        </pre>
+        <p>ES6 short</p>
+        <code>
+          const createObject = (param1, param2) => ({param1, param2});
+        </code>
+        <p>
+          <code>()=>{}</code> - This is called an arrow function. It is a
+          shorthand way of writing a function. If there is only one parameter in
+          the function, you can omit the parentheses.
+          <br />
+          <br />
+          no <code>return</code> - This is called implicit return. It allows you to
+          omit the return keyword when returning a single expression. If you 
+          omit the parentheses around the object, you will get an error.
+          <br />
+          <br />
+          <code>{param1, param2}</code> -
+          This is called object literal shorthand. It allows you to omit the
+          property value if key matches variable name.
+        </p>
+      </div>
+      <br />
+      <a href="#8" class="bottom-left">Next >></a>
+    </div>
+    <div id="8" class="section">
+      <h1>8. Add List Item to html list</h1>
+      <p>ID of this list is "myList"</p>
+      <ul id="myList">
+        <li>Item 1</li>
+      </ul>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>Option 1</p>
+        <pre><code>const myList = document.querySelector('#myList');
+const li = document.createElement('li');
+li.textContent = 'Item 2';
+myList.appendChild(li);
+            </code>
+        </pre>
+        <p>Option 2</p>
+        <pre><code>const myList = document.querySelector('#myList');
+myList.innerHTML += '&lt;li>Item 2&lt;/li>';
+            </code>
+        </pre>
+        <p>
+          Both options will add a new list item to the list. The first option is
+          more efficient because it only adds one element to the DOM. So we can
+          easily add things like event listeners to it. The second option adds
+          the entire list again.
+        </p>
+      </div>
+      <br />
+      <a href="#9" class="bottom-left">Next >></a>
+    </div>
+    <div id="9" class="section">
+      <h1>
+        9. Show several different methods you can use to select the button
+        element below and attach a click event listener to it.
+      </h1>
+      <button id="btn" class="btn">Click Me</button>
+      <code> &lt;button id="btn" class="btn">Click Me&lt;/button> </code>
+      <br />
+      <br />
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <pre>
+<b>Selecting</b>
+<code>    
+  //if it is the first button on the page
+  const button = document.querySelector('button');
+
+  //it has an id of "btn"
+  const button = document.getElementById('btn');
+
+  //it has a class of "btn" and it is the first button width that class on the page
+  const button = document.getElementsByClassName('btn')[0];
+
+  //it has a class of button and it is only button on the page
+  const button = document.querySelector('.btn'); 
+  </code>
+  
+<b>adding event listener</b>  
+  <code>
+  button.addEventListener('click', () => {
+    console.log('clicked');
+  });
+  //or
+  button.onclick = () => {
+    console.log('clicked');
+  };
+</code></pre>
+      </div>
+      <br />
+      <a href="#10" class="bottom-left">Next >></a>
+    </div>
+
+    <div id="10" class="section">
+      <h1>
+        10. What is the difference between the following two functions        
+      </h1>
+      <pre>
+          <code>
+function myFunction() {
+  console.log('hello');
+}
+
+const myFunction = function() {
+  console.log('hello');
+};
+          </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          The first one is a function declaration. The second one is a function
+          expression. The main difference is that function declarations are
+          hoisted and function expressions are not.
+        </p>
+        <pre>
+          <code>
+functionDec(); //works
+
+function functionDec() {
+  console.log('hello');
+}
+
+functionExp(); //error
+
+const functionExp = () => {
+  console.log('hello');
+};
+          </code>
+        </pre>
+      </div>
+      <br />
+      <a href="#11" class="bottom-left">Next >></a>
+    </div>
+
+    <script>
+      let buttons = document.querySelectorAll(".show");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          button.nextElementSibling.classList.toggle("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

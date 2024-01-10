@@ -1,6 +1,6 @@
 # Solving Common JS Interview Questions
 
-#### What is the difference between `undefined` and `not defined` in JavaScript?
+#### 1. What is the difference between `undefined` and `not defined` in JavaScript?
 
 `undefined` means a variable has been declared but has not yet been assigned a value. On the other hand, `not defined` means that the variable itself has not been declared.
 
@@ -10,7 +10,7 @@ console.log(x); //undefined
 console.log(y); //ReferenceError: y is not defined
 ```
 
-#### What is the difference between `==` and `===`?
+#### 2. What is the difference between `==` and `===`?
 
 `==` checks for equality of value without paying attention to type. `===` checks for equality of value AND type.
 
@@ -19,7 +19,7 @@ console.log(1 == '1'); //true
 console.log(1 === '1'); //false
 ```
 
-#### Copy the following array `['a', 'b', 'c', 'd', 'e']` into another array without modifying the original array. use non es6 and es6 syntax.
+#### 3. Copy the following array `['a', 'b', 'c', 'd', 'e']` into another array without modifying the original array. use non es6 and es6 syntax.
 
 OLD WAY
 
@@ -37,7 +37,7 @@ const arr2 = [...arr];
 ```
 This is called the spread operator. It takes an iterable and expands it into individual elements. It's commonly used to make shallow copies of arrays.
 
-#### Change color of the text of the paragraph to red when the mouse hovers over it.
+#### 4. Change color of the text of the paragraph to red when the mouse hovers over it.
 
 ```js
 const p = document.querySelector('p');
@@ -46,7 +46,7 @@ p.addEventListener('mouseover', () => {
 });
 ```
 
-#### Copy the students that that have a score of 90 or above into a new array.
+#### 5. Copy the students that that have a score of 90 or above into a new array.
 
 ```js
 const students = [
@@ -59,7 +59,7 @@ const students = [
 const newStudents = students.filter(student => student.score >= 90);
 ```
 
-#### Convert the following for loop to a forEach loop.
+#### 6. Convert the following for loop to a forEach loop.
 
 ```js
 const colors = ['red', 'green', 'blue'];
@@ -75,7 +75,7 @@ colors.forEach(function(color) {
 });
 ```
 
-#### What is the short way to create a function that takes two parameters `param1` and `param2` and returns the object `{param1, param2}`?
+#### 7. What is the short way to create a function that takes two parameters `param1` and `param2` and returns the object `{param1, param2}`?
 
 ```js
 const createObject = (param1, param2) => ({param1, param2});
@@ -85,14 +85,8 @@ const createObject = (param1, param2) => ({param1, param2});
 
 **Omit return** - If the function body consists of only a return statement, you can omit the return keyword and the curly brackets.
 
-#### What is the difference between `let` and `var`?
 
-- `let` is block scoped and `var` is function scoped.
-- `let` is a new keyword introduced in ES6. 
-- `let` is preferred over `var` because it is block scoped. 
-  
-
-#### Add List Item to html list
+#### 8. Add List Item to html list
 
 ```js
 const ul = document.querySelector('ul');
@@ -100,14 +94,38 @@ const li = document.createElement('li');
 li.textContent = 'four';
 ul.appendChild(li);
 ```
-#### are there any differences between the two ways of creating objects below?
+#### 9. Show different methods you can use to select the button element below and attach a click event listener to it.
+
+```html
+<button id="btn" class="btn">Click Me</button>
+```
 
 ```js
-const obj1 = {a: 1, b: 2};
-const obj2 = new Object({a: 1, b: 2});
-```
-There is no difference between the two ways of creating objects. The second way is just a longer way of doing the same thing.
+//selecting
 
+//it is the first button on the page
+const button = document.querySelector('button');
+
+//it has an id of "btn"
+const button = document.getElementById('btn');
+
+//it has a class of "btn" and it is the first button with that class on the page
+const button = document.getElementsByClassName('btn')[0];
+
+//it has a class of button and it is only button on the page
+const button = document.querySelector('.button'); 
+
+//adding event listener
+
+button.addEventListener('click', () => {
+  console.log('clicked');
+});
+//or
+button.onclick = () => {
+  console.log('clicked');
+};
+
+```
 
 
 *(45 mins)*

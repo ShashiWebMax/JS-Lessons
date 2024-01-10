@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Lodash CDN  -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+    <!-- My Simple library -->
+    <script src="mySimpleLib.js"></script>
+  </head>
+  <body>
+    <h1 id="title">Using Libraries</h1>
+    <input type="text" name="myInput" id="myInput" value="Starting Value" />
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+    </ul>
+    <script>
+      //LoDash
+
+      //Getting the sum of an array
+      const numbers = [1, 2, 3, 4, 5];
+      const sum = _.sum(numbers);
+      console.log(sum); //15
+
+      //Getting a random number between 0 and 10
+      const random = _.random(0, 10);
+      console.log(random);
+
+      // get a random element from an array
+      const names = ["John", "Jane", "Joe", "Jack", "Jill"];
+      const randomElement = _.sample(names);
+      console.log(randomElement);
+
+      console.log("====================================");
+
+      console.log(ih("#title"));
+      ih("#title", "Testing my simple library");
+
+      console.log(val("#myInput"));
+      val("#myInput", "New Value");
+
+      addLi("ul", "New Item 1");
+      addLi("ul", "New Item 2");
+
+      addEvent("#myInput","keyup",function(e){
+        console.log("Keyup event",e.key);
+      });
+
+
+
+
+    </script>
+  </body>
+</html>

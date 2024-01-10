@@ -11,6 +11,57 @@
         font-size: 1.5rem;
         margin-top: 10px;
       }
+      body{
+        padding: 20px;
+      }
+      h1{
+        color: red;
+      }
+      .center{
+        display: flex; 
+        justify-content: center;
+      }
+      #solution-section{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      label{
+        font-size: 2em;
+        font-weight: bold;
+        font-family: monospace;
+      }
+      #calculation{
+        flex-grow: 1; 
+        font-size: 1.3em;
+        line-height: 30px;
+      }
+      #calculation b{
+        display: block;
+        text-align: center;
+      }
+
+      button{
+        background-color: red;
+        color: white;
+        border-radius: 10px;
+        border: none;
+        padding: 5px 10px;
+        font-size: 1.5em;
+        flex-grow: 1;
+      }
+      .sol{        
+        font-weight: bold;
+        border-bottom: black double 5px;
+      }
+      #buttons{
+        display: flex;
+        gap: 20px;
+      }
+
+      
     </style>
   </head>
   <body>
@@ -19,40 +70,54 @@
       This program calculates the hypotenuse or one of the sides of a right
       triangle using the Pythagoras theorem.
     </p>
-    <!-- Image of a triangle -->
-    <svg width="200" height="200">
-      <polygon
-        points="10,10 10,190 190,190"
-        style="fill: none; stroke: purple; stroke-width: 5; fill-rule: evenodd"
-      />      
-        <rect x="10" y="180" width="10" height="10" style="stroke: purple; stroke-width: 5; fill: none;"
-        />
-      <!-- a -->
-      <text x="80" y="180" fill="black" font-size="2rem">a</text>
-      <!-- b -->
-      <text x="15" y="120" fill="black" font-size="2rem">b</text>
-      <!-- c -->
-      <text x="100" y="95" fill="black" font-size="2rem">c</text>
-    </svg>
+    <div class="center">
+      <svg width="200" height="200">
+        <polygon
+          points="10,10 10,190 190,190"
+          style="fill: none; stroke: red; stroke-width: 5; fill-rule: evenodd"
+        />      
+          <rect x="10" y="180" width="10" height="10" style="stroke: red; stroke-width: 5; fill: none;"
+          />
+        <!-- a -->
+        <text x="80" y="180" fill="black" font-size="2rem">a</text>
+        <!-- b -->
+        <text x="15" y="120" fill="black" font-size="2rem">b</text>
+        <!-- c -->
+        <text x="100" y="95" fill="black" font-size="2rem">c</text>
+      </svg>
+    </div>
     <br />
-    <p>
+    <b>
       Fill 2 known sides values and leave the third one empty. Click the
       "Calculate" button to calculate the third side.
-    </p>
-    <form action="#">
-      <label for="a">a =</label>
-      <input type="number" id="a" />
-      <br />
-      <label for="b">b =</label>
-      <input type="number" id="b" />
-      <br />
-      <label for="c">c =</label>
-      <input type="number" id="c" />
-      <br />
-      <button onclick="calculate()">Calculate</button>
-      <br />
-      <button type="reset">Reset</button>
-    </form>
+    </b>
+    <div id="solution-section">
+      <form action="#">
+        <label for="a">a =</label>
+        <input type="number" id="a" />
+        <br />
+        <label for="b">b =</label>
+        <input type="number" id="b" />
+        <br />
+        <label for="c">c =</label>
+        <input type="number" id="c" />
+        <br />
+        <div id="buttons">
+          <button onclick="calculate()">Calculate</button>
+          <button type="reset">Reset</button>
+        </div>
+      </form>
+      <div id="calculation">
+        <b>
+          a<sup>2</sup> + b<sup>2</sup> =
+          c<sup>2</sup>
+        </b>
+        <span id="solution" >
+    
+        </span>
+      </div>
+    </div>
+   
 
     <script>
       /**
@@ -63,17 +128,39 @@
         let a = document.getElementById("a").value;
         let b = document.getElementById("b").value;
         let c = document.getElementById("c").value;
+        let solution = document.getElementById("solution");
 
         //solve the equation depending on which side is empty
         if (a == "") {
           a = Math.sqrt(c * c - b * b);
           document.getElementById("a").value = a;
+          //solution
+          solution.innerHTML = 'Solving for: a <br> ';
+          solution.innerHTML += 'a = √(c<sup>2</sup> - b<sup>2</sup>) <br>';
+          solution.innerHTML += 'a = √(' + c + '<sup>2</sup> - ' + b + '<sup>2</sup>) <br>';
+          solution.innerHTML += 'a = √(' + c * c + ' - ' + b * b + ') <br>';
+          solution.innerHTML += 'a = √(' + (c * c - b * b) + ') <br>';
+          solution.innerHTML += 'a = <span class="sol">' + a + '</span><br>';
         } else if (b == "") {
           b = Math.sqrt(c * c - a * a);
           document.getElementById("b").value = b;
+          //solution
+          solution.innerHTML = 'Solving for: b <br> ';
+          solution.innerHTML += 'b = √(c<sup>2</sup> - a<sup>2</sup>) <br>';
+          solution.innerHTML += 'b = √(' + c + '<sup>2</sup> - ' + a + '<sup>2</sup>) <br>';  
+          solution.innerHTML += 'b = √(' + c * c + ' - ' + a * a + ') <br>';
+          solution.innerHTML += 'b = √(' + (c * c - a * a) + ') <br>';
+          solution.innerHTML += 'b = <span class="sol">' + b + '</span><br>';
         } else if (c == "") {
           c = Math.sqrt(a * a + b * b);
           document.getElementById("c").value = c;
+          //solution
+          solution.innerHTML = 'Solving for: c <br> ';
+          solution.innerHTML += 'c = √(a<sup>2</sup> + b<sup>2</sup>) <br>';
+          solution.innerHTML += 'c = √(' + a + '<sup>2</sup> + ' + b + '<sup>2</sup>) <br>';
+          solution.innerHTML += 'c = √(' + a * a + ' + ' + b * b + ') <br>';
+          solution.innerHTML += 'c = √(' + (a * a + b * b) + ') <br>';
+          solution.innerHTML += 'c = <span class="sol">' + c + '</span><br>';
         } else {
           alert("Please leave one side empty.");
         }

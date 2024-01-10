@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Graphical Game</title>
+    <style>  
+        h1{
+            text-align: center;
+            color: red;
+        }      
+        canvas{
+            background-color: rgb(224, 224, 224);
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Game</h1>
+    <canvas id="gameCanvas" width="800px" height="500px"></canvas>
+
+    <script>
+        //access the canvas element
+        const canvas = document.querySelector("#gameCanvas");
+        //get the context
+        const ctx = canvas.getContext("2d");       
+
+        //rectangle class
+        class Rectangle{
+            constructor(y,color,speed,direction){
+                this.x = 0;
+                this.y = y;
+                this.width = 100;
+                this.height = 100;
+                this.color = color;
+                this.speed = speed;
+                this.direction = direction;
+            }
+            drawFrame(){
+                ctx.fillStyle = this.color;
+                if(this.x > canvas.width - this.width){
+                    this.direction = -1;                    
+                }
+                if(this.x < 0){
+                    this.direction = 1;
+                }
+                this.x = this.x + this.speed * this.direction;                               
+                
+                ctx.fillRect(this.x,this.y,this.width,this.height);   
+                this.detectCollision();             
+            }
+            detectCollision(){
+                if(player.y-50 < this.y+this.height 
+                && player.x+50 > this.x 
+                && player.y+50 > this.y 
+                && player.x-50 < this.x+this.width  ){
+                    // alert("Game Over");
+                    player.y = 450;
+                }
+                
+            }
+        }
+
+        //player object
+        const player = {
+            x: 400,
+            y: 450,
+            width: 100,
+            height: 100,
+            color: "black",
+            speed: 5,
+            moveX: 0,
+            moveY: 0,
+            drawFrame(){
+                if(this.moveX == 1 && this.x < 750){
+                    this.x = this.x + this.speed;
+                }
+                if(this.moveX == -1 && this.x > 50){
+                    this.x = this.x - this.speed;
+                }
+                if(this.moveY == 1 && this.y < 450){
+                    this.y = this.y + this.speed;
+                }
+                if(this.moveY == -1 && this.y > 50){
+                    this.y = this.y - this.speed;
+                }
+                ctx.fillStyle = this.color;                
+                //draw the player circle
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.width/2,0,Math.PI * 2);
+                ctx.fill();                
+            },
+        }
+
+        // create goal
+        const goal = {
+            x: 400,
+            y: 0,
+            width: 100,
+            height: 100,
+            color: "yellow",
+            speed: 50,
+            direction: 1,
+            drawFrame(){
+                ctx.fillStyle = this.color;                
+                //draw the player circle
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.width/2,0,Math.PI * 2);
+                ctx.fill(); 
+                //add text
+                ctx.fillStyle = "black";
+                ctx.font = "30px Arial";
+                ctx.fillText("Goal",this.x-30,this.y+30);      
+                this.detectCollision();         
+            },
+            detectCollision(){
+                if(player.x == this.x && player.y == 50){
+                    alert("You Win");
+                    player.y = 450;
+                }
+            }
+        }
+
+
+        const rectangle1 = new Rectangle(50,"red",5,1);
+        const rectangle2 = new Rectangle(150,"blue",10,1);
+        const rectangle3 = new Rectangle(250,"orange",3,1);
+
+        function draw(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            rectangle1.drawFrame();
+            rectangle2.drawFrame();
+            rectangle3.drawFrame();
+            goal.drawFrame();
+            player.drawFrame();            
+        }
+
+        //move the player
+        document.addEventListener("keydown",function(e){
+            if(e.key == "ArrowUp" ){
+                player.moveY = -1;
+            }
+            if(e.key == "ArrowDown" ){
+                player.moveY = 1;
+            }
+            if(e.key == "ArrowLeft" ){
+                player.moveX = -1;
+            }
+            if(e.key == "ArrowRight" ){
+                player.moveX = 1;
+            }
+        });
+
+        document.addEventListener("keyup",function(e){
+            if(e.key == "ArrowUp" ){
+                player.moveY = 0;
+            }
+            if(e.key == "ArrowDown" ){
+                player.moveY = 0;
+            }
+            if(e.key == "ArrowLeft" ){
+                player.moveX = 0;
+            }
+            if(e.key == "ArrowRight" ){
+                player.moveX = 0;
+            }
+        });
+
+        setInterval(draw,20);
+
+        
+
+
+
+    </script>
+    
+</body>
+</html>
