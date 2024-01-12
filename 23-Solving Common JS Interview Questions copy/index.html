@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions</title>
+    <style>
+      .section {
+        min-height: 90vh;
+        padding: 5vh;
+        position: relative;
+      }
+      .section a {
+        font-size: 2rem;
+        text-decoration: none;
+        color: white;
+        background-color: red;
+        border-radius: 5px;
+        padding: 0px 10px;
+      }
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .red {
+        color: red;
+      }
+      .answer {
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid red;
+      }
+      .hidden {
+        display: none;
+      }
+      .bottom-left {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+      }
+      code {
+        color: blue;
+      }
+      p {
+        margin-bottom: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="section center">
+      <h1 class="red">Solving Common JS Interview Questions</h1>
+      <br />
+      <a href="#1">>></a>
+    </div>
+    <div id="1" class="section">
+      <h1>Consider the following JavaScript code</h1>
+      <pre>
+<code>
+  class Vehicle {
+    constructor(name, type) {
+      this.name = name;
+      this.type = type;
+    }
+  
+    getName() {
+      return this.name;
+    }
+  
+    getType() {
+      return this.type;
+    }
+  }
+  
+  class Car extends Vehicle {
+    constructor(name) {
+      super(name, 'car');
+    }
+  
+    getName() {
+      return 'It is a car: ' + super.getName();
+    }
+  }
+  
+  let myCar = new Car('Tesla');
+</code>
+</pre>
+      <h2>What does the extends keyword do in this context?</h2>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>It is used to create a class that is a child of another class</p>
+      </div>
+      <br />
+      <h2>What is the purpose of the super keyword and how is it used here?</h2>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>It is used to call the constructor of the parent class</p>
+      </div>
+      <br />
+      <h2>What will myCar.getName() return and why?</h2>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>It is a car: Tesla</p>
+      </div>
+      <br />
+      <h2>
+        How would you add a method to the Car class that overrides the getType
+        method from the Vehicle class?
+      </h2>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <pre><code>getType() {
+    return 'car';
+  }</code></pre>
+      </div>
+      <br />
+    </div>
+
+    <script>
+      let buttons = document.querySelectorAll(".show");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          button.nextElementSibling.classList.toggle("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>

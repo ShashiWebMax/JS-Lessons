@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Build a Game with Math</title>
+    <style>
+      body {
+        background-color: rgb(196, 209, 192);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      h1 {
+        text-align: center;
+        color: red;
+        font-size: 3em;
+        font-family: "comic sans ms";
+      }
+      .main-section {
+        width: 500px;
+        height: 300px;
+        background-color: rgb(92, 172, 247);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        border-radius: 50%;
+        font-size: 2.5em;
+        font-weight: bold;
+        font-family: monospace;
+        position: relative;
+      }
+      .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      .main-section input {
+        border: 0;
+        background-color: transparent;
+        border-bottom: 2px solid black;
+        padding: 10px;
+        padding-bottom: 0px;
+        font-size: 1em;
+        font-weight: bold;
+        width: 80px;
+        font-family: monospace;
+      }
+
+      #answer:focus {
+        outline: none;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+      }
+      .hidden {
+        display: none;
+      }
+      #start {
+        background-color: green;
+        color: white;
+        border: 0;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 1.5em;
+        font-family: monospace;
+        cursor: pointer;
+      }
+      #score-section {
+        font-size: 2em;
+        font-family: monospace;
+        font-weight: bold;
+      }
+      #submit-button {
+        background-color: red;
+        color: white;
+        border: 0;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 1em;
+        font-family: monospace;
+        cursor: pointer;
+      }
+      #q {
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        color: green;
+      }
+      #timer {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Math Game</h1>
+    <div class="main-section">
+      <div class="flex hidden" id="question-section">
+        <p id="question">Equation</p>
+        =
+        <input type="number" id="answer" />
+        <button id="submit-button">Submit</button>
+      </div>
+      <button id="start">Start</button>
+      <div id="q">0</div>
+      <div id="timer"><span id="time">0</span>s</div>
+    </div>
+
+    <p id="score-section">Score: <span id="score">0</span>/10</p>
+
+    <script>
+      const questionSection = document.querySelector("#question-section");
+      const question = document.querySelector("#question");
+      const answer = document.querySelector("#answer");
+      const startButton = document.querySelector("#start");
+      const score = document.querySelector("#score");
+      const submitButton = document.querySelector("#submit-button");
+      const q = document.querySelector("#q");
+      const timeOutput = document.querySelector("#time");
+
+      function startGame() {
+        startButton.classList.add("hidden");
+        questionSection.classList.remove("hidden");
+        score.textContent = 0;
+        generateQuestion();
+      }
+      startButton.onclick = startGame;
+
+      let correctAnswer = 0;
+
+      //random number generator
+      function randomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function generateQuestion() {
+        let questionType = randomNumber(1, 4);
+        switch (questionType) {
+          case 1:
+            //addition
+            let num1 = randomNumber(10, 100);
+            let num2 = randomNumber(10, 100);
+            question.textContent = num1 + " + " + num2;
+            correctAnswer = num1 + num2;
+            break;
+
+          case 2:
+            //subtraction
+            let num3 = randomNumber(10, 100);
+            let num4 = randomNumber(10, 100);
+            question.textContent = num3 + " - " + num4;
+            correctAnswer = num3 - num4;
+            break;
+
+          case 3:
+            //multiplication
+            let num5 = randomNumber(1, 10);
+            let num6 = randomNumber(1, 10);
+            question.textContent = num5 + " x " + num6;
+            correctAnswer = num5 * num6;
+            break;
+
+          case 4:
+            //division
+            let num7 = randomNumber(1, 10);
+            let num8 = randomNumber(1, 10);
+            question.textContent = num7 * num8 + " / " + num8;
+            correctAnswer = num7;
+            break;
+
+          default:
+            break;
+        }
+
+        answer.value = "";
+        answer.focus();
+        q.innerHTML++;
+        startTimer();
+      }
+
+      function nextQuestion() {
+        if (answer.value == correctAnswer) {
+          score.textContent = Number(score.textContent) + 1;
+        }
+        if (q.innerHTML == 10) {
+          alert("Game Over. Your score is " + score.textContent + "/10");
+          q.innerHTML = 0;
+          score.textContent = 0;
+          startButton.classList.remove("hidden");
+          questionSection.classList.add("hidden");
+          clearInterval(timer);
+          timeOutput.innerHTML = 0;
+          return;
+        }
+        generateQuestion();
+      }
+      submitButton.onclick = nextQuestion;
+      answer.onkeydown = (e) => {
+        if (e.key == "Enter") {
+          nextQuestion();
+        }
+      };
+
+      let timer;
+      let time = 0;
+      let duration = 10;
+
+      function startTimer() {
+        clearInterval(timer);
+        time = 0;
+        timeOutput.innerHTML = time;
+
+        timer = setInterval(() => {
+          time++;
+          timeOutput.innerHTML = duration - time + 1;
+          if (time == duration) {
+            nextQuestion();
+          }
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
