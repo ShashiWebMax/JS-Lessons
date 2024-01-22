@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Slider</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .slider {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+      .slider img {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: absolute;
+        object-fit: cover;
+      }
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+      .slide h1 {
+        position: relative;
+        margin-top: 50px;
+        margin-left: 20px;
+        font-size: 3rem;
+        font-family: sans-serif;   
+        width: 80%; 
+      }
+      .slide hr {
+        position: relative;
+        width: 80%;
+      }
+      .slide p {
+        position: relative;
+        width: 90%;
+        margin-left: 25px;
+        margin-top: 10px;
+        font-size: 1.5rem;
+      }      
+    </style>
+  </head>
+  <body>
+    <div class="slider" style="color: white">
+      <div class="slide">
+        <img src="img/1.avif" alt="" />
+        <h1>Slide 1 Title</h1>
+        <hr />
+        <p>
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum '
+        </p>
+      </div>
+
+      <div class="slide" style="color: white">
+        <img src="img/2.avif" alt="" />
+        <h1>Title 2</h1>
+        <hr />
+        <p>
+          Some text about the slide'Lorem ipsum dolor sit amet, consectetuer
+          adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
+          sociis natoque penatibus et magnis dis parturient montes, nascetur
+          ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,
+          pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo,
+          fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
+          rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis
+          eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus
+          elementum '
+        </p>
+      </div>
+
+      <div class="slide" style="color: white">
+        <img src="img/3.avif" alt="" />
+        <h1>Title 3 text</h1>
+        <hr />
+        <p>
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum '
+        </p>
+      </div>
+
+      <div class="slide" style="color: white">
+        <img src="img/4.avif" alt="" />
+        <h1>Some title 4</h1>
+        <hr />
+        <p>
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum '
+        </p>
+      </div>
+
+      <div class="slide" style="color: white">
+        <img src="img/5.avif" alt="" />
+        <h1>My Slider 5th slide</h1>
+        <hr />
+        <p>
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum '
+        </p>
+      </div>
+
+      <div class="slide" style="color: black">
+        <img src="img/6.avif" alt="" />
+        <h1>Last Slide</h1>
+        <hr />
+        <p>
+          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+          commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+          et magnis dis parturient montes, nascetur ridiculus mus. Donec quam
+          felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+          consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+          nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a,
+          venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+          Integer tincidunt. Cras dapibus. Vivamus elementum '
+        </p>
+      </div>
+    </div>
+    <script type="module">
+      import anime from "./lib/anime.es.js";
+      const slider = document.querySelector(".slider");
+      const slides = document.querySelectorAll(".slide");
+      let next = 0;
+      let interval = 5000;
+      slides[0].style.opacity = 1;
+      let switcher = setInterval(()=>{
+        //make current image invisible
+        let previous = next;
+        //set next to next slide
+        if (next >= slides.length - 1) {
+          next = 0;
+        } else {
+          next++;
+        }
+        slides[next].style.zIndex = 2;
+        slides[previous].style.zIndex = 1;
+        //make next image visible
+        anime({
+          targets: slides[next],
+          opacity: 1,
+          duration: 1000,
+          easing: "easeInOutQuad",
+        });
+
+        //move slide title
+        let h1 = slides[next].querySelector("h1");
+        h1.style.left = "-1000px";    
+        anime({
+          targets: h1,
+          left: "0px",
+          duration: 500,
+          easing: "easeInOutQuad",
+          delay : 1000,
+          complete : ()=>{
+            //hide previous slide title
+            slides[previous].style.opacity = 0;
+          }
+        });
+        //move slide p
+        let p = slides[next].querySelector("p");
+        p.style.top = "100px";
+        p.style.opacity = 0;
+        anime({
+          targets: p,
+          top: "0px",
+          opacity: 1,
+          duration: 500,
+          easing: "easeInOutQuad",
+          delay : 1000
+        });
+                      
+
+      }, interval);
+    </script>
+  </body>
+</html>

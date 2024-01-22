@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exception handling</title>
+  </head>
+  <body>
+    <script>
+        try{
+            console.log('before error');            
+            let input = document.getElementById("input").innerHTML;
+            console.log('after error');
+        }catch(error){
+            console.log(error);
+            //console error
+            // console.error("Error"); 
+        }finally{
+            console.log("Finally will always run");
+        }        
+
+        console.log("Taking input from user");
+
+        console.log("---------------------------");15
+        //throwing error
+
+        try{
+            // let input = prompt("Enter a number");
+            //if input is not a number
+            if(isNaN(input)){
+                throw new Error("Not a number");
+                throw "Not a number"
+                //whenever we throw the it will stop the execution of the code below and will go to catch block
+                //this is useful when there is no point of executing the code below because of some condition
+            }
+        }catch(error){
+            console.log(error);
+            console.log(error.name);
+            console.log(error.message);
+        }
+
+
+
+
+    </script>
+  </body>
+</html>

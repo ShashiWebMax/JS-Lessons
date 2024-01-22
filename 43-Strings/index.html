@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Object </title>
+</head>
+<body>
+    <script>
+        const myString  = "Hello World. This is my first string.";
+
+        //prototype
+        console.log(myString.__proto__);
+        
+        //length
+        console.log(myString.length);
+
+        //uppercase
+        console.log(myString.toUpperCase());
+
+        //lowercase
+        console.log(myString.toLowerCase());
+
+        //indexof
+        console.log(myString.indexOf("my"));
+
+        //lastindexof
+        console.log(myString.lastIndexOf("i"));
+
+        
+        //substring
+        console.log(myString.substring(0, 5));
+        
+        //slice ( can use negative values)
+        console.log(myString.slice(-7, -1));
+
+        //split
+        console.log(myString.split(" "));
+
+        //trim
+        const myString2 = "    Hello World. This is my first string.\n  ok \n  ";
+        console.log(myString2.trim());
+        console.log(myString2);
+
+        //replace
+        console.log(myString.replace("my", "your"));
+
+
+        //includes
+        console.log(myString.includes("my"));
+
+        //search
+        console.log(myString.search("my"));
+        //index of and search are same but search can use regex
+        console.log(myString.search(/ [a-z]*\./g));
+        //we have separate lesson for regex in this course
+
+
+        
+
+
+        
+
+    </script>
+    
+</body>
+</html>

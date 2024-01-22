@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using Animation library</title>
+    <!-- <script src="lib/anime.min.js"></script> -->
+  </head>
+  <body>
+    <div id="box1" class="box"  style=" background-color: red; width: 100px; height: 100px;">A </div>
+    <div id="box2" style=" background-color: red; width: 100px; height: 100px;"> </div>
+    <div id="box3" class="box"  style=" background-color: red; width: 100px; height: 100px;"> </div>
+    <script type="module">
+      import anime from "./lib/anime.es.js";
+      // importing the library
+      // anime({
+      //   targets: ".box",
+      //   translateX: 250,
+      //   rotate: "1turn",
+      //   duration: 2000,
+      //   loop: true,
+      // });
+
+      const box1 = document.querySelector("#box1");
+
+      let rotated = false;
+      box1.addEventListener("click", () => {
+        if(rotated){
+          anime({
+            targets: "#box1",
+            rotate: "0turn",
+            duration: 2000,
+            easing: 'steps(5)'
+          });
+          rotated = false;
+        }else{
+          anime({
+            targets: "#box1",
+            rotate: "1turn",
+            duration: 2000,
+            easing: 'spring(6, 50, 20, 1)'
+          });
+          rotated = true;          
+        }
+      });
+
+
+    </script>
+  </body>
+</html>

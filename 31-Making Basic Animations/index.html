@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make a Popup Dialog</title>
+</head>
+<body>
+    <h1>
+        Make a popup dialog box using JS
+    </h1>
+
+    <button id="showBtn">Click me</button> to open the dialog box
+
+    <div id="dialog" >
+        <div>
+            <h2>Dialog Box</h2>
+            <p>This is a dialog box</p>
+            <button id="hideBtn">Close</button>
+            <button id="shakeBtn">Shake</button>
+        </div>
+    </div>
+
+    <div class="box">
+
+    </div>
+    <!-- CSS -->
+    <style>
+        
+        #dialog{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            /* animation */
+            transition: all 1s ease-in-out;
+        }
+        #dialog div{
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            transition: all 1s ease-in-out;
+        }
+
+        /* shake animation */
+
+        @keyframes shake{
+            0%{
+                transform: translateX(0);
+            }
+            25%{
+                transform: translateX(10px);
+            }
+            50%{
+                transform: translateX(-10px);
+            }
+            75%{
+                transform: translateX(10px);
+            }
+            100%{
+                transform: translateX(0);
+            }
+        }    
+        
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin: 20px;
+            /* transition: all 1s ease-in-out; */
+        }
+
+        .moved{
+            transform: translateX(-100px);
+        }
+
+    </style>
+
+    <!-- JS -->
+    <script>
+        const showBtn = document.getElementById("showBtn");
+        const hideBtn = document.getElementById("hideBtn");
+        const dialog = document.getElementById("dialog");
+        const shakeBtn = document.getElementById("shakeBtn");
+        const dialogDiv = document.querySelector("#dialog div");
+
+        showBtn.addEventListener("click", async function(){
+            // dialog.style.display = "flex";
+            // //animate showing            
+            // let op = 0;
+            // let timer = setInterval(function(){
+            //     if(op >= 100){
+            //         clearInterval(timer);
+            //     }
+            //     dialog.style.opacity = op+'%';
+            //     dialog.style.display = "flex";
+            //     op += 10;
+            // }, 50);
+            
+            dialog.style.display = "flex";
+            setTimeout(function(){
+                dialog.style.opacity = 1;                
+            }, 100);
+
+        });
+
+        hideBtn.addEventListener("click", function(){
+            // dialog.classList.add("hidden");
+            //animate hiding
+            // let op = 100;
+            // let timer = setInterval(function(){
+            //     if(op <= 0){
+            //         clearInterval(timer);
+            //         dialog.style.display = "none";
+            //     }
+            //     dialog.style.opacity = op+'%';
+            //     op -= 10;
+            // }, 50);
+            
+            dialog.style.opacity = 0;
+            dialogDiv.style.transform = "translateX(100vw)";
+            setTimeout(function(){
+                dialog.style.display = "none";
+                dialogDiv.style.transform = "translateX(0)";
+            }, 1000);
+        });
+
+        shakeBtn.addEventListener("click", function(){
+            //shake animation 2 times
+            dialogDiv.style.animation = "shake 1s ease-in-out";
+            setTimeout(function(){
+                dialogDiv.style.animation = "";            
+            }, 3000);
+        });
+
+        document.querySelector(".box").addEventListener("click", function(){
+            let count = 0;
+            let timer = setInterval(function(){
+                if(count >= 100){
+                    clearInterval(timer);
+                }
+                document.querySelector(".box").style.transform = "translateX("+count+"px)";
+                count += 10;
+            }, 50);
+            // this.classList.add("moved");
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
-# Build a Game with Graphics
+# Drawing Graphics on the Canvas
 
-This is a project-based lesson. We are going use `<canvas>` element to build a simple game.
+This is a project-based lesson. At the end we are going to use `<canvas>` element to build a simple game.
 
 ## The `<canvas>` element
 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rest and spread</title>
+  </head>
+  <body>
+    <script>
+      // Rest function
+      function function1(a, b, ...args) {
+        console.log(args);
+      }
+      function1(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+      // Spread function
+      const myArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+      function function2(a, b, c, d, e, f, g, h, i, j) {
+        console.log(a, b, c, d, e, f, g, h, i, j);
+      }
+
+      function2(...myArray);
+
+      //using with destructuring
+
+      //using with array
+      const myArray2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      const [a, b, c, d, ...rest2] = myArray2;
+      console.log(a, b, c, d, rest2);
+
+      //using with object
+      const myObj = {
+        name: "Rahul",
+        age: 20,
+        city: "Mumbai",
+        country: "India",
+      };
+
+      const { name, age, ...rest } = myObj;
+      console.log(name, age, rest);
+    </script>
+  </body>
+</html>

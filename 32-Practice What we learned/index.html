@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Score Sheet</title>
+    <style>
+        body{
+            background-color: lightblue;
+        }
+        h1{
+            color: darkblue;
+        }
+        h2{
+            font-size: 1.2rem;
+        }
+        button{
+            background-color: darkblue;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        .dialog-container{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            /* animation */
+            transition: all 200ms ease-in-out;
+            ;
+        }
+        .dialog-container > div{
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 0 5px black;
+        }
+        .field-set{
+            margin-top: 10px;
+        }
+        #closeAddDataBtn{
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            border: none;
+            padding: 1px 4px;
+            box-shadow: 0 1px 0px black;
+        }
+        #addDataBtn{
+            background-color: green;
+            color: white;
+            border-radius: 5px;
+            border: none;
+            padding: 5px;
+            box-shadow: 0 1px 0px black;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .delete-btn{
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            border: none;
+            padding: 1px 4px;
+            box-shadow: 0 1px 0px black;
+            margin-left: 10px;
+            font-size: .8rem;
+        }
+        #info{
+            margin-top: 10px;
+        }
+
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table, th, td{
+            border: 1px solid black;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <h1>Student Score Sheet</h1>
+    <button id="addDataDialogBtn">Add Data</button>
+    <div id="info">
+
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+            
+        </tbody>
+    </table> 
+    <!-- Dialog -->
+    <div class="dialog-container">
+        <div>
+            <h2>Add Data</h2>
+            <div class="field-set">
+                <label for="name">Name</label>
+                <input type="text" id="name">                
+            </div>
+            <div class="field-set">
+                <label for="score">Score</label>
+                <input type="number" id="score">
+            </div>
+            <button id="addDataBtn">Add</button>
+            <button id="closeAddDataBtn">X</button>
+        </div>
+    </div>
+    <script>
+        const list = document.getElementById('list');
+        const addDataDialogBtn = document.getElementById('addDataDialogBtn');        
+        const closeAddDataBtn = document.getElementById('closeAddDataBtn');
+        const dialogContainer = document.querySelector('.dialog-container');
+        const nameInput = document.getElementById('name');
+        const scoreInput = document.getElementById('score');
+        const addDataBtn = document.getElementById('addDataBtn');
+        const info = document.getElementById('info');
+
+        const students = [];
+
+        addDataDialogBtn.addEventListener('click', function(){
+            dialogContainer.style.display = 'flex';   
+            setTimeout(function(){
+                dialogContainer.style.opacity = 1;
+            }, 100);         
+        });
+
+        closeAddDataBtn.addEventListener('click', closeDialog);
+        function closeDialog(){
+            dialogContainer.style.opacity = 0;
+            setTimeout(function(){
+                dialogContainer.style.display = 'none';
+            }, 100);
+        }
+
+        function addData(){
+            const name = nameInput.value;
+            const score = scoreInput.value;
+            if(name && score){
+                students.push({
+                    name: name,
+                    score: score
+                });
+                displayList();
+                closeDialog();
+            }else{
+                alert('Please fill all the fields');
+            }
+            //clear input fields
+            nameInput.value = '';
+            scoreInput.value = '';
+            
+        }
+        
+        addDataBtn.onclick = addData;
+
+        function displayList(){
+            //calculate average
+            let total = 0;
+            let max = 0;
+            let min = 100;
+
+            students.forEach(function(student){
+                score = parseInt(student.score); //Important
+                total += score;
+                if(student.score > max){
+                    max = score;
+                }
+                if(score < min){
+                    min = score;
+                }
+            });
+
+            //order by score
+            students.sort(function(a, b){
+                return b.score - a.score;
+            });
+            
+
+            let average = total / students.length;
+            info.innerHTML = `Students: ${students.length} <br>`;
+            info.innerHTML += `Max: ${max} | Min: ${min} | Average: ${average.toFixed(2)} <br>`;
+            
+            //clear list
+            list.innerHTML = '';            
+            students.forEach(function(student){
+                let record = document.createElement('tr');
+                let td0 = document.createElement('td');
+                td0.innerHTML = students.indexOf(student) + 1;
+                let td1 = document.createElement('td');
+                td1.innerHTML = student.name;
+                let td2 = document.createElement('td');
+                td2.innerHTML = student.score;
+                let td3 = document.createElement('td');                
+                let btn = document.createElement('button');
+                btn.innerHTML = 'X';
+                btn.classList.add('delete-btn');
+                btn.onclick = function(e){
+                    let confirmed = confirm('Are you sure you want to delete this student?');
+                    if(!confirmed){
+                        return;
+                    }
+                    //remove student from array
+                    const index = students.indexOf(student);
+                    students.splice(index, 1);
+                    //display list
+                    displayList();
+                }
+                td3.appendChild(btn);
+                record.appendChild(td0);
+                record.appendChild(td1);
+                record.appendChild(td2);
+                record.appendChild(td3);
+                list.appendChild(record);
+            });
+        }
+
+        
+    </script>       
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+    <script src="qrcode.js"></script>
+  </head>
+  <body>
+    <h1>QR Code Generator</h1>
+    <input type="text" id="text" />
+    <button id="generate">Generate</button>
+    <button id="download">Download</button>
+    <hr />
+    <div id="qrcode"></div>
+    <script>
+      var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: "",
+        width: 300,
+        height: 300,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+
+      document
+        .getElementById("generate")
+        .addEventListener("click", function () {
+          var text = document.getElementById("text").value;
+          qrcode.makeCode(text);
+        });
+
+      document.getElementById("text").addEventListener("keyup", function (e) {
+        var text = document.getElementById("text").value;
+        qrcode.makeCode(text);
+      });
+
+      document
+        .getElementById("download")
+        .addEventListener("click", function () {
+          var img = document.querySelector("img");
+          //download the image
+          var a = document.createElement("a");
+          a.href = img.src;
+          a.download = "QRCode.png";
+          a.click();
+        });
+    </script>
+  </body>
+</html>

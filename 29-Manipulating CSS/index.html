@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulating CSS </title>
+
+    <style>
+        .class1{
+            background-color: red;
+            border-radius: 80px;
+        }
+        .class2{
+            background-color: green;
+            border-radius: 100%;
+        }
+        .class3{
+            background-color: blue;
+            border-radius: 0%;
+        }
+
+        .hidden{
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>
+        Manipulating width
+    </h1>
+    <input type="number" id="val">
+    <hr>
+    <h2>
+        Manipulating color
+    </h2>
+    <input type="color" id="color">
+    <hr>
+    <h2>
+        Manipulating Margin
+    </h2>
+    <input type="number" id="margin">
+    <hr>
+    <h2>
+        Manipulating Classes
+    </h2>
+    <select name="" id="classes">
+        <option value="class1">Class 1</option>
+        <option value="class2">Class 2</option>
+        <option value="class3">Class 3</option>
+    </select>
+    <hr>
+    <h2>
+        Adding and Removing Classes
+    </h2>
+    <button id="add">Add Class</button>
+    <button id="remove">Remove Class</button>
+    <button id="toggle">Toggle Class</button>
+    ".hidden"
+
+    <div style="height: 50px; width: 2px; background-color: brown; "></div>
+
+    
+    <script>
+        //when input is changed even a step, the width of the div changes
+        document.getElementById('val').addEventListener('change',(e)=>{
+            document.querySelector('div').style.width = e.target.value + 'px';
+        })
+
+        //when color is changed, the color of the div changes
+        document.getElementById('color').addEventListener('change',(e)=>{
+            document.querySelector('div').style.backgroundColor = e.target.value;
+        })
+
+        //when margin is changed, the margin of the div changes
+        document.getElementById('margin').addEventListener('change',(e)=>{
+            // document.querySelector('div').style.margin = e.target.value + 'px';
+            document.querySelector('div').style.marginLeft = e.target.value + 'px';
+        })
+
+        //change the classes
+        document.getElementById('classes').addEventListener('change',(e)=>{
+            document.querySelector('div').className = e.target.value;
+        })
+
+        //we can also add classes and remove classes as we discussed in the previous lessons
+        document.getElementById('add').addEventListener('click',()=>{
+            document.querySelector('div').classList.add('hidden');
+        })
+
+        document.getElementById('remove').addEventListener('click',()=>{
+            document.querySelector('div').classList.remove('hidden');
+        })
+
+        //toggle class
+        document.getElementById('toggle').addEventListener('click',()=>{
+            document.querySelector('div').classList.toggle('hidden');
+        })
+
+
+        //add css rules to the document
+        //create a style element
+        const style = document.createElement('style');
+        //add the css rules
+        style.innerHTML = `
+            h1 {
+                background-color: yellow;
+            }
+        `;
+        //append the style element to the head
+        document.head.appendChild(style);
+
+        // or we can add to existing style sheets
+        document.styleSheets[0].addRule('h2','background-color: pink;');
+
+        document.styleSheets[0].insertRule('button {background-color: orange;}',0);
+
+
+
+
+
+
+    </script>
+
+    
+</body>
+</html>

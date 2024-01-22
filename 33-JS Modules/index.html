@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modules</title>
+
+    <script type="module">
+        import {add, subtract} from './example1.js';
+        //importing default export
+        import sth from './example2.js';
+        sth();
+        //as we can see in this case name of the exported function is not important
+
+        //importing everything from module
+        import * as all from './example3.js';
+        //all the exported elements are in object we can access them like below
+        console.log(all.data);
+
+        //importing default export and other elements
+        import sth1, {val1, val2} from './example4.js';
+        sth1();
+        console.log(val1, val2);
+        //as we can see the name of the default export is not important
+        //but the name of the other elements is important
+
+        //importing default export and other elements with different names
+        import sth2, {val1 as value1, val2 as value2} from './example4.js';
+        sth2();
+        console.log(value1, value2);
+        
+        function run(){
+            console.log(add(1,2));
+            console.log(subtract(1,2));
+        }
+        //if you want to use run function in console or access it from html you have to add it to window object
+        window.run = run;
+        
+        //if not we can access elements from module like below
+        document.getElementById('input').addEventListener('keyup', function(e){
+            console.log(e.target.value);
+        });
+
+        //import from url
+        // import {add as add1, subtract as subtract1} from 'https://raw.githubusercontent.com/rafal-kowalczyk/JavaScript/master/33-JS%20Modules/example1.js';
+
+    </script>
+</head>
+<body>
+    <button onclick="run()">Click me</button>
+    <input type="text" name="input" id="input">
+    
+</body>
+</html>

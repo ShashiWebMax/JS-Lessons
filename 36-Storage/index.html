@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storage</title>
+    <style>
+        #nameList button {
+            margin-left: 10px;
+            padding: 0px 2px;
+            font-size: 7px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="name" placeholder="Enter your name">
+    <button id="save">Save</button>
+    <button id="clear">Clear</button>
+    <button id="load">Load Name</button>
+    <p>Loaded name: <span id="output"></span></p>
+
+    <ul id="nameList">
+        
+    </ul>
+    <script >
+        const nameInput = document.getElementById('name');
+        const saveBtn = document.getElementById('save');
+        const clearBtn = document.getElementById('clear');
+        const loadBtn = document.getElementById('load');
+        const output = document.getElementById('output');
+        const nameList = document.getElementById('nameList');
+
+        let names = [];
+
+        saveBtn.addEventListener('click', () => {
+            names.push(nameInput.value);
+            nameInput.value = '';
+            //saving to local storage
+            console.log(JSON.stringify(names));
+            localStorage.setItem('names', JSON.stringify(names));
+            displayList();
+        });
+
+        clearBtn.addEventListener('click', () => {
+            localStorage.removeItem('names');
+            displayList();
+        });
+
+        loadBtn.addEventListener('click', () => {
+            displayList();           
+        });
+
+        function displayList() {
+            names = JSON.parse(localStorage.getItem('names'));
+            if(names === null) {
+                names = [];
+            }
+            nameList.innerHTML = '';            
+            names.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                let btn = document.createElement('button');
+                btn.textContent = 'X';
+                btn.addEventListener('click', () => {
+                    if(!confirm('Are you sure?')) {
+                        return;
+                    }
+                    names.splice(names.indexOf(name), 1);
+                    localStorage.setItem('names', JSON.stringify(names));
+                    displayList();
+                });
+                li.appendChild(btn);
+                nameList.appendChild(li);
+            });
+        }
+
+        displayList();
+
+        /*
+        Session storage
+        */
+        sessionStorage.setItem('name', 'Beth');
+        sessionStorage.setItem('age', 30);
+
+
+
+
+
+    </script>
+</body>
+</html>

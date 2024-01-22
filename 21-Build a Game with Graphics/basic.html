@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Basic</title>
+    <style>
+        canvas{
+            background-color: rgb(151, 151, 151);
+        }
+    </style>
+
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script>
+        // Get the canvas element
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Draw on the canvas
+
+        // Draw a rectangle
+        ctx.fillStyle = 'rgb(255, 0, 0)';
+        ctx.fillRect(10, 10, 100, 100);
+
+        ctx.fillStyle = 'rgba(0, 0, 255, 0.5)';
+        ctx.fillRect(50, 50, 100, 100);
+
+        // Draw a line
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(400, 200);
+        ctx.lineTo(0, 400);
+
+        ctx.strokeStyle = '#fa34a3';
+        //outline
+        ctx.stroke();
+        //fill
+        // ctx.fill();
+
+        // Draw a circle
+        ctx.beginPath();
+        ctx.arc(200, 200, 30, 0, Math.PI * 2, false);
+        ctx.fillStyle = 'green';
+        ctx.strokeStyle = 'blue';
+        //outline
+        ctx.stroke();
+        //fill
+        ctx.fill();
+
+        // Draw text
+        ctx.font = '30px Arial';
+        ctx.fillStyle = 'purple';
+        ctx.fillText('Hello World', 50, 50);
+
+        //draw image
+        let image = new Image();
+        image.src = 'ball.png';
+        image.onload = function(){
+            ctx.drawImage(image, 0, 0, 400, 400);
+        }
+
+
+        
+        //block object class
+        class Block{
+            constructor(shape, color, w, h, x, y){
+                this.shape = shape;
+                this.color = color;
+                this.w = w;
+                this.h = h;
+                this.x = x;
+                this.y = y;
+                this.speedX = 0;
+                this.speedY = 0;
+            } 
+            
+            move(){  
+                if(this.x < 0){
+                    this.x = 0;
+                }else if(this.x > 400 - this.w){
+                    this.x = 400 - this.w;
+                }else{
+                    this.x += this.speedX;
+                }
+                
+            }
+
+        }
+
+        //platform
+        class Platform extends Block{
+            draw(){
+                this.move();
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+
+            }
+        }
+
+        //falling block
+        class FallingBlock extends Block{
+            draw(){
+                this.move();
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+                this.y += this.speedY;
+
+                if(this.y > 380){
+                    //if block hits platform
+                    if(this.x > platform.x && this.x < platform.x + platform.w){
+                        hits++;
+                        this.color = 'yellow'
+                        this.speedY = -5;
+                    }else{
+                        //if block hits bottom
+                        fails++;
+                    }
+                    
+                }
+                if(this.y > 400 || this.y < -10){
+                    //remove block from array
+                    delete fallingBlocks[this.index];
+                }
+            }
+
+            
+
+
+        }
+
+        let platform = new Platform('rect', 'red', 100, 20, 150, 380);
+
+        let fallingBlocks = [];
+        let blockCount = 0;
+
+        function createFallingBlock(){
+            let x = Math.random() * 400;
+            let color = 'blue';
+            let fallingBlock = new FallingBlock('rect', color, 10, 10, x, 0);
+            fallingBlock.speedY = 5;
+            fallingBlock.index = blockCount;
+            fallingBlocks[blockCount] = fallingBlock;
+            blockCount++;
+        }
+
+
+        //frame counter
+        let count = 0;
+        let hits = 0;
+        let fails = 0;
+        
+        setInterval(function(){
+            //clear canvas
+            ctx.clearRect(0, 0, 400, 400);
+
+            //create falling block
+            if(count % 10 == 0){
+                createFallingBlock();      
+                
+            }
+            
+            
+            platform.draw();
+
+            //draw falling blocks
+            fallingBlocks.forEach(function(block){
+                block.draw();
+            })
+            
+            //counter
+            count++;
+            ctx.font = '30px Arial';
+            ctx.fillStyle = 'purple';
+            ctx.fillText(blockCount+" Hits:"+hits+"  Fails:"+fails, 0, 30);
+        },1000/30)
+
+        //event listener
+        document.addEventListener("keydown", function(e){
+            switch(e.key){                
+                case "ArrowLeft":
+                    platform.speedX = -20;
+                    break;
+                case "ArrowRight":
+                    platform.speedX = 20;
+                    break;
+            }
+        });
+
+        document.addEventListener("keyup", function(e){            
+            switch(e.key){               
+                case "ArrowLeft":
+                    platform.speedX = 0;
+                    break;
+                case "ArrowRight":
+                    platform.speedX = 0;
+                    break;
+            }
+        });
+        
+    </script>
+    
+    
+</body>
+</html>

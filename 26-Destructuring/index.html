@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destructuring</title>
+</head>
+<body>
+    <script>
+        //variable declaration
+        const myArray = ['Amal', 'Kamal', 'Saman'];
+        let name1 = myArray[0];
+        let name2 = myArray[1];
+        let name3 = myArray[2];
+        console.log(name1, name2, name3);
+
+        //Destructuring
+        let [name4, name5, name6] = myArray;
+        console.log(name4, name5, name6);
+
+        //separate from declaration
+        let name7, name8, name9;
+        [name7, name8, name9] = myArray;
+        console.log(name7, name8, name9);
+
+        //default values
+        let [name10, name11, name12, name13 = 'Nimal'] = myArray;
+        console.log(name10, name11, name12, name13);
+
+        //swapping
+        let a = 10;
+        let b = 20;
+        [a, b] = [b, a];
+        console.log(a, b);
+
+        //ignore some values
+        let [name14, , name15] = myArray;
+        console.log(name14, name15);
+
+        //object destructuring
+        const myObject = {
+            name: 'Amal',
+            age: 25,
+            address: 'Colombo'
+        };
+        let {name, age, address} = myObject;
+        console.log(name, age, address);
+
+        //separate from declaration
+        const obj2 = {
+            name:"Kusum",
+            age: 30,
+            address: "Kandy"
+        };
+
+        ({name, age, address} = obj2);
+        console.log(name, age, address);
+
+        //It is Important to note that we need to use the use the same name of the property as the variable we want to assign to.
+
+        //use different variable names
+        const obj3 = {
+            name:"Kusum",
+            age: 30,
+            address: "Kandy"
+        };
+
+        let {name:myName, age:myAge, address:myAddress} = obj3;
+        console.log(myName, myAge, myAddress);
+
+        //default values
+        const obj4 = {
+            name:"Kusum",
+            age: 30,
+            address: "Kandy"
+        };
+
+        let {name : userName = "name", country = "Sri Lanka"} = obj4;
+        console.log(userName, country);
+
+        //nested object destructuring
+
+        const obj5 = {
+            name:"Kusum",
+            age: 30,
+            address: "Kandy",
+            education: {
+                degree: "BSc",
+                school: "Royal College"
+            }
+        };
+
+        let {name:myName2, age:myAge2, address:myAddress2, education: {degree, school}} = obj5;
+        console.log(myName2, myAge2, myAddress2, degree, school);
+
+        //only degree
+        let {education: {degree:myDegree}} = obj5;
+        console.log(myDegree);
+
+
+        //iterating over arrays and objects
+        const scores = [
+            {
+                name: "Amal",
+                score: 60
+            },
+            {
+                name: "Kamal",
+                score: 70
+            },
+            {
+                name: "Nimal",
+                score: 80
+            }
+        ];
+
+        for (let score of scores) {
+            console.log(score.name, score.score);
+        }
+
+        //destructuring
+        for (let {name, score} of scores) {
+            console.log(name, score);
+        }
+        
+        scores.forEach(({name, score}) => {
+            console.log(name, score);
+        });
+
+        //destructuring function parameters
+        const myFunc = ({name, age, address}) => {
+            console.log(name, age, address);
+        };
+
+        myFunc(obj2);
+
+    </script>
+    
+</body>
+</html>
