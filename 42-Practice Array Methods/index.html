@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing System</title>
+    <style>
+        label{
+            display: inline-block;
+            width: 100px;
+        }  
+
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        form input{
+            width: 280px;
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        form input[type="submit"]{
+            margin-left: 110px;
+            margin-top: 10px;
+            padding: 5px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table, th, td{
+            border: 1px solid black;
+        }
+
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: aquamarine;;
+        }
+        h1{
+            text-align: center;
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Billing System</h1>
+    <form action="index.php" method="post">
+        <label for="item">Item</label>
+        <input type="text" name="item" id="item">
+        <br>
+        <label for="price">Price</label>
+        <input type="number" name="price" id="price">
+        <br>
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity">
+        <br>
+        <input type="submit" value="Add">
+    </form>
+    <Table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>
+                    Item 
+                    <button id="sortByName">↓</button>
+                </th>
+                <th>
+                    Rate
+                    <button id="sortByRate">↓</button>
+                </th>
+                <th>
+                    Quantity
+                    <button id="sortByQuantity">↓</button>
+                </th>
+                <th>
+                    Total
+                    <button id="sortByTotal">↓</button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total</td>
+                <td class="total"></td>
+            </tr>
+        </tfoot>
+    </Table>
+    <script>
+        let records = [];
+        //Take all the input values on submit
+        document.querySelector('form').addEventListener('submit', function(e){
+            e.preventDefault();
+            let record = {
+                item: document.querySelector('#item').value,
+                price: document.querySelector('#price').value,
+                quantity: document.querySelector('#quantity').value
+            }
+            //using push
+            // records.push(record);
+
+            //using unshift to add at the beginning
+            records.unshift(record);
+
+            //display the records
+            displayRecords();
+
+        });
+
+        //Display the records
+        function displayRecords(){
+            let tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+            let total = 0;
+            records.forEach(function(record, index){
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${record.item}</td>
+                    <td>${record.price}</td>
+                    <td>${record.quantity}</td>
+                    <td>${record.price * record.quantity}</td>
+                `;
+                tbody.appendChild(tr);
+                total += record.price * record.quantity;
+            });
+            document.querySelector('.total').innerHTML = total;
+        }
+
+        //sort by name
+        document.querySelector('#sortByName').addEventListener('click', function(){
+            records.sort(function(a, b){
+                if(a.item < b.item){
+                    return -1;
+                }else if(a.item > b.item){
+                    return 1;
+                }else{
+                    return 0;
+                }
+            });
+            displayRecords();
+        });
+
+        //sort by rate
+        document.querySelector('#sortByRate').addEventListener('click', function(){
+            records.sort(function(a, b){
+                a.price = parseFloat(a.price);
+                b.price = parseFloat(b.price);
+                return a.price - b.price;
+            });
+            displayRecords();
+        });
+        
+        //sort by quantity
+        document.querySelector('#sortByQuantity').addEventListener('click', function(){
+            records.sort(function(a, b){
+                a.quantity = parseInt(a.quantity);
+                b.quantity = parseInt(b.quantity);
+                return a.quantity - b.quantity;
+            });
+            displayRecords();
+        });
+
+        //sort by total
+        document.querySelector('#sortByTotal').addEventListener('click', function(){
+            records.sort(function(a, b){
+                a.total = parseFloat(a.price) * parseInt(a.quantity);
+                b.total = parseFloat(b.price) * parseInt(b.quantity);
+                return a.total - b.total;
+            });
+            displayRecords();
+        });
+
+
+    </script> 
+    
+</body>
+</html>
