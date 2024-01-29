@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chart</title>
+  </head>
+  <body>
+    <canvas id="tryArc" width="400" height="400"></canvas>
+    <script>
+      //try drawing an arc
+      const canvas = document.getElementById("tryArc");
+      const ctx = canvas.getContext("2d");
+      ctx.beginPath();
+      ctx.lineTo(200, 200);
+      ctx.arc(200, 200, 200, -Math.PI / 2, Math.PI);
+      ctx.lineTo(200, 200);
+      ctx.fillStyle = "#f00";
+      ctx.fill();
+      // ctx.stroke();
+    </script>
+    <h1>My Pi Chart</h1>
+    <input type="text" id="label" placeholder="label" />
+    <input type="number" id="value" placeholder="value" />
+    <input type="color" id="color" placeholder="color" />
+    <button id="add">Add</button>
+    <hr />
+    <div id="myChart"></div>
+    <script type="module">
+      import { pieChart } from "./chart.js";
+      const chart = new pieChart(
+        "myChart",
+        [
+          { label: "A", value: 10, color: "#00f" },
+          { label: "B", value: 20, color: "#0f0" },
+          { label: "C", value: 30, color: "#f00" },
+          { label: "D", value: 40, color: "#ff0" },
+        ],
+        400,
+        400,
+        "#fff"
+      );
+
+      document.getElementById("add").addEventListener("click", () => {
+        const label = document.getElementById("label").value;
+        const value = document.getElementById("value").value;
+        const color = document.getElementById("color").value;
+        chart.addData(label, value, color);
+      });
+
+    //   attach chart to window
+      window.chart = chart;
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Window</title>
+</head>
+<body>
+    <button>Click</button>
+    <script>
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', function(){
+            // alert('You clicked me');
+            // console.log(window);
+            // window.location.href = "https://www.google.com";
+            // console.log(window.location);
+            // console.log(window.location.href);
+            // console.log(window.location.hostname);
+            // console.log(window.location.pathname);
+            // console.log(window.location.search);
+            // window.location.href = "https://www.google.com";
+            // window.location.reload();
+            // window.location.reload(true);
+            // window.history.go(-1);
+            // window.history.go(1);
+            // console.log(window.history.length);
+            // window.navigator;
+            // console.log(window.navigator);
+            // console.log(window.navigator.appName);
+            // console.log(window.navigator.appVersion);
+            // console.log(window.navigator.userAgent);
+            // console.log(window.navigator.platform);
+            // console.log(window.navigator.vendor);
+            // console.log(window.navigator.language);
+            // console.log(window.document);
+            // console.log(window.document.URL);
+            // console.log(window.document.title);
+            // console.log(window.document.doctype);
+            // console.log(window.document.head);
+            // console.log(window.document.body);
+            // console.log(window.document.all);
+            // console.log(window.document.all[10]);
+            // console.log(window.document.forms);
+            // console.log(window.document.links);
+            // console.log(window.document.images);
+            // console.log(window.document.scripts);
+            // console.log(window.document.scripts[0].getAttribute('src'));
+            // const scripts = window.document.scripts;
+            // console.log(scripts);
+            // console.log(scripts[0].getAttribute('src'));
+            // let scriptsArr = Array.from(scripts);
+            // scriptsArr.forEach(function(script){
+            //     console.log(script.getAttribute('src'));
+            // });
+            // console.log(window.innerHeight);
+            // console.log(window.innerWidth);
+            // console.log(window.outerHeight);
+            // console.log(window.outerWidth);
+            // console.log(window.scrollX);
+            // console.log(window.scrollY);
+            // window.scrollX = 0;
+            // window.scrollY = 0;
+            // console.log(window.location);
+            // console.log(window.location.protocol);
+            // console.log(window.location.host);
+            // console.log(window.location.port);
+            // console.log(window.location.href); //--------
+            // console.log(window.location.search);
+            // console.log(window.location.hash);
+            // console.log(window.location.hostname);
+            // console.log(window.location.pathname);
+            // console.log(window.location.origin);
+            // console.log(window.location.assign('https://www.google.com'));
+            // console.log(window.location.reload());
+            // console.log(window.location.reload(true));
+            // console.log(window.location.replace('https://www.google.com'));
+            // console.log(window.location.reload());
+            // console.log(window.location.reload(true));
+            // console.log(window.history);
+            // console.log(window.history.length);
+            // console.log(window.history.go(-1));
+            // console.log(window.history.go(1));
+            // console.log(window.history.back());
+            // console.log(window.history.forward());
+            // console.log(window.navigator);
+            // console.log(window.navigator.appName);
+            // console.log(window.navigator.appVersion);
+            // console.log(window.navigator.userAgent);
+            // console.log(window.navigator.platform);
+            // console.log(window.navigator.vendor);
+            // console.log(window.navigator.language);
+            // console.log(window.document);
+            // console.log(window.document.URL);
+            // console.log(window.document.title);
+            // console.log(window.document.doctype);
+            // console.log(window.document.head);
+            // console.log(window.document.body);
+            // console.log(window.document.all);
+            // console.log(window.document.all[10]);
+            // console.log(window.document.forms);
+            // console.log(window.document.links);
+            // console.log(window.document.images);
+            // console.log(window.document.scripts);
+            // console.log(window.document.scripts[0].getAttribute('src'));
+            // const scripts = window.document.scripts;
+
+            //create a new window
+            // const myWindow = window.open('https://www.google.com', 'blank', 'width=500, height=500');
+            // myWindow.resizeTo(200, 200);
+            // myWindow.moveTo(0, 0);
+            // myWindow.close();
+            // console.log(myWindow.screenX);
+            // console.log(window.screenX);
+
+            //window inner and outer height and width
+            console.log(window.innerHeight);
+            console.log(window.innerWidth);
+            console.log(window.outerHeight);
+            console.log(window.outerWidth);
+
+
+            //open new window with given content
+            const myWindow2 = window.open('', 't1', 'width=500, height=500');
+            myWindow2.document.write('<h1>Hello World</h1>');
+            myWindow2.document.write('<p>This is a new window</p>');
+
+            const myWindow3 = window.open('', 't2', 'width=500, height=500');
+            myWindow3.document.write('<h1>Hello World</h1>');
+            myWindow3.document.write('<p>This is a new window</p>');
+
+            //open new window in new tab
+            const myWindow4 = window.open('https://www.google.com', '_blank'); 
+            
+            
+            //change window size
+            // window.resizeTo(500, 500);
+        });
+        
+
+
+
+    </script>
+    
+</body>
+</html>
