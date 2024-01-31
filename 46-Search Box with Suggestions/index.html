@@ -75,6 +75,12 @@
         margin: 0;
         list-style: none;
       }
+      #results li:hover {
+        background-color: gray;
+      }
+      .focused {
+        background-color: gray;
+      }
     </style>
   </head>
   <body>
@@ -294,91 +300,116 @@
         records = [];
         displayRecords();
       };
-      //other array methods you can practice
-      function test() {
-        let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-        //slice
-        console.log(array.slice(1, 3)); //take 2 items starting from index 1 to 2
-        console.log(array); //original array is not changed
-        console.log(array.splice(1, 3)); //remove 2 items starting from index 1
-        console.log(array); //original array is changed
-        //map
-        console.log(array.map((item) => item * 2)); //multiply each item by 2 and return new array
-        console.log(array); //original array is not changed
-        //filter
-        console.log(array.filter((item) => item % 2 == 0)); //return even numbers
-        console.log(array); //original array is not changed
-        //reduce
-        console.log(array.reduce((total, item) => total + item)); //sum of all items
-        console.log(array); //original array is not changed
-        //find
-        console.log(array.find((item) => item == 5)); //return 5
-        console.log(array); //original array is not changed
-        //findIndex
-        console.log(array.findIndex((item) => item == 5)); //return 4
-        console.log(array); //original array is not changed
-        //some
-        console.log(array.some((item) => item == 5)); //return true
-        console.log(array); //original array is not changed
-        //every
-        console.log(array.every((item) => item == 5)); //return false
-        console.log(array); //original array is not changed
-        //includes
-        console.log(array.includes(5)); //return true
-        console.log(array); //original array is not changed
-        //join
-        console.log(array.join("")); //return 12345678910
-        console.log(array); //original array is not changed
-        //concat
-        console.log(array.concat([11, 12, 13])); //return new array
-        console.log(array); //original array is not changed
-        //reverse
-        console.log(array.reverse()); //reverse the array
-        console.log(array); //original array is changed
-        //sort
-        console.log(array.sort()); //sort in ascending order
-        console.log(array); //original array is changed
-        //push
-        console.log(array.push(11)); //add item to the end and return new length
-        console.log(array); //original array is changed
-        //pop
-        console.log(array.pop()); //return last item
-        console.log(array); //original array is changed
-        //shift
-        console.log(array.shift()); //return first item
-        console.log(array); //original array is changed
-        //unshift
-        console.log(array.unshift(11)); //add item to the beginning and return new length
-        console.log(array); //original array is changed
-        //splice
-        console.log(array.splice(1, 3)); //remove 3 items starting from index 1
-        console.log(array); //original array is changed
-        //fill
-        console.log(array.fill(0)); //fill array with 0 
-        console.log(array); //original array is changed        
-      }
-      test();
 
       //add button
       let items = [];
       document.getElementById("add").onclick = () => {
+        loadItems();
         let name = document.getElementById("item").value;
         let price = document.getElementById("price").value;
-        items.push({ name, price });        
+        console.log({ name, price});
+
+        items.push({ name, price });
+        //store in local storage
+        localStorage.setItem("items", JSON.stringify(items));
       };
 
+      function loadItems() {
+        let data = localStorage.getItem("items");
+        if (data) {
+          items = JSON.parse(data);
+          console.log(items);
+        }
+      }
+      loadItems();
+
       //show results on keyup
-      document.getElementById("item").onkeyup = () => {
+      document.getElementById("item").onkeyup = (e) => {
+        //if input is empty, clear results
+        if (document.getElementById("item").value == "") {
+          document.getElementById("results").innerHTML = "";
+          return false;
+        }
+
+        let ul = document.getElementById("results");
+        //if arrow keys are pressed
+        if (e.keyCode == 40 || e.keyCode == 38) {
+          //handle arrow keys
+          let li = ul.querySelectorAll("li");
+          //selected item get focused class
+          //find focused item
+          let focused = ul.querySelector(".focused");
+          console.log({ focused });
+
+          if (focused) {
+            //if down arrow is pressed
+            if (e.keyCode == 40) {
+              //if focused item is not the last sibling element
+              if (focused.nextElementSibling) {
+                //remove focused class from current item
+                focused.classList.remove("focused");
+                //add focused class to next sibling
+                focused.nextElementSibling.classList.add("focused");
+              }
+            } else if (e.keyCode == 38) {
+              //if up arrow is pressed
+              //if focused item is not the first sibling element
+              if (focused.previousElementSibling) {
+                //remove focused class from current item
+                focused.classList.remove("focused");
+                //add focused class to previous sibling
+                focused.previousElementSibling.classList.add("focused");
+              }
+            }
+          } else {
+            console.log("not focused");
+
+            //if no item is focused for the first time
+            //add focused class to first item
+            if (li.length > 0) {
+              console.log({ li });
+
+              li[0].classList.add("focused");
+            }
+          }
+          return;
+        }
+
         let name = document.getElementById("item").value;
         let results = items.filter((item) => item.name.includes(name));
-        let ul = document.getElementById("results");
         ul.innerHTML = "";
         results.forEach((item) => {
           let li = document.createElement("li");
+          li.onclick = () => {
+            document.getElementById("item").value = item.name;
+            document.getElementById("price").value = item.price;
+            ul.innerHTML = "";
+          };
           li.textContent = item.name;
           ul.appendChild(li);
         });
+      };
+      //on keydown
+      document.getElementById("item").onkeydown = (e) => {
+        //if enter key is pressed
+        if (e.keyCode == 13) {
+          //if enter key is pressed
+        if (e.keyCode == 13) {
+          //if item is focused
+          let ul = document.getElementById("results");
+          if (ul.querySelector(".focused")) {
+
+            //emulate click
+            ul.querySelector(".focused").click();
+
+            e.preventDefault();
+            //focus on quantity
+            document.getElementById("quantity").focus();
+            return;
+          }
+          return;
+        }
+        }
       };
     </script>
   </body>
