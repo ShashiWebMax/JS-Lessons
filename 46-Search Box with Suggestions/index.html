@@ -61,13 +61,31 @@
         border: none;
         cursor: pointer;
       }
+      #item-search {
+        position: relative;
+      }
+      #results {
+        position: absolute;
+        top: 100%;
+        left: 105px;
+        width: 280px;
+        background-color: white;
+        border: 1px solid black;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
     </style>
   </head>
   <body>
     <h1>Billing System</h1>
     <form action="index.php" method="post">
-      <label for="item">Item</label>
-      <input type="text" name="item" id="item" />
+      <div id="item-search">
+        <label for="item">Item</label>
+        <input type="text" name="item" id="item" />
+        <button id="add">Add</button>
+        <ul id="results"></ul>
+      </div>
       <br />
       <label for="price">Price</label>
       <input type="number" name="price" id="price" />
@@ -341,6 +359,27 @@
         console.log(array); //original array is changed        
       }
       test();
+
+      //add button
+      let items = [];
+      document.getElementById("add").onclick = () => {
+        let name = document.getElementById("item").value;
+        let price = document.getElementById("price").value;
+        items.push({ name, price });        
+      };
+
+      //show results on keyup
+      document.getElementById("item").onkeyup = () => {
+        let name = document.getElementById("item").value;
+        let results = items.filter((item) => item.name.includes(name));
+        let ul = document.getElementById("results");
+        ul.innerHTML = "";
+        results.forEach((item) => {
+          let li = document.createElement("li");
+          li.textContent = item.name;
+          ul.appendChild(li);
+        });
+      };
     </script>
   </body>
 </html>
