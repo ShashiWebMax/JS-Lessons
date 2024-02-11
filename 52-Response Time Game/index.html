@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick The Color</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #f00;
+            font-family: 'Comic Sans MS', cursive;
+        }
+        h4 {
+            font-size: 2rem;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+        #display {
+            font-size: 5rem;
+            color: black;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            background-color: white;
+            padding: 20px 50px;
+            border-radius: 20px;
+            min-width: 60%;
+            text-align: center;
+        }
+        #picker {
+            display: flex;
+            justify-content: space-around;
+            width: 90%;
+            margin-top: 20px;
+            gap: 20px;
+            margin-top: 50px;
+        }
+        #picker button {
+            font-size: 2rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            height: 100px;
+        }
+
+        #startDialog, #scoreCard {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        #startDialog div, #scoreCard div{
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        #startDialog h2 {
+            font-size: 2rem;
+            margin-bottom: 0px;
+            color: rgb(87, 1, 1);
+
+        }
+
+        #startDialog button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            box-shadow: #000 1px 1px 3px;
+        }
+
+        #startBtn {
+            background-color: rgb(31, 255, 31);            
+        }
+        #startBtn:hover {
+            background-color: rgb(0, 104, 0);
+        }
+        #soreBoardBtn {
+            background-color: rgb(184, 40, 40);
+        }
+        #soreBoardBtn:hover {
+            background-color: rgb(104, 0, 0);
+        }
+
+        #playerName {
+            width: 50%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            border: 1px solid #ee3535;
+            border-radius: 5px;
+            box-shadow: #000 1px 1px 3px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #scoreCard table {
+            width: 100%;
+            margin-top: 20px;
+            min-width: 500px;
+        }
+
+        #scoreCard table th, #scoreCard table td {
+            padding: 5px;
+            border-bottom: 1px solid #000;
+        }
+
+        #scoreCard button{
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            box-shadow: #000 1px 1px 3px;
+            background-color: rgb(184, 40, 40);
+        }
+
+
+        
+
+        
+    </style>    
+</head>
+<body>
+    <h1>
+        Pick the color
+    </h1>
+
+    <div id="display">
+        Ready
+    </div>
+
+    <div id="picker">
+        <button ></button>
+        <button ></button>
+        <button ></button>
+        <button ></button>
+    </div>
+
+    <div>
+        <h4 id="count">0/10</h4>        
+    </div>
+
+    <!-- Start Dialog -->
+    <div id="startDialog" class="">
+        <div>
+            <h2>Game Menu</h2>
+            <input type="text" name="playerName" id="playerName" placeholder="Player Name">
+            <button id="startBtn">Start</button>
+            <button id="soreBoardBtn" >Score Board</button>
+        </div>
+    </div>
+
+    <!-- Score card -->
+    <div id="scoreCard" class="hidden">
+        <div>
+            <h2>Score Board</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Player Name</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="scoreBoard">
+                    
+                </tbody>
+            </table>
+            <button id="backBtn">Back</button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        const picker = document.getElementById('picker');
+        const count = document.getElementById('count');
+        const startDialog = document.getElementById('startDialog');
+        const scoreCard = document.getElementById('scoreCard');
+        const startBtn = document.getElementById('startBtn');
+        const soreBoardBtn = document.getElementById('soreBoardBtn');
+        const backBtn = document.getElementById('backBtn');
+
+        // -----------------------------------------------------
+
+        let playerName, time, totalTime, counter, selectedColor;
+        const ROUNDS = 5; 
+        let colors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'pink', 'brown'];
+
+        //function to get random number
+        function getRandomNumber(from, to) {
+            return Math.floor(Math.random() * (to - from) + from);
+        }
+
+
+        //Event listener for start button
+        startBtn.addEventListener('click', function() {
+            playerName = document.getElementById('playerName').value;
+            if(playerName === '') {
+                alert('Please enter your name');
+                return;
+            }
+            startDialog.classList.add('hidden');
+            time = 0;
+            counter = 0;
+            totalTime = 0;
+            showCountDown();
+        });
+
+        //show countdown
+        function showCountDown() {
+            //clear picker
+            picker.innerHTML = '';
+            for(let i = 0; i < 4; i++) {
+                let btn = document.createElement('button');
+                btn.style.backgroundColor = 'white';
+                picker.appendChild(btn);
+            }
+            let countDown = 3;
+            let countDownInterval = setInterval(() => {                
+                if(countDown === 0) {
+                    clearInterval(countDownInterval);
+                    showColors();
+                    return;
+                }
+                display.textContent = countDown;
+                countDown--;
+            }, 500);
+        }
+
+        //show colors
+        function showColors() {
+            let uniqueColors = [];
+            while(uniqueColors.length < 4) {
+                let color = colors[getRandomNumber(0, colors.length)];
+                if(uniqueColors.indexOf(color) === -1) {
+                    uniqueColors.push(color);
+                }
+            }
+            //pick a random color from uniqueColors
+            selectedColor = uniqueColors[getRandomNumber(0, uniqueColors.length)];
+            display.textContent = selectedColor;
+            //display options
+            picker.innerHTML = '';
+            uniqueColors.forEach(color => {
+                let btn = document.createElement('button');
+                btn.textContent = color;
+                btn.style.backgroundColor = color;
+                btn.setAttribute('data-color', color);       
+                btn.addEventListener('click', selectColor);        
+                picker.appendChild(btn);
+            });
+            //set timer
+            time = Date.now();
+            //counter
+            counter++;
+            count.textContent = `${counter}/${ROUNDS}`;
+        }
+
+        //select color option
+        function selectColor(e) {
+            if(e.target.dataset.color === selectedColor) {
+                time = Date.now() - time;
+                totalTime += time;
+                console.log(time);
+                //show next color
+                if(counter < ROUNDS) {
+                    display.textContent = time/1000;                    
+                    showCountDown();
+                } else {
+                    //show score
+                    display.textContent = `Ready`;
+                    //save score
+                    let scoreList = localStorage.getItem('scoreList');
+                    if(scoreList === null) {
+                        scoreList = [];
+                    } else {
+                        scoreList = JSON.parse(scoreList);
+                    }
+                    //find the player in the list
+                    let player = scoreList.find(p => p.name === playerName);
+                    let avgTime = totalTime / ROUNDS;
+                    if(player === undefined) {
+                        scoreList.push({name: playerName, score: avgTime});
+                    } else {
+                        player.score = avgTime;
+                    }
+                    //save the list
+                    localStorage.setItem('scoreList', JSON.stringify(scoreList));
+                    //show score board
+                    showScoreBoard();
+                    //show start dialog
+                    startDialog.classList.remove('hidden');
+
+                }
+            }
+        }
+
+        //show score board 
+        function showScoreBoard() {
+            scoreCard.classList.remove('hidden');
+            let scoreList = localStorage.getItem('scoreList');
+            if(scoreList === null) {
+                scoreList = [];
+            } else {
+                scoreList = JSON.parse(scoreList);
+            }
+            //sort the list lowest to highest
+            scoreList.sort((a, b) => a.score - b.score);
+            //display the list
+            let scoreBoard = document.getElementById('scoreBoard');
+            scoreBoard.innerHTML = '';
+            scoreList.forEach((player,i) => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${player.name}</td>
+                    <td>${(player.score/1000)} s</td>
+                `;
+                if(player.name === playerName) {
+                    tr.style.backgroundColor = 'yellow';
+                }
+                scoreBoard.appendChild(tr);
+            });
+        }
+
+        //Event listener for score board button
+        soreBoardBtn.addEventListener('click', showScoreBoard);
+
+        //Event listener for back button
+        backBtn.addEventListener('click', function() {
+            scoreCard.classList.add('hidden');
+            startDialog.classList.remove('hidden');
+        });        
+    </script>
+    
+
+    
+</body>
+</html>

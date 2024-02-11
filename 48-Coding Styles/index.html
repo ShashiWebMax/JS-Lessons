@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Styles</title>
+  </head>
+  <body>
+    <h1>Coding Styles</h1>
+    <p>This page is used to demonstrate the coding styles.</p>
+    <form action="#">
+      <label for="name">Name</label>
+      <input type="text" name="myName" id="myName" title="name" />
+      <br />
+      <label for="age">Age</label>
+      <input type="number" name="myAge" id="myAge" title="age" />
+      <br />
+      <button>Submit</button>
+    </form>
+    <script>
+        //demonstrate strict mode
+        // "use strict";
+
+
+      //code that does not follow any specific style
+      function myFunction() {
+        var my_name = document.getElementById("myName").value;
+        var Age = document.getElementById("myAge").value;
+        var out = my_name + " is " + Age + " years old.";
+        alert(z);
+      }
+
+      //code that follows some specific style with 1 error
+      function displayData() {
+        myName = document.getElementById("myName").value;
+        let myAge = document.getElementById("myAge").value;
+        let output = myName + " is " + myAge + " years old.";
+        alert(output);
+      }
+
+      document.querySelector("button").addEventListener("click", displayData);
+
+      //class declaration
+      class Person {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+        display() {
+          console.log(this.name + " is " + this.age + " years old.");
+        }
+      }
+
+      //object creation
+      var person1 = new Person("John", 25);
+      person1.display();     
+
+
+    </script>
+    
+  </body>
+</html>

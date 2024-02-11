@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Singleton</title>
+  </head>
+  <body>
+    <h1>This code demonstrates the Singleton pattern.</h1>
+    <button>Load 1</button>
+    <button>Load 2</button>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <script>
+      class RandomImage {
+        constructor() {
+          //if the instance already exists, return it
+          if (RandomImage.instance instanceof RandomImage) {
+            return RandomImage.instance;
+          }
+
+          //declare variables
+          this.images = [];
+          //load the images
+          this.loadImages(5);
+
+          //store in the instance
+          RandomImage.instance = this;
+        }
+
+        /**
+         * Load images
+         */
+        async loadImages(count) {
+          for (let i = 0; i < count; i++) {
+            const IMG_URL = "https://picsum.photos/200";
+            //load the image
+            let response = await fetch(IMG_URL);
+            let blob = await response.blob();
+            let img = document.createElement("img");
+            img.src = URL.createObjectURL(blob);
+            this.images.push(img);
+          }
+          console.log("Images loaded");
+        }
+        displayRandom(div) {
+          div = document.getElementById(div);
+          //get a random image from the array
+          const randomIndex = Math.floor(Math.random() * this.images.length);
+          //   copy the random image from the array
+          const randomImage = this.images[randomIndex].cloneNode(true);
+          //append the image to the div
+          div.appendChild(randomImage);
+        }
+        displayAll(div) {
+          div = document.getElementById(div);
+          //loop through the divs
+          for (let i = 0; i < this.images.length; i++) {
+            //   copy the random image from the array
+            const image = this.images[i].cloneNode(true);
+            //append the image to the div
+            div.appendChild(image);
+          }
+        }
+      }
+
+      const img1 = new RandomImage();
+      document.querySelector("button").addEventListener("click", () => {
+        img1.displayAll('d2');
+      });
+      const img2 = new RandomImage();
+      document.querySelectorAll("button")[1].addEventListener("click", () => {
+        img2.displayAll('d2');
+      });
+    </script>
+  </body>
+</html>

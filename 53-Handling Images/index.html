@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handling Images</title>
+</head>
+<body>
+    <!-- html input that allows user to select image from the file system -->
+    <input type="file" id="imageInput">
+    <script>
+        // select the input element
+        const imageInput = document.getElementById('imageInput');
+        // add an event listener to the input element
+        imageInput.addEventListener('change', (e) => {
+            // get the file from the input element
+            const file = e.target.files[0];
+            // create a new FileReader object
+            const reader = new FileReader();
+            // add an event listener to the reader object
+            reader.addEventListener('load', () => {
+                //if it is not an image file
+                console.log(file.type);
+                if (!file.type.startsWith('image/')) {
+                    console.log('The file is not an image');
+                    return;
+                }
+                // create a new image element
+                const img = new Image();
+                // set the src attribute of the image element to the result of the reader object
+                img.src = reader.result;
+                // add the image element to the body of the document
+                document.body.appendChild(img);
+                //store the image in the local storage
+                localStorage.setItem('image', reader.result);
+            });
+            // read the file as a data URL
+            reader.readAsDataURL(file);
+        });
+
+        //get the image from the local storage
+        const img = new Image();
+        img.src = localStorage.getItem('image');
+        if (img.src) {
+            document.body.appendChild(img);
+        }
+
+
+        /*/allow users to pan and zoom the image
+        document.body.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.target.style.transform = 'scale(2)';
+            }
+        });
+
+        document.body.addEventListener('dblclick', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.target.style.transform = 'scale(1)';
+            }
+        });
+
+        document.body.addEventListener('mousemove', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.target.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            }
+        });
+        //*/
+    
+    </script>
+</body>
+</html>

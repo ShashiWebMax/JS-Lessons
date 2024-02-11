@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calender</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #000;
+            color: #fff;
+        }
+        td {
+            background-color: #fff;
+        }
+        td:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <input type="number" id="year" placeholder="Year">
+    <select name="month" id="month" title="Month">
+        <option value="0">January</option>
+        <option value="1">February</option>
+        <option value="2">March</option>
+        <option value="3">April</option>
+        <option value="4">May</option>
+        <option value="5">June</option>
+        <option value="6">July</option>
+        <option value="7">August</option>
+        <option value="8">September</option>
+        <option value="9">October</option>
+        <option value="10">November</option>
+        <option value="11">December</option>
+    </select>
+    <table>
+        <thead>
+            <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+            </tr>
+        </thead>
+        <tbody id="calender">
+            
+        </tbody>
+    </table>
+    <script>
+        function displayCalender(){
+            const year = document.getElementById('year').value;
+            const month = document.getElementById('month').value;
+            const calender = document.getElementById('calender');
+            calender.innerHTML = '';
+            const date = new Date(year, month, 1);
+            const firstDay = date.getDay();
+            console.log(firstDay);
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            let day = 1;
+            for (let i = 0; i <= 6; i++) {
+                let row = document.createElement('tr');
+                // create the cells
+                for (let j = 0; j <= 6; j++) {
+                    let cell = document.createElement('td');
+                    //only fill the cells if j > firstDay and day <= lastDate
+                    if (day == 1 && j < firstDay) {
+                        cell.textContent = '';
+                    }else if (day > lastDate) {
+                        cell.textContent = '';
+                    }else {
+                        cell.textContent = day;
+                        day++;
+                    } 
+                    row.appendChild(cell);
+                    
+                }
+                //-----------------
+                calender.appendChild(row);   
+                //break the loop if day > lastDate
+                if (day > lastDate) {
+                        break;
+                    }             
+            }
+        }
+        document.getElementById('year').addEventListener('input', displayCalender);
+        document.getElementById('month').addEventListener('input', displayCalender);
+
+    </script>
+</body>
+</html>

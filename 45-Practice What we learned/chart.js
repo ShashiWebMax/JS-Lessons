@@ -124,40 +124,34 @@ class barChart {
         canvas.style.backgroundColor = this.backgroundColor;
         div.appendChild(canvas);
         let ctx = canvas.getContext('2d');
-        let total = 0;
+        //draw the bars
+        let barWidth = this.width / this.data.length;
+        let max = 0;
         this.data.forEach(element => {
-            total += element.value;
+            if (element.value > max) {
+                max = element.value;
+            }
         });
-        let startAngle = 0;
-        let endAngle = 0;
-        this.data.forEach(section => {
-            //calculate the end angle - full circle is 2 * PI
-            let sectionAngle = (2 * Math.PI) * (section.value/total);
-            endAngle = startAngle + sectionAngle;
-            //start drawing
-            ctx.beginPath();
-            //go to the center of the canvas
-            ctx.moveTo(this.width / 2, this.height / 2);
-            //draw the arc
-            let radius = this.width / 2;
-            ctx.arc(radius, radius, radius, startAngle, endAngle);
-            ctx.fillStyle = section.color;
-            ctx.fill();
-            //stor the end angle to use it as the start angle for the next section
-            startAngle = endAngle;
-            //show the label
-            ctx.font = '20px Arial';
-            ctx.fontWeight = 'bold';
-            ctx.textAlign = 'center';
-            ctx.fillStyle = '#000';
-            //find the middle angle
-            let middleAngle = startAngle - (sectionAngle / 2);
-            //find the middle point of the arc
-            let x = radius + (radius/2 * Math.cos(middleAngle));
-            let y = radius + (radius/2 * Math.sin(middleAngle));
-            //draw the label
-            ctx.fillText(section.label, x, y);
-
+        let scale = this.height / max;
+        let x = 0;
+        this.data.forEach(element => {
+            let barHeight = element.value * scale;
+            ctx.fillStyle = element.color;
+            ctx.fillRect(x, this.height - barHeight, barWidth, barHeight);
+            x += barWidth;
+        });
+        //draw the labels
+        x = 0;
+        ctx.font = '20px Arial';
+        ctx.fontWeight = 'bold';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#000';
+        this.data.forEach(element => {
+            let label = element.label;
+            let barHeight = element.value * scale;
+            let y = this.height - barHeight - 5;
+            ctx.fillText(label, x + barWidth / 2, y+30);
+            x += barWidth;
         });
     
     }
@@ -172,10 +166,11 @@ class barChart {
         value = Number(value);      
         this.data.push({label, value, color});
         this.draw();
+    }
 }
 
 
 //export
-export {pieChart};
+export {pieChart, barChart};
 
 

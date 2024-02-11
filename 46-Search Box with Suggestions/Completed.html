@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Billing System</title>
+    <style>
+      label {
+        display: inline-block;
+        width: 100px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      form input {
+        width: 280px;
+        margin-top: 10px;
+        padding: 5px;
+      }
+
+      form input[type="submit"] {
+        margin-left: 110px;
+        margin-top: 10px;
+        padding: 5px;
+        background-color: green;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: aquamarine;
+      }
+      h1 {
+        text-align: center;
+        color: red;
+      }
+      .delete {
+        background-color: red;
+        border-radius: 50%;
+        color: white;
+      }
+      .grandTotal {
+        font-weight: bold;
+      }
+      .action-btn {
+        margin-top: 10px;
+        padding: 6px;
+        background-color: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Billing System</h1>
+    <form action="index.php" method="post">
+      <label for="item" >Item</label>
+      <input type="text" name="item" id="item" list="suggestions" />
+      <!-- Datalist to show suggestions -->
+      <datalist id="suggestions"></datalist>
+      <br />
+      <label for="price">Price</label>
+      <input type="number" name="price" id="price" />
+      <br />
+      <label for="quantity">Quantity</label>
+      <input type="number" name="quantity" id="quantity" />
+      <br />
+      <input type="submit" value="Add" />
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>
+            #
+            <button id="reverse">↓</button>
+          </th>
+          <th>
+            Item
+            <button id="sortByName">↓</button>
+          </th>
+          <th>
+            Rate
+            <button id="sortByRate">↓</button>
+          </th>
+          <th>
+            Quantity
+            <button id="sortByQuantity">↓</button>
+          </th>
+          <th>
+            Total
+            <button id="sortByTotal">↓</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            Number of item types: <span id="itemTypes"></span>
+          </td>
+          <td>Total</td>
+          <td class="grandTotal"></td>
+        </tr>
+      </tfoot>
+    </table>
+    <template>
+      <tr>
+        <td>
+          <span class="count"></span>
+          <button class="delete">X</button>
+          <button class="edit">Edit</button>
+        </td>
+        <td class="name"></td>
+        <td class="rate"></td>
+        <td class="qty"></td>
+        <td class="total"></td>
+      </tr>
+    </template>
+
+    <button id="printBtn" class="action-btn">Print</button>
+    <button id="clearBtn" class="action-btn">Clear</button>
+    <script>
+      let records = [];
+      //items array
+      let items = [];
+      //load items from local storage
+      if (localStorage.getItem("items")) {
+        items = JSON.parse(localStorage.getItem("items"));
+      }
+      console.log(items);
+      
+
+      //----------------
+      document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let item = document.getElementById("item").value;
+        let price = document.getElementById("price").value;
+        let quantity = document.getElementById("quantity").value;
+        //validation
+        if (item.trim() == "") {
+          document.getElementById("item").focus();
+          return false;
+        }
+        if (price.trim() == "") {
+          document.getElementById("price").focus();
+          return false;
+        }
+        if (quantity.trim() == "") {
+          document.getElementById("quantity").focus();
+          return false;
+        }
+        //clear form
+        document.querySelector("form").reset();
+
+        //create object
+        let record = {
+          item,
+          price,
+          quantity,
+        };
+        //search if item already exists
+        let found = records.find(function (r) {
+          return r.item == item;
+        });
+        if (found) {
+          if (found.price == price) {
+            found.quantity = parseFloat(found.quantity) + parseFloat(quantity);
+            displayRecords();
+            return false;
+          }
+        }
+        //push to array
+        // records.push(record);
+
+        //using unshift
+        records.unshift(record);
+
+        displayRecords();
+
+        /*
+        Adding method to store item name and price in local storage
+        */
+        //create an array to store items outside the function
+
+        //search if item already exists in items array
+        let foundItem = items.find(function (r) {
+          //ignore case
+          return r.item.toLowerCase() == item.toLowerCase();
+        });
+        if (!foundItem) {
+          items.push({ item, price });
+          localStorage.setItem("items", JSON.stringify(items));
+        }else if(parseFloat(foundItem.price) != parseFloat(price)){
+          //update price if item already exists
+          items.forEach(function (r) {
+            if (r.item.toLowerCase() == item.toLowerCase()) {
+              r.price = price;
+              localStorage.setItem("items", JSON.stringify(items));
+            }
+          });
+        }
+       //-----------------------------------------------------------
+      });
+
+      function displayRecords() {
+        let tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
+        let total = 0;
+        records.forEach(function (record, index) {
+          const template = document.querySelector("template").content;
+          let tr = template.cloneNode(true);
+          tr.querySelector(".name").textContent = record.item;
+          tr.querySelector(".rate").textContent = record.price;
+          tr.querySelector(".qty").textContent = record.quantity;
+          tr.querySelector(".total").textContent =
+            record.quantity * record.price;
+          tr.querySelector(".count").textContent = index + 1;
+          tr.querySelector(".delete").onclick = function () {
+            if (!confirm("Are you sure?")) {
+              return false;
+            }
+            records.splice(index, 1);
+            displayRecords();
+          };
+          tr.querySelector(".edit").onclick = function () {
+            document.getElementById("item").value = record.item;
+            document.getElementById("price").value = record.price;
+            document.getElementById("quantity").value = record.quantity;
+            records.splice(index, 1);
+            displayRecords();
+          };
+
+          tbody.appendChild(tr);
+          total += record.quantity * record.price;
+        });
+        document.querySelector(".grandTotal").textContent = total;
+        document.getElementById("itemTypes").textContent = records.length;
+      }
+
+      //sort by name
+      document.getElementById("sortByName").onclick = () => {
+        records.sort(function (a, b) {
+          if (a.item < b.item) {
+            return -1;
+          } else if (a.item > b.item) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+        displayRecords();
+      };
+
+      //sort by rate
+      document.getElementById("sortByRate").onclick = () => {
+        records.sort(function (a, b) {
+          a.price = parseFloat(a.price);
+          b.price = parseFloat(b.price);
+          return a.price - b.price;
+        });
+        displayRecords();
+      };
+
+      //sort by qty
+      document.getElementById("sortByQuantity").onclick = () => {
+        records.sort(function (a, b) {
+          a.quantity = parseFloat(a.quantity);
+          b.quantity = parseFloat(b.quantity);
+          return a.quantity - b.quantity;
+        });
+        displayRecords();
+      };
+
+      //sort by total
+      document.getElementById("sortByTotal").onclick = () => {
+        records.sort(function (a, b) {
+          a.total = parseFloat(a.quantity) * parseFloat(a.price);
+          b.total = parseFloat(b.quantity) * parseFloat(b.price);
+          return a.total - b.total;
+        });
+        displayRecords();
+      };
+
+      //reverse
+      document.getElementById("reverse").onclick = () => {
+        records.reverse();
+        displayRecords();
+      };
+
+      //print
+      document.getElementById("printBtn").onclick = () => {
+        window.print();
+      };
+
+      //clear
+      document.getElementById("clearBtn").onclick = () => {
+        if (!confirm("Are you sure?")) {
+          return false;
+        }
+        records = [];
+        displayRecords();
+      };
+      //Delete other array methods to practice section
+      //----------------------------------------------
+
+      //search suggestions
+      let input = document.getElementById("item");
+      input.addEventListener("keyup", function () {
+        let val = input.value;
+        let suggestions = items.filter(function (r) {
+          return r.item.toLowerCase().includes(val.toLowerCase());
+        });
+        let datalist = document.getElementById("suggestions");
+        datalist.innerHTML = "";
+        suggestions.forEach(function (r) {
+          let option = document.createElement("option");
+          option.value = r.item;
+          datalist.appendChild(option);
+        });
+      });
+
+      //when input datalist item is selected
+      input.addEventListener("change", function () {
+        let val = input.value;
+        let found = items.find(function (r) {
+          return r.item.toLowerCase() == val.toLowerCase();
+        });
+        if (found) {
+          document.getElementById("price").value = found.price;
+          document.getElementById("price").focus();
+        }
+      });
+
+
+
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working with dates and time</title>
+</head>
+<body>
+    <h1>
+        Working with dates and time
+    </h1>
+    <p>
+        Time is (Default format) : <b id="t1"></b>
+    </p>
+    <div>
+        <label for="birthday">Birthday</label>
+        <input type="date" id="birthday" name="birthday">
+    </div>
+    <p>
+        Age: <b id="age">0</b> years
+    </p>
+    <div >
+        <label for="from">Counter</label>
+        <input type="datetime-local" id="taget" name="target">         
+    </div>
+    <p>
+        <b id="counter"></b>
+    </p>
+
+    <hr>
+    
+    <p id="pressed"></p>
+    <script>
+        let d1 = new Date();
+        document.getElementById("t1").innerHTML = d1;
+
+        let d2 = new Date(2020, 11, 24, 10, 33, 30, 0);
+        console.log(d2);
+
+        // when the date input changes calculate the age
+        let dateCounter;
+        document.getElementById("birthday").addEventListener("change", function(){
+            let birthday = new Date(this.value);
+            let today = new Date();
+            let age = today - birthday;
+            document.getElementById("age").innerHTML = Math.floor(age / (1000 * 60 * 60 * 24 * 365.25));
+
+        });
+
+        //counter
+        document.getElementById("taget").addEventListener("change", function(){
+            let target = new Date(this.value);
+            let today = new Date();
+            let counter = target - today;
+            clearInterval(dateCounter);
+            dateCounter = setInterval(function(){
+                counter -= 1000;
+                let seconds = Math.floor(counter / 1000);
+                let minutes = Math.floor(seconds / 60);
+                let hours = Math.floor(minutes / 60);
+                let days = Math.floor(hours / 24);
+                document.getElementById("counter").innerHTML = days + " days " + hours % 24 + " hours " + minutes % 60 + " minutes " + seconds % 60 + " seconds ";
+            }, 1000);
+        });
+
+
+        //keeping track of time
+        let d3 = new Date();
+        let h = d3.getHours();
+        let m = d3.getMinutes();
+        let s = d3.getSeconds();
+        let session = "AM";
+        if(h == 0){
+            h = 12;
+        }
+        if(h > 12){
+            h = h - 12;
+            session = "PM";
+        }
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+        let time = h + ":" + m + ":" + s + " " + session;
+        console.log(time);
+
+        let t;
+        document.body.addEventListener("keydown", function(){
+            // t = new Date();
+            t = performance.now();
+        });
+        document.body.addEventListener("keyup", function(){
+            // let t2 = new Date();
+            let t2 = performance.now();
+            let diff = t2 - t;
+            document.getElementById("pressed").innerHTML = "You pressed the key for " + diff + " milliseconds";
+        });
+
+        //console log the first date of february 2025
+        let d4 = new Date(2025, 1, 1);
+        console.log(d4);
+
+        //console log the last date of february 2025
+        let d5 = new Date(2025, 2, 0);
+        console.log(d5);
+
+        //find the day of the week of 1st january 2024
+        let d6 = new Date(2024, 0, 1);
+        console.log(d6.getDay());
+
+
+    </script>
+    
+</body>
+</html>

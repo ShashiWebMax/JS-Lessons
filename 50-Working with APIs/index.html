@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: lightgray;
+      }
+      h1 {
+        text-align: center;
+        color: red;
+      }
+      table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+      }
+      th {
+        background-color: gray;
+      }
+      td,
+      th {
+        padding: 10px;
+        border: 1px solid black;
+      }
+
+      #add-student {
+        display: block;
+        margin: 20px auto;
+      }
+      #student-dialog {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #student-dialog div {
+        width: 300px;
+        height: 300px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .hidden {
+        display: none !important;
+      }
+
+      input {
+        width: 90%;
+        margin: 10px 0;
+        padding: 10px;
+      }
+      div button {
+        padding: 10px;
+        background-color: green;
+        color: white;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Student Database</h1>
+    <button id="add-student">Add Student</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>City</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <template>
+      <tr>
+        <td>1</td>
+        <td>John</td>
+        <td>25</td>
+        <td>New York</td>
+        <td>
+          <button class="edit">Edit</button>
+          <button class="delete">Delete</button>
+        </td>
+      </tr>
+    </template>
+    <!-- Student Dialog -->
+    <div id="student-dialog" class="hidden">
+      <div>
+        <h2>Student Details</h2>
+        <form id="student-form">
+          <input type="text" id="name" placeholder="Name" />
+          <input type="number" id="age" placeholder="Age" />
+          <input type="text" id="city" placeholder="City" />
+          <button type="submit" id="submitBtn">Save</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      const SERVER = "http://localhost:3001/students";
+      const AUTH_KEY = "Bearer 1a|98721c1f-f2a3-4531-baae-8ec19e0bf5";
+
+      const tbody = document.querySelector("tbody");
+      const template = document.querySelector("template");
+
+      // Show Student Dialog
+      document.getElementById("add-student").onclick = () => {
+        const dialog = document.getElementById("student-dialog");
+        document.getElementById("submitBtn").textContent = "Add Student";
+        dialog.classList.remove("hidden");
+
+      };
+
+      //------------------------------------------------
+      // fetch students from server
+      async function fetchStudents() {
+        tbody.innerHTML = "";
+        let res = await fetch(SERVER, {
+          headers: {
+            Authorization: AUTH_KEY,
+          },
+        });
+        res = await res.json();
+        res.forEach((student) => {
+          const clone = template.content.cloneNode(true);
+          const td = clone.querySelectorAll("td");
+          td[0].textContent = student.id;
+          td[1].textContent = student.name;
+          td[2].textContent = student.age;
+          td[3].textContent = student.city;
+          td[4].querySelector(".edit").onclick = () => {
+            document.getElementById("name").value = student.name;
+            document.getElementById("age").value = student.age;
+            document.getElementById("city").value = student.city;
+            document.getElementById("submitBtn").textContent = "Update";
+            document.getElementById("student-dialog").classList.remove("hidden");
+            //set the student id to the form
+            document.getElementById("submitBtn").setAttribute("data-id", student.id);
+          };
+          // Delete Student------------------------------
+          td[4].querySelector(".delete").onclick = async () => {
+            if(!confirm("Are you sure?")) return;
+            let res = await fetch(SERVER + "/" + student.id, {
+              method: "DELETE",
+              headers: {
+                Authorization: AUTH_KEY,
+              },
+            });
+            fetchStudents();
+          };
+          //----------------------------------------------
+          tbody.appendChild(clone);
+        });
+      }
+      fetchStudents();
+
+      //Save Student
+      async function saveStudent() {
+        let lastId = tbody.lastElementChild.querySelector("td").textContent;
+        //load form data to object
+        const student = {
+          id: parseInt(lastId) + 1,
+          name: document.getElementById("name").value,
+          age: document.getElementById("age").value,
+          city: document.getElementById("city").value,
+        };
+        //find the last student id
+        //send data to server
+        let res = await fetch(SERVER, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AUTH_KEY,
+          },
+          body: JSON.stringify(student),
+        });
+      }
+
+      //Update Student
+      async function updateStudent() {
+        //load form data to object
+        const student = {
+          id: document.getElementById("submitBtn").getAttribute("data-id"),
+          name: document.getElementById("name").value,
+          age: document.getElementById("age").value,
+          city: document.getElementById("city").value,
+        };
+        //send data to server
+        let res = await fetch(SERVER + "/" + student.id, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: AUTH_KEY,
+          },
+          body: JSON.stringify(student),
+        });
+      }
+
+      //Submit form
+      document.getElementById("student-form").onsubmit = function (e) {
+        e.preventDefault();
+        if(document.getElementById("submitBtn").textContent == "Save"){
+          saveStudent();
+        }
+        else{
+          updateStudent();
+        }
+        saveStudent();
+        fetchStudents();
+        document.getElementById("student-dialog").classList.add("hidden");
+        //clear form
+        document.getElementById("student-form").reset();
+      };
+
+      
+
+    </script>
+  </body>
+</html>

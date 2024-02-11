@@ -53,5 +53,23 @@
 
 
     </script>
+
+    <div id="barChart"></div>
+    <script type="module">
+      import { barChart } from "./chart.js";
+      const bar = new barChart(
+        "barChart",
+        [
+          { label: "A", value: 10, color: "#00f" },
+          { label: "B", value: 20, color: "#0f0" },
+          { label: "C", value: 30, color: "#f00" },
+          { label: "D", value: 40, color: "#ff0" },
+        ],
+        400,
+        400,
+        "#fff"
+      );
+      window.bar = bar;
+    </script>
   </body>
 </html>

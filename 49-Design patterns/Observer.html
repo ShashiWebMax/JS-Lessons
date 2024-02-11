@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observer</title>
+    <style>
+        p{
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        This code demonstrates the Observer pattern..
+    </h1>
+    <label for="input">Input</label>
+    <input type="number" name="input" id="input">
+    <div>
+        <p>Multiply</p>
+        <input type="number" id="multiply"> <label for="multiply" id="multiplyLabel"></label> =  <b id="multiplied"></b>
+    </div>
+    <br>
+    <div>
+        <p>Divide</p>
+        <input type="number" id="divide"> <label for="divide" id="divideLabel"></label> =  <b id="divided"></b>
+    </div>
+    
+
+    <script>
+        const input = document.getElementById("input");
+        const multiply = document.getElementById("multiply");
+        const divide = document.getElementById("divide");
+        const multiplied = document.getElementById("multiplied");
+        const divided = document.getElementById("divided");
+        const multiplyLabel = document.getElementById("multiplyLabel");
+        const divideLabel = document.getElementById("divideLabel");
+
+        /*
+        input.addEventListener("input", (e) => {
+            const value = e.target.value;
+            multiplyLabel.textContent = `x ${value}`;
+            divideLabel.textContent = `/ ${value}`;
+            multiplied.textContent = value * multiply.value;
+            divided.textContent = value / divide.value;
+
+        });*/
+
+        //subject object (you can also use a class)
+        const inputSubject = {
+            observers: [],
+            subscribe: function (fn) {
+                this.observers.push(fn);
+            },
+            unsubscribe: function (fn) {
+                this.observers = this.observers.filter(subscriber => subscriber !== fn);
+            },
+            fire: function () {
+                this.observers.forEach(observer => observer.call());
+            }
+        }
+        //attach event listener
+        input.addEventListener("input", () => {
+            inputSubject.fire();
+        });
+
+        //observer  (you can also use functions)
+        const multiplyObserver = {
+            update: function () {
+                multiplyLabel.textContent = `x ${input.value}`;
+                multiplied.textContent = input.value * multiply.value;
+            }            
+        }
+        inputSubject.subscribe(multiplyObserver.update);
+        multiply.addEventListener("change", () => {
+            multiplyObserver.update();
+        });
+
+        //observer  (you can also use object)
+        function divideObserver() {
+            divideLabel.textContent = `/ ${input.value}`;
+            divided.textContent = input.value / divide.value;
+        }        
+        inputSubject.subscribe(divideObserver);
+        divide.addEventListener("change", divideObserver);
+
+
+        //add another observer
+        inputSubject.subscribe(() => {
+            console.log("Another observer");
+        });
+
+
+    </script>
+
+    
+</body>
+</html>

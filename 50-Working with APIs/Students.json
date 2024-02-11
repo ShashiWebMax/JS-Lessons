@@ -1,0 +1,162 @@
+{
+	"uuid": "76401108-8775-4dee-ac41-6966ff2e7576",
+	"lastMigration": 32,
+	"name": "Students",
+	"endpointPrefix": "",
+	"latency": 0,
+	"port": 3001,
+	"hostname": "",
+	"folders": [],
+	"routes": [
+		{
+			"uuid": "14f533da-a5c5-4b8d-a3c6-254e6096c3ea",
+			"type": "crud",
+			"documentation": "CRUD Students",
+			"method": "",
+			"endpoint": "students",
+			"responses": [
+				{
+					"uuid": "62078930-9301-4b7e-af3f-2372bcd9a6a7",
+					"body": "{}",
+					"latency": 0,
+					"statusCode": 200,
+					"label": "",
+					"headers": [
+						{
+							"key": "",
+							"value": ""
+						}
+					],
+					"bodyType": "DATABUCKET",
+					"filePath": "",
+					"databucketID": "zg7x",
+					"sendFileAsBody": false,
+					"rules": [],
+					"rulesOperator": "OR",
+					"disableTemplating": false,
+					"fallbackTo404": false,
+					"default": true,
+					"crudKey": "id",
+					"callbacks": []
+				},
+				{
+					"uuid": "1bc4ce4a-8ad9-4bda-a8d4-adeaea12d983",
+					"body": "{}",
+					"latency": 0,
+					"statusCode": 401,
+					"label": "",
+					"headers": [],
+					"bodyType": "INLINE",
+					"filePath": "",
+					"databucketID": "",
+					"sendFileAsBody": false,
+					"rules": [
+						{
+							"target": "header",
+							"modifier": "Authorization",
+							"value": "Bearer 1a|98721c1f-f2a3-4531-baae-8ec19e0bf5",
+							"invert": true,
+							"operator": "equals"
+						}
+					],
+					"rulesOperator": "OR",
+					"disableTemplating": false,
+					"fallbackTo404": false,
+					"default": false,
+					"crudKey": "id",
+					"callbacks": []
+				}
+			],
+			"responseMode": null
+		}
+	],
+	"rootChildren": [
+		{
+			"type": "route",
+			"uuid": "14f533da-a5c5-4b8d-a3c6-254e6096c3ea"
+		}
+	],
+	"proxyMode": false,
+	"proxyHost": "",
+	"proxyRemovePrefix": false,
+	"tlsOptions": {
+		"enabled": false,
+		"type": "CERT",
+		"pfxPath": "",
+		"certPath": "",
+		"keyPath": "",
+		"caPath": "",
+		"passphrase": ""
+	},
+	"cors": true,
+	"headers": [
+		{
+			"key": "Content-Type",
+			"value": "application/json"
+		},
+		{
+			"key": "Access-Control-Allow-Origin",
+			"value": "*"
+		},
+		{
+			"key": "Access-Control-Allow-Methods",
+			"value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+		},
+		{
+			"key": "Access-Control-Allow-Headers",
+			"value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+		}
+	],
+	"proxyReqHeaders": [
+		{
+			"key": "",
+			"value": ""
+		}
+	],
+	"proxyResHeaders": [
+		{
+			"key": "",
+			"value": ""
+		}
+	],
+	"data": [
+		{
+			"uuid": "9aea62e2-e806-4339-bed7-a79145cbbd9e",
+			"id": "zg7x",
+			"name": "Students",
+			"documentation": "",
+			"value": "[\r\n  {\r\n    \"id\": 100,\r\n    \"name\": \"Amal\",\r\n    \"age\": 18,\r\n    \"city\": \"Colombo\"\r\n  },\r\n  {\r\n    \"id\": 101,\r\n    \"name\": \"Kamal\",\r\n    \"age\": 20,\r\n    \"city\": \"Kandy\"\r\n  },\r\n  {\r\n    \"id\": 102,\r\n    \"name\": \"Nimal\",\r\n    \"age\": 22,\r\n    \"city\": \"Galle\"\r\n  },\r\n  {\r\n    \"id\": 103,\r\n    \"name\": \"Sunil\",\r\n    \"age\": 24,\r\n    \"city\": \"Matara\"\r\n  },\r\n  {\r\n    \"id\": 104,\r\n    \"name\": \"Kumara\",\r\n    \"age\": 26,\r\n    \"city\": \"Jaffna\"\r\n  },\r\n  {\r\n    \"id\": 105,\r\n    \"name\": \"Saman\",\r\n    \"age\": 28,\r\n    \"city\": \"Anuradhapura\"\r\n  }\r\n]"
+		}
+	],
+	"callbacks": [],
+	"Transform": "AWS::Serverless-2016-10-31",
+	"Resources": {
+		"Api": {
+			"Type": "AWS::Serverless::Api",
+			"Properties": {
+				"Name": {
+					"Fn::Sub": [
+						"${ResourceName} From Stack ${AWS::StackName}",
+						{
+							"ResourceName": "Api"
+						}
+					]
+				},
+				"StageName": "Prod",
+				"DefinitionBody": {
+					"openapi": "3.0",
+					"info": {},
+					"paths": {
+						"/": {
+							"get": {
+								"responses": {}
+							}
+						}
+					}
+				},
+				"EndpointConfiguration": "REGIONAL",
+				"TracingEnabled": true
+			}
+		}
+	}
+}

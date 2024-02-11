@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Observer</title>
+    <style>
+        p{
+            margin-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        This code demonstrates the Observer pattern.
+    </h1>
+    <label for="input">Input</label>
+    <input type="number" name="input" id="input">
+    <div>
+        <p>Multiply</p>
+        <input type="number" id="multiply"> <label for="multiply" id="multiplyLabel"></label> =  <b id="multiplied"></b>
+    </div>
+    <br>
+    <div>
+        <p>Divide</p>
+        <input type="number" id="divide"> <label for="divide" id="divideLabel"></label> =  <b id="divided"></b>
+    </div>
+    
+
+    <script>
+        const input = document.getElementById("input");
+        const multiply = document.getElementById("multiply");
+        const divide = document.getElementById("divide");
+        const multiplied = document.getElementById("multiplied");
+        const divided = document.getElementById("divided");
+        const multiplyLabel = document.getElementById("multiplyLabel");
+        const divideLabel = document.getElementById("divideLabel");
+
+        input.addEventListener("input", (e) => {
+            const value = e.target.value;
+            multiplyLabel.textContent = `x ${value}`;
+            divideLabel.textContent = `/ ${value}`;
+            multiplied.textContent = value * multiply.value;
+            divided.textContent = value / divide.value;
+
+        });
+
+    </script>
+
+    
+</body>
+</html>
