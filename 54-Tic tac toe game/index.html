@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic tac toe game</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 30px;
+        box-sizing: border-box;
+        background-color: #9fffff;
+      }
+      h1 {
+        color: red;
+      }
+      table {
+        border-collapse: collapse;
+        width: 300px;
+        height: 300px;
+      }
+      td {
+        border: 2px solid black;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        font-size: 50px;
+        cursor: pointer;
+      }
+      td:hover {
+        background-color: #f0f0f0;
+      }
+      #output {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tic Tac Toe Game</h1>
+    <table>
+      <tr>
+        <td id="0"></td>
+        <td id="1"></td>
+        <td id="2"></td>
+      </tr>
+      <tr>
+        <td id="3"></td>
+        <td id="4"></td>
+        <td id="5"></td>
+      </tr>
+      <tr>
+        <td id="6"></td>
+        <td id="7"></td>
+        <td id="8"></td>
+      </tr>
+    </table>
+    <div>
+      <h2 id="output">Player X : Mark a box to start the game</h2>
+      <label for="computerPlay">Play With Computer</label>
+      <input type="checkbox" name="computerPlay" id="computerPlay">
+    </div>
+    <script>
+      let player1 = "X";
+      let player2 = "O";
+      let currentPlayer = player1;
+      let moves = 0;
+      let gameEnd = false;
+      let boxes = document.querySelectorAll("td");
+      let output = document.getElementById("output");
+      let winCombinations = [
+          [0,1,2],
+          [3,4,5],
+          [6,7,8],
+          [0,3,6],
+          [1,4,7],
+          [2,5,8],
+          [0,4,8],
+          [2,4,6]
+      ];
+      boxes.forEach(box => {
+          box.addEventListener("click", function(){
+              if(gameEnd){
+                  //reload the page
+                  location.reload();
+              }
+              if(box.textContent === ""){
+                  box.textContent = currentPlayer;
+                  moves++;
+                  let isWinner = false;
+                  winCombinations.forEach(function(combination){
+                      let haveCombination = combination.every(function(index){
+                          return boxes[index].textContent === currentPlayer;
+                      });
+                      if(haveCombination){
+                          isWinner = true;
+                          combination.forEach(function(index){
+                              boxes[index].style.backgroundColor = "green";
+                          });
+                      }
+                  });
+                  if(isWinner){
+                      output.textContent = `Player ${currentPlayer} wins!`;
+                      gameEnd = true;
+                      return;
+                  }
+                  if(moves === 9){
+                      output.textContent = "It's a draw!";
+                      gameEnd = true;
+                      return;
+                  }
+                  currentPlayer = currentPlayer === player1 ? player2 : player1;
+                  output.textContent = `Player ${currentPlayer} turn`;
+                  //if computer play is checked
+                  if(document.getElementById("computerPlay").checked && currentPlayer === player2){
+                    output.textContent = `Computer's turn`;
+                    setTimeout(computerMove, 500);
+                  }
+              }
+          });
+      });
+
+      //play by computer
+      function computerMove(){
+          let computerPlayer = player2;
+          let emptyBoxes = [];
+          boxes.forEach(function(box, index){
+              if(box.textContent === ""){
+                  emptyBoxes.push(index);
+              }
+          });
+          //find opponent next winning move
+          let moves = [];
+          winCombinations.forEach(combination => {
+              let empty = 0;
+              let myCount = 0;
+              let opponentCount = 0;
+              combination.forEach(index => {
+                  if(boxes[index].textContent === ""){
+                      empty++;
+                  }else if(boxes[index].textContent === computerPlayer){
+                      myCount++;
+                  }else{
+                      opponentCount++;
+                  }
+              });
+              //if no empty box - ignore
+              if(empty ==0){
+                  return;
+              }
+              //if my count is 2
+              if(myCount === 2 ){
+                  let i = combination.find(index => boxes[index].textContent === "");
+                  moves.push({index: i, priority: 1});
+                  return;
+              }
+              //if opponent count is 2
+              if(opponentCount === 2 && empty === 1){
+                  let i = combination.find(index => boxes[index].textContent === "");
+                  moves.push({index: i, priority: 2});
+                  return;
+              }
+
+              //if opponent count is 1 and empty is 2
+              if(opponentCount === 1 && empty === 2){
+                  let i = combination.find(index => boxes[index].textContent === "");
+                  moves.push({index: i, priority: 3});
+                  return;
+              }
+
+              //find the empty box
+              let i = combination.find(index => boxes[index].textContent === "");
+              moves.push({index: i, priority: 4});
+
+          });
+          //sort the moves by priority
+          moves.sort((a, b) => a.priority - b.priority);
+          //play the move
+          //trigger the click event
+          boxes[moves[0].index].click();
+      }
+    </script>
+  </body>
+</html>
