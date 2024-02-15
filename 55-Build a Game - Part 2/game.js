@@ -62,7 +62,7 @@ class Player {
                 images: []
             }
         }
-        this.loadImages();
+        this.loadImages();        
     }
     loadImages() {
         Object.entries(this.animations).forEach((animation) => {
@@ -75,7 +75,9 @@ class Player {
     }
     draw() {
         // this.frame = (this.frame + 1) % this.animations.Idle.frames;
-        this.frame++;
+        if(!(this.animation == "Dead" && this.frame == 14)){
+            this.frame++;
+        }
         if (this.frame == this.animations[this.animation].frames) {
             this.frame = 0;
         }
@@ -94,6 +96,8 @@ class Player {
             this.width = 200 + zoom;
             this.height = 200 + zoom;
         }
+        
+
 
         //draw image on canvas
         ctx.drawImage(
@@ -101,8 +105,29 @@ class Player {
             this.x,
             this.y,
             this.width,
-            this.height
+            this.height,
         );
+        //draw the collision box border box
+        ctx.strokeStyle = "red";
+        // ctx.strokeRect(this.x, this.y+this.height/1.3, this.width/3 , this.height/8);
+        //detect collision
+        if(this.x + this.width/3 > obstacle.x && this.x < obstacle.x + obstacle.width && this.y + this.height/1.3 < obstacle.y + obstacle.height && this.y + this.height/1.3 + this.height/8 > obstacle.y){
+            speed = 0;
+            this.animation = "Dead";
+            //display Game Over
+            ctx.fillStyle = "black";
+            ctx.font = "50px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText("Game Over", canvas.width/2, canvas.height/2);
+            //display score
+            ctx.font = "30px Arial";
+            ctx.fillText("Score: " + score.points, canvas.width/2, canvas.height/2 + 50);
+            
+        }
+
+        //play footstep sound
+        
+
     }
 
 }
@@ -130,17 +155,71 @@ class Button {
 }
 const startButton = new Button();
 
+// -----------------------------------------
+// Obstacles
+class Obstacle {
+    constructor() {
+        this.x = canvas.width;
+        this.y = 300;
+        this.width = 100;
+        this.height = 100;
+        this.imgs = [];
+        this.loadImages();
+        this.img = 0;
+    }
 
+    loadImages() {
+        for (let i = 1; i <= 4; i++) {
+            let img = new Image();
+            img.src = `Stone/Stone ${i}.png`;
+            this.imgs.push(img);            
+        }
+    }
 
+    randomNumber(min, max) {        
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    draw() {
+        this.x -= speed;
+        if(this.x < 0 - this.width){
+            this.x = canvas.width;
+            this.img = this.randomNumber(0, 3);  
+            this.y = 300 + this.randomNumber(-100, 100);  
+            //every time the obstacle is reset, speed is increased
+            speed+= 1;    
+            score.points++;
+        }
+        ctx.drawImage(this.imgs[this.img], this.x, this.y, this.width, this.height);
+    }
+}
+
+const score = {
+    points: 0,
+    draw: function () {
+        ctx.fillStyle = "black";
+        ctx.font = "30px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText("Score: " + this.points, 30, 480);
+    }
+}
+
+const obstacle = new Obstacle();
+
+//Game loop
 setInterval(function () {
     //clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     //draw the background
     bg.draw();
+    //draw the obstacle
+    obstacle.draw();
     //draw the player
     player.draw();
     //draw the start button
     startButton.draw();
+    //draw the score
+    score.draw();
 }
     , 1000 / FPS);
 
