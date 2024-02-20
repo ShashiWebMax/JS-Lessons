@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using JQuery</title>
+    <script src="jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <input type="text" />
+    <button id="toggle">Click me</button>
+    <h1>Title</h1>
+    <button id="opacity">Opacity</button>
+    <script>
+      $("button").click(function () {
+        // $("input").hide();
+      });
+
+      //animation
+
+      $("#toggle").click(function () {
+        $("input").animate({
+          width: "toggle",
+        });
+      });
+
+      //change h1 opacity
+      $("#opacity").click(function () {
+        $("h1").fadeTo("slow", 0.5);
+      });
+
+      //get text
+      console.log($("h1").text());
+      //set text
+      $("h1").text("New Title");
+
+      //get html
+      console.log($("h1").html());
+      //set html
+      $("h1").html("<h2>New Title</h2>");
+
+      //get attribute
+      console.log($("input").attr("type"));
+      //set attribute
+      $("input").attr("type", "password");
+
+      //get value
+        console.log($("input").val());
+        //set value
+        $("input").val("New Value");
+        console.log($("input").val());
+
+        //add class
+        $("h1").addClass("new-class");
+        //remove class
+        $("h1").removeClass("new-class");
+
+        //toggle class
+        $("h1").toggleClass("new-class");
+
+        //get css
+        console.log($("h1").css("color"));
+        //set css
+        $("h1").css("color", "red");
+
+        //hide
+        $("h1").hide();
+        //show
+        $("h1").show();
+
+        //fade out
+        $("h1").fadeOut();
+        //fade in
+        $("h1").fadeIn();
+
+        //fade toggle
+        // $("h1").fadeToggle();
+
+        //slide up
+        $("h1").slideUp();
+        //slide down
+        $("h1").slideDown();
+
+    </script>
+  </body>
+</html>
