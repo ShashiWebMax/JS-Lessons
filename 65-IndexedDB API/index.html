@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IndexedDB API</title>
+  </head>
+  <body>
+    <h1>IndexedDB API</h1>
+    <script>
+      //open database ('name', version)
+      var request = indexedDB.open("MyTestDatabase", 3);
+
+      request.onerror = function (event) {
+        console.log("Database error: ");
+        console.error(event);
+      };
+
+      request.onsuccess = function (event) {
+        var db = event.target.result;
+        console.log("Database opened successfully");
+      };
+
+      //when the database is first created or when the version number is changed the onupgradeneeded event is triggered
+      request.onupgradeneeded = function (event) {
+        var db = event.target.result;
+        var objectStore = db.createObjectStore("customers", {
+          keyPath: "email",
+        });
+
+        objectStore.createIndex("name", "name", { unique: false });
+        objectStore.createIndex("email", "email", { unique: true });
+      };
+
+      //function to add data to the database
+      function addData(email, name) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var request = objectStore.add({
+            name: name,
+            email: email,
+            dateAdded: new Date(),
+          });
+
+          request.onsuccess = function (event) {
+            console.log("Data added successfully");
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not added: ");
+            console.error(event);
+          };
+        };
+      }
+
+      //run the function
+      addData("1@user.com", "User 1");
+
+      //function to read data from the database
+      function readData(email) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var request = objectStore.get(email);
+
+          request.onsuccess = function (event) {
+            if (request.result) {
+              console.log("Name: " + request.result.name);
+            } else {
+              console.log("Data not found");
+            }
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not read: ");
+            console.error(event);
+          };
+        };
+      }
+
+      //run the function
+      readData("1@user.com");
+
+      //function to update data in the database
+      function updateData(email, name) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var request = objectStore.put({
+            name: name,
+            email: email,
+            dateAdded: new Date(),
+          });
+
+          request.onsuccess = function (event) {
+            console.log("Data updated successfully");
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not updated: ");
+            console.error(event);
+          };
+        };
+      }
+
+      //run the function
+      updateData("1@user.com", "User One");
+      readData("1@user.com");
+
+      //function to delete data from the database
+      function deleteData(email) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var request = objectStore.delete(email);
+
+          request.onsuccess = function (event) {
+            console.log("Data deleted successfully");
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not deleted: ");
+            console.error(event);
+          };
+        };
+      }
+
+      //run the function
+      deleteData("1@user.com");
+      readData("1@user.com");
+
+      //query the database
+      function queryData(col, data) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var index = objectStore.index(col);
+          var request = index.get(data);
+
+          request.onsuccess = function (event) {
+            if (request.result) {
+              console.log("Name: " + request.result.name);
+            } else {
+              console.log("Data not found");
+            }
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not read: ");
+            console.error(event);
+          };
+        };
+      }
+
+      addData("saman@mail.com", "Saman");
+      //run the function
+      queryData("name", "Saman");
+
+      //partial match
+      function queryDataPartial(col, data) {
+        var request = indexedDB.open("MyTestDatabase", 3);
+
+        request.onsuccess = function (event) {
+          var db = event.target.result;
+          var transaction = db.transaction(["customers"], "readwrite");
+          var objectStore = transaction.objectStore("customers");
+          var index = objectStore.index(col);
+          var request = index.openCursor();
+
+          request.onsuccess = function (event) {
+            var cursor = event.target.result;
+            if(!cursor.value) {
+              return;
+            }
+            if (cursor.value.name.includes(data)) {
+              console.log("Name found: " + cursor.value.name);
+            }
+            cursor.continue();
+          };
+
+          request.onerror = function (event) {
+            console.log("Data not read: ");
+            console.error(event);
+          };
+        };
+      }
+
+      //run the function
+      queryDataPartial("name", "Sa");
+    </script>
+  </body>
+</html>

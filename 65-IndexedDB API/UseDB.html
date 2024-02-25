@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Indexed db class</title>
+	</head>
+	<body>
+		<h1>Indexed db class</h1>
+		<input type="text">
+		<div id="res"></div>
+		<script src="db.js"></script>
+		<script>
+			var db = new DB("MyTestDatabase", 3, [
+				{
+					name: "products",
+					keyPath: "code",
+					indexes: [
+						{
+							name: "name",
+							key: "name",
+							unique: false,
+						},
+						{
+							name: "code",
+							key: "code",
+							unique: true,
+						},
+					],
+				},
+			]);
+
+			// YOU can run call the functions in the console like this:
+			// await db.addData("products", { code: "p1", name: "Product 1" });
+			// await db.readData("products", "p1");
+			// await db.updateData("products", { code: "p1", name: "Product 1 Updated" });
+			// await db.deleteData("products", "p1");
+			// await db.searchData("products", "name", "Product");
+			// await db.getAllData("products");
+
+			//fill with fake data
+			function ransomNumber(start, end) {
+				return Math.floor(Math.random() * end) + start;
+			}
+
+			function randomString() {
+				let para =
+					"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus interdum maximus mauris, nec scelerisque nunc tincidunt vel. Ut at urna quis magna rhoncus pretium. Mauris condimentum quam id eleifend varius. Etiam non pharetra sapien, nec molestie ex. Fusce posuere leo leo, in sodales lectus iaculis ullamcorper. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed luctus sit amet nunc sit amet suscipit. Aliquam a rhoncus enim. Donec quis lorem mi. Sed placerat dolor nisi, non consequat ante vestibulum at. Maecenas vehicula maximus erat, eget iaculis quam molestie nec. Cras mattis quis lectus eget elementum. Aliquam ultricies, arcu vel blandit posuere, felis eros maximus massa, id accumsan nulla lacus at nunc. Etiam sodales nisl quis finibus dapibus. Mauris ullamcorper justo malesuada ipsum faucibus, quis consequat quam rhoncus.";
+				para = para.split(" ");
+				return para[ransomNumber(0, para.length)];
+			
+			}
+
+			async function fillData(count) {
+				for (let i = 0; i < count; i++) {
+					await db.addData("products", {
+						code: "p" + i,
+						name: randomString(),
+					});
+					console.log('added product p' + i + ' to the database');
+					
+				}
+			}
+
+			document.querySelector("input").addEventListener("keyup", async (e) => {				
+					let res = await db.searchData("products", "code", e.target.value);
+					document.querySelector("#res").innerHTML = "";
+					let count = 0;
+					res.forEach((r) => {
+						count++;
+						if(count > 10){
+							return	
+						}
+						document.querySelector("#res").innerHTML += `<p>${r.code} - ${r.name}</p>`;
+					});
+				
+			});
+
+
+		</script>
+	</body>
+</html>

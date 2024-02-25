@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Finance App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 30px;
+            box-sizing: border-box;
+            background-color: #9fffff;
+        }
+
+        h1 {
+            color: red;
+            display: flex;
+            gap: 25px;
+        }
+
+        h1 button {
+            background-color: rgb(243, 86, 86);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        input {
+            margin: 5px 0;
+            padding: 5px;
+            font-size: 1em;
+            width: 300px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        #buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+        #buttons button {
+            margin: 5px 0;
+            padding: 10px;
+            flex-grow: 1;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #incomeBtn {
+            background-color: green;
+            color: white;
+        }
+
+        #expenseBtn {
+            background-color: red;
+            color: white;
+        }
+
+        #dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        #dialog div {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            gap: 10px;
+            position: relative;
+        }
+
+        #close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
+        hr {
+            width: 100%;
+            margin: 20px 0;
+            border: red 1px solid;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        tfoot td {
+            text-align: right;
+        }
+
+        /* Set 3 nd td in tbody  */
+        tbody td:nth-child(3) {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Account
+        <button id="insertBtn"> Insert Record +</button>
+    </h1>
+    <div id="dialog">
+        <div>
+            <label for="date">Date/Time</label>
+            <input type="datetime-local" id="date" />
+            <br>
+            <label for="description">Description</label>
+            <input type="text" id="description" />
+            <br>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" step=".01" />
+            <br>
+            <div id="buttons">
+                <button id="incomeBtn">Income</button>
+                <button id="expenseBtn">Expense</button>
+            </div>
+            <button id="close">X</button>
+        </div>
+    </div>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Date/Time</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Act</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <tr>
+                <td>2021-08-01T12:00</td>
+                <td>Salary</td>
+                <td>1000.00</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">Total Income:</td>
+                <td id="totalIncome">0.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Total Expense:</td>
+                <td id="totalExpense">0.00</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">Total:</td>
+                <td id="total">0.00</td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <template id="rowTemplate">
+        <tr>
+            <td class="date-time"></td>
+            <td class="description"></td>
+            <td class="amount"></td>
+            <td>
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+            </td>
+        </tr>
+    </template>
+    <script>
+        const dialog = document.getElementById('dialog');
+        const date = document.getElementById('date');
+        const amount = document.getElementById('amount');
+        const description = document.getElementById('description');
+        const tableBody = document.getElementById('tableBody');
+
+        let records = [];
+
+        document.getElementById('insertBtn').addEventListener('click', () => {
+            dialog.style.display = "flex";
+        })
+        document.getElementById('close').addEventListener('click', () => {
+            dialog.style.display = "none";
+        })
+
+        function setDate(now = new Date()) {
+            let year = now.getFullYear();
+            let month = (now.getMonth() + 1).toString().padStart(2, '0');
+            let day = now.getDate().toString().padStart(2, "0");
+            let hours = now.getHours().toString().padStart(2, "0");
+            let minutes = now.getMinutes().toString().padStart(2, "0");
+            date.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+        }
+        setDate();
+
+        function saveRecord(type) {
+            let val;
+            if (type == 'income') {
+                val = parseFloat(amount.value);
+            } else {
+                val = -parseFloat(amount.value);
+            }
+            let record = {
+                date: new Date(date.value),
+                description: description.value,
+                amount: val
+            };
+            console.log(record);
+            records.push(record);
+
+            localStorage.setItem('records', JSON.stringify(records));
+
+            dialog.style.display = 'none';
+            setDate();
+            description.value = '';
+            amount.value = '';
+            displayRecords();
+        }
+
+        document.getElementById('incomeBtn').addEventListener('click', () => {
+            saveRecord('income');
+        });
+
+        document.getElementById('expenseBtn').addEventListener('click', () => {
+            saveRecord('expense');
+        });
+
+        function displayRecords() {
+            let total = 0;
+            let totalIncome = 0;
+            let totalExpense = 0;
+
+            records = localStorage.getItem('records');
+            if (records) {
+                records = JSON.parse(records);
+            } else {
+                records = [];
+            }
+            tableBody.innerHTML = '';
+            records.forEach((record, index) => {
+                record.amount = parseFloat(record.amount);
+                total += record.amount;
+                if (record.amount > 0) {
+                    totalIncome += record.amount;
+                } else {
+                    totalExpense += record.amount;
+                }
+
+                let clone = document.getElementById('rowTemplate').content.cloneNode(true);
+                clone.querySelector('.date-time').textContent = new Date(record.date).toLocaleString();
+                clone.querySelector('.description').textContent = record.description;
+
+                clone.querySelector('.amount').textContent = record.amount.toFixed(2);
+
+                clone.querySelector('.edit').onclick = () => {
+                    setDate(new Date(record.date));
+                    description.value = record.description;
+                    amount.value = Math.abs(record.amount);
+                    dialog.style.display = 'flex';
+                    records.splice(index, 1);
+                    localStorage.setItem("records", JSON.stringify(records));
+                }
+
+                clone.querySelector('.delete').onclick = () => {
+                    if (!confirm("Are you sure?")) {
+                        return;
+                    }
+                    records.splice(index, 1);
+                    localStorage.setItem("records", JSON.stringify(records));
+                    displayRecords();
+                }
+                tableBody.appendChild(clone);
+            })
+            document.getElementById('totalIncome').textContent = totalIncome.toFixed(2);
+            document.getElementById('totalExpense').textContent = totalExpense.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+        displayRecords();
+
+
+    </script>
+</body>
+
+</html>

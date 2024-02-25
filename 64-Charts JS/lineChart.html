@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Line Cart using Chart JS</title>
+    <style>
+      canvas {
+        display: block;
+        margin: 0 auto;
+        max-height: 100vh;
+      }
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Line Chart using Chart JS</h1>
+    <canvas id="lineChart" width="500" height="500"></canvas>
+    <script src="chart.umd.js"></script>
+
+    <script>
+      //separate data variable
+      let data = {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [
+          {
+            label: "Orange",
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              "red",
+              "blue",
+              "yellow",
+              "green",
+              "purple",
+              "orange",
+            ],
+            borderWidth: 1,
+            borderColor: "orange",
+          },
+          {
+            label: "Red",
+            data: [5, 10, 15, 5, 3, 9],
+            backgroundColor: [
+              "red",
+              "blue",
+              "yellow",
+              "green",
+              "purple",
+              "orange",
+            ],
+            borderWidth: 1,
+            borderColor: "red",
+          },
+        ],
+      };
+
+      //draw chart
+      var ctx = document.getElementById("lineChart").getContext("2d");
+      var myLineChart = new Chart(ctx, {
+        type: "line",
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

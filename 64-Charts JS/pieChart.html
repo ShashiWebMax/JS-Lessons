@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pie Chart</title>
+    <style>
+      canvas {
+        display: block;
+        margin: 0 auto;
+        max-height: 100vh;
+      }
+      h1 {
+        text-align: center;
+      }
+      input {
+        height: 30px;
+        box-sizing: border-box;
+        margin: 0;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Pie Chart Using Chart JS</h1>
+    <canvas id="pieChart" width="500" height="500"></canvas>
+    <form action="#">
+      <input type="text" name="label" id="label" placeholder="Label" />
+      <input type="number" name="value" id="value" placeholder="Value" />
+      <input type="color" name="color" id="color" title="color" />
+      <button type="button">Add</button>
+    </form>
+
+    <script src="chart.umd.js"></script>
+    <script>
+      //create pie chart with static data
+      var ctx = document.getElementById("pieChart").getContext("2d");
+      var myPieChart = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+          datasets: [
+            {
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                "red",
+                "blue",
+                "yellow",
+                "green",
+                "purple",
+                "orange",
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+
+      // Add new data
+      document.querySelector("button").addEventListener("click", function (e) {
+        e.preventDefault();
+        var value = document.getElementById("value").value;
+        var color = document.getElementById("color").value;
+        var label = document.getElementById("label").value;
+        myPieChart.data.labels.push(label);
+        myPieChart.data.datasets[0].data.push(value);
+        myPieChart.data.datasets[0].backgroundColor.push(color);
+        myPieChart.update();
+      });
+    </script>
+  </body>
+</html>

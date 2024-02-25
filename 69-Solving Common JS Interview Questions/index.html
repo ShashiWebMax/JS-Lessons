@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Questions</title>
+		<style>
+			.section {
+				min-height: 90vh;
+				padding: 5vh;
+				position: relative;
+			}
+			.section a {
+				font-size: 2rem;
+				text-decoration: none;
+				color: white;
+				background-color: red;
+				border-radius: 5px;
+				padding: 0px 10px;
+			}
+			.center {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+			}
+			.red {
+				color: red;
+			}
+			.answer {
+				padding: 20px;
+				margin: 20px;
+				border: 1px solid red;
+			}
+			.hidden {
+				display: none;
+			}
+			.bottom-left {
+				position: absolute;
+				bottom: 8px;
+				left: 16px;
+			}
+			code {
+				color: blue;
+			}
+			p {
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="section center">
+			<h1 class="red">Solving Common JS Interview Questions</h1>
+			<br />
+			<a href="#1">>></a>
+		</div>
+		<div id="1" class="section">
+			<h1>1. What is the output of the following code?</h1>
+
+			<pre>
+        <code>
+console.log(0.1 + 0.2 == 0.3); 
+        </code>
+      </pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be <code>false</code>.
+					<br />
+					In JavaScript, <code>0.1 + 0.2</code> is equal to
+					<code>0.30000000000000004</code> and not <code>0.3</code>. This is
+					because of the way floating point numbers are stored in JavaScript. To
+					avoid this, it is recommended to round the numbers to a specific
+					decimal places, before performing the arithmetic operation.
+
+					<br />
+				</p>
+			</div>
+			<br />
+			<a href="#2" class="bottom-left">Next >></a>
+		</div>
+
+		<div id="2" class="section">
+			<h1>2. What is the output of fallowing code?</h1>
+
+			<pre>
+        <code>
+let x = 5;
+console.log(x++);
+console.log(++x);
+        </code>
+      </pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be:
+
+          <pre>
+        <code>
+5
+7
+        </code>
+      </pre>
+          When <code>x++</code> is used, the value of <code>x</code> is used and
+          then incremented. However, when <code>++x</code> is used, the value of
+          <code>x</code> is first incremented and then used.
+          
+				</p>
+			</div>
+			<br />
+			<a href="#3" class="bottom-left">Next >></a>
+		</div>
+
+    <div id="3" class="section">
+      <h1>3. What is the output of the following code?</h1>
+
+      <pre>
+        <code>
+let x = 10;
+let y = (x > 5) ? "Hello" : "Goodbye";
+console.log(y);
+        </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          The output of the above code will be <code>Hello</code>.
+          <br />
+          The above code is using the JavaScript ternary operator. It is a
+          short way to write an <code>if...else</code> statement. The syntax
+          for the ternary operator is <code>condition ? expr1 : expr2</code>.
+          If <code>condition</code> is true, the operator returns the value of
+          <code>expr1</code>; otherwise, it returns the value of <code>expr2</code>.
+        </p>
+      </div>
+      <br />
+      <a href="#4" class="bottom-left">Next >></a>
+    </div>
+
+    <div id="4" class="section">
+      <h1>4. What is the output of the following code?</h1>
+
+      <pre>
+        <code>
+console.log(3 + 4 + "5");
+        </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          The output of the above code will be <code>75</code>.
+          <br />
+          The above code is using the <code>+</code> operator for arithmetic
+          addition and string concatenation. When the <code>+</code> operator
+          is used to add two numbers, it performs arithmetic addition. However,
+          when the <code>+</code> operator is used to add a number and a string,
+          it performs string concatenation.
+        </p>
+      </div>
+      <br />
+      <a href="#5" class="bottom-left">Next >></a>
+    </div>
+
+    <div id="5" class="section">
+      <h1>5. What is the output of the following code?</h1>
+
+      <pre>
+        <code>
+const multiply = x => x * x;
+console.log(multiply(5));
+        </code>
+      </pre>
+      <button class="show">Show Answer</button>
+      <div class="answer hidden">
+        <p>
+          The output of the above code will be <code>25</code>.
+          <br />
+          The above code is using an arrow function, which is a new feature
+          introduced in ES6. 
+          <br>
+          since it only has one parameter, the parentheses around the parameter can be omitted.
+          <br>
+          Since the function has only one statement, and the statement returns a value, there is no need for the statement to have a return statement. or curly braces.
+        </p>
+      </div>
+      <br />
+      <a href="#6" class="bottom-left">Next >></a>
+    </div>
+
+	
+			
+	
+
+		<script>
+			let buttons = document.querySelectorAll(".show");
+			buttons.forEach((button) => {
+				button.addEventListener("click", () => {
+					button.nextElementSibling.classList.toggle("hidden");
+				});
+			});
+		</script>
+	</body>
+</html>

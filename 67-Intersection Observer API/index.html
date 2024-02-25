@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intersection Observer API </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 8rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(50);
+            transition: all 1s ease-in-out;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            height: 80vh;
+            overflow:scroll;
+            width: 500px;
+        }
+        li {
+            padding: 5rem;
+            background-color: white;
+            color: black;
+            font-size: 2rem;
+            transition: all 1s ease-in-out;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="section" style="background-color: rgb(255, 103, 103);">
+        <h1>
+            Section 1
+        </h1>
+    </div>
+    <div class="section" style="background-color: rgb(104, 104, 243);">
+        <h1>
+            Section 2
+        </h1>    
+    </div>
+    <div class="section" style="background-color: rgb(104, 243, 104);">
+        <h1>
+            Section 3
+        </h1>
+    </div>
+    <div class="" style="background-color: rgb(243, 104, 243);">
+        <ul>
+            <li>
+                Some Data
+            </li>
+            <li>
+                Some Data
+            </li>
+            <li>
+                Some Data
+            </li>
+            <li>
+                Some Data
+            </li>
+            <li>
+                Some Data
+            </li>
+        </ul>  
+            
+    </div>
+    <script>
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // console.log(entry.target);    
+                    entry.target.querySelector('h1').style.opacity = 1;    
+                    entry.target.querySelector('h1').style.transform = 'translateY(0)';     
+                }else {
+                    entry.target.querySelector('h1').style.opacity = 0;
+                    entry.target.querySelector('h1').style.transform = 'translateY(50px)';
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px', //margin around the root
+            threshold: .5  //how much of the target element is visible 0 to 1
+        });
+
+        //add the observer to the sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        //observer for the list
+        const observer2 = new IntersectionObserver((entries) => {
+            console.log({entries, observer});
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.backgroundColor = 'black';
+                    entry.target.style.color = 'white';
+                }else {
+                    entry.target.style.backgroundColor = 'white';
+                    entry.target.style.color = 'black';
+                }
+            });
+        }, {
+            root: document.querySelector('ul'),
+            rootMargin: '-200px 0px',
+            threshold: .5
+        });
+
+        document.querySelectorAll('li').forEach(li => {
+            observer2.observe(li);
+        });
+    </script>
+    
+</body>
+</html>

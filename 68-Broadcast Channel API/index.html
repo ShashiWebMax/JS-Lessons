@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadcast Channel API</title>
+</head>
+<body>
+    <input type="text" name="myInput" id="myInput">
+    <p id="output"></p>
+    <script>
+        const myInput = document.getElementById('myInput');
+        const output = document.getElementById('output');
+        const bc = new BroadcastChannel('test_channel');
+        myInput.addEventListener('keyup', (e) => {
+            bc.postMessage(e.target.value);
+        });
+        bc.onmessage = (e) => {
+            output.textContent = e.data;
+        }
+    </script>
+    
+</body>
+</html>
