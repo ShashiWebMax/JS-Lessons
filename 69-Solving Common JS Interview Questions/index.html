@@ -73,9 +73,16 @@ console.log(0.1 + 0.2 == 0.3);
 					because of the way floating point numbers are stored in JavaScript. To
 					avoid this, it is recommended to round the numbers to a specific
 					decimal places, before performing the arithmetic operation.
-
 					<br />
+					For example:
 				</p>
+				<pre>
+		  <code>
+let result = 0.1 + 0.2;
+result = result.toFixed(1);
+console.log(result == 0.3);
+		  </code>
+		</pre>
 			</div>
 			<br />
 			<a href="#2" class="bottom-left">Next >></a>
@@ -93,104 +100,262 @@ console.log(++x);
       </pre>
 			<button class="show">Show Answer</button>
 			<div class="answer hidden">
-				<p>
-					The output of the above code will be:
+				The output of the above code will be:
 
-          <pre>
+				<pre>
         <code>
 5
 7
         </code>
       </pre>
-          When <code>x++</code> is used, the value of <code>x</code> is used and
-          then incremented. However, when <code>++x</code> is used, the value of
-          <code>x</code> is first incremented and then used.
-          
-				</p>
+				When <code>x++</code> is used, the value of <code>x</code> is used and
+				then incremented. However, when <code>++x</code> is used, the value of
+				<code>x</code> is first incremented and then used.
 			</div>
 			<br />
 			<a href="#3" class="bottom-left">Next >></a>
 		</div>
 
-    <div id="3" class="section">
-      <h1>3. What is the output of the following code?</h1>
+		<div id="3" class="section">
+			<h1>3. What is the output of the following code?</h1>
 
-      <pre>
+			<pre>
         <code>
 let x = 10;
 let y = (x > 5) ? "Hello" : "Goodbye";
 console.log(y);
         </code>
       </pre>
-      <button class="show">Show Answer</button>
-      <div class="answer hidden">
-        <p>
-          The output of the above code will be <code>Hello</code>.
-          <br />
-          The above code is using the JavaScript ternary operator. It is a
-          short way to write an <code>if...else</code> statement. The syntax
-          for the ternary operator is <code>condition ? expr1 : expr2</code>.
-          If <code>condition</code> is true, the operator returns the value of
-          <code>expr1</code>; otherwise, it returns the value of <code>expr2</code>.
-        </p>
-      </div>
-      <br />
-      <a href="#4" class="bottom-left">Next >></a>
-    </div>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be <code>Hello</code>.
+					<br />
+					<br />
+					The above code is using the JavaScript ternary operator. It is a short
+					way to write an <code>if...else</code> statement. The syntax for the
+					ternary operator is <code>condition ? expr1 : expr2</code>. If
+					<code>condition</code> is true, the operator returns the value of
+					<code>expr1</code>; otherwise, it returns the value of
+					<code>expr2</code>.
+				</p>
+			</div>
+			<br />
+			<a href="#4" class="bottom-left">Next >></a>
+		</div>
 
-    <div id="4" class="section">
-      <h1>4. What is the output of the following code?</h1>
+		<div id="4" class="section">
+			<h1>4. What is the output of the following code?</h1>
 
-      <pre>
+			<pre>
         <code>
 console.log(3 + 4 + "5");
         </code>
       </pre>
-      <button class="show">Show Answer</button>
-      <div class="answer hidden">
-        <p>
-          The output of the above code will be <code>75</code>.
-          <br />
-          The above code is using the <code>+</code> operator for arithmetic
-          addition and string concatenation. When the <code>+</code> operator
-          is used to add two numbers, it performs arithmetic addition. However,
-          when the <code>+</code> operator is used to add a number and a string,
-          it performs string concatenation.
-        </p>
-      </div>
-      <br />
-      <a href="#5" class="bottom-left">Next >></a>
-    </div>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be <code>75</code>.
+					<br />
+					<br />
+					The above code is using the <code>+</code> operator for arithmetic
+					addition and string concatenation. When the <code>+</code> operator is
+					used to add two numbers, it performs arithmetic addition. However,
+					when the <code>+</code> operator is used to add a number and a string,
+					it performs string concatenation.
+				</p>
+			</div>
+			<br />
+			<a href="#5" class="bottom-left">Next >></a>
+		</div>
 
-    <div id="5" class="section">
-      <h1>5. What is the output of the following code?</h1>
+		<div id="5" class="section">
+			<h1>5. What is the output of the following code?</h1>
 
-      <pre>
+			<pre>
         <code>
 const multiply = x => x * x;
 console.log(multiply(5));
         </code>
       </pre>
-      <button class="show">Show Answer</button>
-      <div class="answer hidden">
-        <p>
-          The output of the above code will be <code>25</code>.
-          <br />
-          The above code is using an arrow function, which is a new feature
-          introduced in ES6. 
-          <br>
-          since it only has one parameter, the parentheses around the parameter can be omitted.
-          <br>
-          Since the function has only one statement, and the statement returns a value, there is no need for the statement to have a return statement. or curly braces.
-        </p>
-      </div>
-      <br />
-      <a href="#6" class="bottom-left">Next >></a>
-    </div>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be <code>25</code>.
+					<br />
+					<br />
+					The above code is using an arrow function, which is a new feature
+					introduced in ES6.
+					<br />
+					<br />
+					since it only has one parameter, the parentheses around the parameter
+					can be omitted.
+					<br />
+					<br />
+					Since the function has only one statement, and the statement returns a
+					value, there is no need for the statement to have a return statement.
+					or curly braces.
+				</p>
+			</div>
+			<br />
+			<a href="#6" class="bottom-left">Next >></a>
+		</div>
 
-	
-			
-	
+		<div id="6" class="section">
+			<h1>6. What is the output of the following code?</h1>
+
+			<pre>
+		<code>
+let a = [1, 2, 3];
+let b = [1, 2, 3];
+console.log(a === b);
+		</code>
+	  </pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<p>
+					The output of the above code will be <code>false</code>.
+					<br />
+					<br />
+					The above code is comparing two arrays. In JavaScript, arrays are
+					reference types and not value types. This means that when we compare
+					two arrays using the <code>===</code> operator, it will only return
+					true if both arrays are references of the same object.
+					<br />
+					<br />
+					if we want to compare the values of two arrays, we need to loop
+					through each element and compare them one by one.
+				</p>
+			</div>
+			<br />
+			<a href="#7" class="bottom-left">Next >></a>
+		</div>
+
+		<div id="7" class="section">
+			<h1>
+				7.Implement a function called uniqueArray that takes an array as input
+				and returns a new array with only the unique elements, removing any
+				duplicates.
+			</h1>
+			example:
+			<pre>
+		<code>
+console.log(uniqueArray([1, 2, 2, 3, 4, 4, 5])); // [1, 2, 3, 4, 5]
+		</code>
+			</pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<pre>
+		<code>
+function uniqueArray(arr) {
+	return arr.filter((item, index) => arr.indexOf(item) === index);
+}
+
+		</code>
+				</pre>
+			</div>
+
+			<br />
+			<a href="#8" class="bottom-left">Next >></a>
+		</div>
+
+		<div id="8" class="section">
+			<h1>
+				8. Write a recursive function to calculate the sum of natural numbers
+				from 1 to N (inclusive), where N is a positive integer.
+			</h1>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<pre>
+		<code>
+function sum(n) {
+	console.log(n);
+	if (n <= 1) {
+		return 1;
+	} else {
+		return n + sum(n - 1);
+	}
+}
+		</code>
+	  </pre>
+			</div>
+			<br />
+			<a href="#9" class="bottom-left">Next >></a>
+		</div>
+
+		<div id="9" class="section">
+			<h1>
+				9. Write a function that can produce the following output on the
+				console. The number of lines should be customizable.
+			</h1>
+
+			<pre>
+		<code>
+++++++++
++++++++-
+++++++--
++++++---
+++++----
++++-----
+++------
++-------
+--------
+	</code>
+	  </pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<pre>
+		<code>
+function printPattern(n) {
+	for (let i = n; i >= 0; i--) {
+		let out = '+'.repeat(i);
+		out = out.padEnd(n, '-');
+		console.log(out);
+	}
+}
+		</code>
+	  </pre>
+			</div>
+			<br />
+			<a href="#10" class="bottom-left">Next >></a>
+		</div>
+
+		<div id="10" class="section">
+			<h1>
+				10. Write a function in JavaScript that checks if a given string is a
+				palindrome.
+			</h1>
+			<p>
+				A palindrome is a word, phrase, number, or other sequence of characters
+				that reads the same forward and backward.
+				<br />
+				<br />
+				The function should ignore spaces, punctuation, and capitalization when
+				determining if the input string is a palindrome.
+				<br />
+				<br />
+				It should work lilke this:
+			</p>
+
+			<pre>
+		<code>
+isPalindrome('A man a plan a canal Panama'); // true
+isPalindrome('racecar'); // true
+isPalindrome('hello'); // false
+		</code>
+		</pre>
+			<button class="show">Show Answer</button>
+			<div class="answer hidden">
+				<pre>
+		<code>
+function isPalindrome(str) {
+	str = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+	return str === str.split('').reverse().join('');
+}
+		</code>
+	  </pre>
+			</div>
+		</div>
 
 		<script>
 			let buttons = document.querySelectorAll(".show");
